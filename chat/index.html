@@ -522,41 +522,41 @@
   <!-- ===================================================
        4. GLOBAL MOBILE BOTTOM NAVIGATION BAR
        =================================================== -->
-  <nav id="mobile-bottom-nav" class="fixed bottom-0 left-0 w-full z-40 bg-white border-t border-surface-container shadow-bottom-nav h-14 py-1 px-3 flex items-center justify-between md:hidden">
+  <nav id="mobile-bottom-nav" class="fixed bottom-0 left-0 w-full z-40 bg-white border-t border-surface-container shadow-bottom-nav mobile-bottom-nav h-14 py-1 px-3 flex items-center justify-between md:hidden">
     
     <!-- Tab 1: Home -->
     <a href="/" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary flex-1 py-1" aria-label="Home">
-      <span class="material-symbols-outlined text-[22px]">home</span>
-      <span class="text-[10px] font-semibold mt-0.5">Home</span>
+      <span class="material-symbols-outlined text-[24px]">home</span>
+      <span class="text-[11.5px] font-semibold mt-0.5">Home</span>
     </a>
 
     <!-- Tab 2: Search -->
     <a href="/search" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary flex-1 py-1" aria-label="Search">
-      <span class="material-symbols-outlined text-[22px]">search</span>
-      <span class="text-[10px] font-semibold mt-0.5">Search</span>
+      <span class="material-symbols-outlined text-[24px]">search</span>
+      <span class="text-[11.5px] font-semibold mt-0.5">Search</span>
     </a>
 
     <!-- Tab 3: Sell / Rent (Center Highlighted Action) -->
     <a href="/post-property" class="flex flex-col items-center justify-center -mt-4 relative group flex-1" aria-label="Sell or Rent Out">
       <div class="w-11 h-11 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-md shadow-secondary/30 group-hover:scale-105 transition-transform">
-        <span class="material-symbols-outlined text-[24px]">add_home</span>
+        <span class="material-symbols-outlined text-[26px]">add_home</span>
       </div>
-      <span class="text-[10px] font-extrabold text-secondary mt-1">Sell / Rent</span>
+      <span class="text-[11.5px] font-extrabold text-secondary mt-1">Sell / Rent</span>
     </a>
 
     <!-- Tab 4: Chat (Active in Chat Messenger) -->
     <a href="/chat" class="flex flex-col items-center justify-center text-primary flex-1 py-1 relative" aria-label="Chat">
       <div class="relative">
-        <span class="material-symbols-outlined text-[22px]">chat_bubble</span>
+        <span class="material-symbols-outlined text-[24px]">chat_bubble</span>
         <span id="mobile-bottom-chat-badge" class="hidden absolute -top-1 -right-1.5 w-3.5 h-3.5 bg-secondary text-white text-[9px] font-bold flex items-center justify-center rounded-full shadow-xs">0</span>
       </div>
-      <span class="text-[10px] font-bold mt-0.5">Chat</span>
+      <span class="text-[11.5px] font-bold mt-0.5">Chat</span>
     </a>
 
     <!-- Tab 5: Menu -->
     <button type="button" onclick="toggleMobileMenuDrawer(event)" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary flex-1 py-1 cursor-pointer group" aria-label="Menu" id="mobile-bottom-menu-btn">
-      <span class="material-symbols-outlined text-[22px] group-hover:text-primary transition-colors">menu</span>
-      <span class="text-[10px] font-semibold mt-0.5 group-hover:text-primary transition-colors">Menu</span>
+      <span class="material-symbols-outlined text-[24px] group-hover:text-primary transition-colors">menu</span>
+      <span class="text-[11.5px] font-semibold mt-0.5 group-hover:text-primary transition-colors">Menu</span>
     </button>
 
   </nav>

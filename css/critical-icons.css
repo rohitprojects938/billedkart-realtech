@@ -125,3 +125,80 @@ button[onclick*="executeDesktopSearch"] {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
+
+/* ===================================================
+   6. Global Mobile Bottom Navigation Sizing & Usability
+   Increases icon sizes by 2px-3px and labels by 1.5px
+   Strictly scoped to mobile viewports (< 1024px)
+   Desktop layout & navigation remain completely untouched.
+   =================================================== */
+@media (max-width: 1023px) {
+  #mobile-bottom-nav,
+  .mobile-bottom-nav,
+  nav[class*="shadow-bottom-nav"] {
+    min-height: 56px !important;
+    padding-bottom: max(4px, env(safe-area-inset-bottom)) !important;
+  }
+
+  /* Nav Links & Buttons */
+  #mobile-bottom-nav a,
+  #mobile-bottom-nav button,
+  .mobile-bottom-nav a,
+  .mobile-bottom-nav button,
+  nav[class*="shadow-bottom-nav"] a,
+  nav[class*="shadow-bottom-nav"] button {
+    touch-action: manipulation;
+  }
+
+  /* Standard Navigation Icons (subtly increased from 22px to 24px) */
+  #mobile-bottom-nav a > .material-symbols-outlined:not(.center-action-icon),
+  #mobile-bottom-nav button > .material-symbols-outlined:not(.center-action-icon),
+  .mobile-bottom-nav a > .material-symbols-outlined:not(.center-action-icon),
+  .mobile-bottom-nav button > .material-symbols-outlined:not(.center-action-icon),
+  nav[class*="shadow-bottom-nav"] a > .material-symbols-outlined:not(.center-action-icon),
+  nav[class*="shadow-bottom-nav"] button > .material-symbols-outlined:not(.center-action-icon),
+  #mobile-bottom-nav .relative > .material-symbols-outlined,
+  .mobile-bottom-nav .relative > .material-symbols-outlined,
+  nav[class*="shadow-bottom-nav"] .relative > .material-symbols-outlined {
+    font-size: 24px !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  /* Center Sell / Rent Action Icon (subtly increased from 24px to 26px) */
+  #mobile-bottom-nav .bg-secondary .material-symbols-outlined,
+  .mobile-bottom-nav .bg-secondary .material-symbols-outlined,
+  nav[class*="shadow-bottom-nav"] .bg-secondary .material-symbols-outlined {
+    font-size: 26px !important;
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  /* Navigation Text Labels (subtly increased from 10px to 11.5px for enhanced readability) */
+  #mobile-bottom-nav span[class*="text-[10px]"],
+  #mobile-bottom-nav span[class*="text-[11px]"],
+  #mobile-bottom-nav span[class*="text-[11.5px]"],
+  .mobile-bottom-nav span[class*="text-[10px]"],
+  .mobile-bottom-nav span[class*="text-[11px]"],
+  .mobile-bottom-nav span[class*="text-[11.5px]"],
+  nav[class*="shadow-bottom-nav"] span[class*="text-[10px]"],
+  nav[class*="shadow-bottom-nav"] span[class*="text-[11px]"],
+  nav[class*="shadow-bottom-nav"] span[class*="text-[11.5px]"] {
+    font-size: 11.5px !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.01em;
+    margin-top: 2px !important;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* Center Sell / Rent Action Label */
+  #mobile-bottom-nav a[aria-label="Sell or Rent Out"] > span:last-child,
+  .mobile-bottom-nav a[aria-label="Sell or Rent Out"] > span:last-child,
+  nav[class*="shadow-bottom-nav"] a[aria-label="Sell or Rent Out"] > span:last-child {
+    font-size: 11.5px !important;
+    line-height: 1.2 !important;
+    font-weight: 800 !important;
+    margin-top: 3px !important;
+  }
+}
