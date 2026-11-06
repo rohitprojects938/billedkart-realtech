@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="/css/critical-icons.css" />
   <script src="/js/icon-engine.js"></script>
   <script src="/js/auth-manager.js"></script>
+  <script src="/js/wishlist-manager.js"></script>
 
   <!-- Google Fonts & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -242,10 +243,10 @@
       <div class="flex items-center gap-3">
         <button id="desktopWishlistBtn" aria-label="Saved Properties"
           class="relative p-2 rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
-          type="button" onclick="showToast('You have saved properties')">
+          type="button" onclick="window.BilledkartWishlist ? window.BilledkartWishlist.openWishlistPage() : (window.location.href='/saved-properties/index.html')">
           <span class="material-symbols-outlined text-[22px]">favorite</span>
           <span id="desktop-wishlist-count"
-            class="absolute top-1 right-1 w-4 h-4 bg-secondary text-on-secondary text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm">3</span>
+            class="absolute top-1 right-1 w-4 h-4 bg-secondary text-on-secondary text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm">0</span>
         </button>
 
         <a aria-label="Chat Enquiries" href="/chat"
@@ -301,10 +302,10 @@
 
       <button id="mobileWishlistBtn" aria-label="Wishlist"
         class="relative p-1 sm:p-1.5 text-on-surface-variant hover:text-primary transition-colors shrink-0"
-        onclick="showToast('3 saved properties in your wishlist')">
+        onclick="window.BilledkartWishlist ? window.BilledkartWishlist.openWishlistPage() : (window.location.href='/saved-properties/index.html')">
         <span class="material-symbols-outlined text-[19px] sm:text-[20px]">favorite</span>
         <span id="mobile-wishlist-count"
-          class="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-secondary text-on-secondary text-[9px] font-bold flex items-center justify-center rounded-full">3</span>
+          class="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-secondary text-on-secondary text-[9px] font-bold flex items-center justify-center rounded-full">0</span>
       </button>
     </div>
   </header>
@@ -2088,47 +2089,39 @@
 
     // Wishlist Toggle
     async function toggleWishlistAction() {
-      if (!currentProperty) return;
-      try {
-        const res = await fetch(`${API_BASE}/api/properties/${currentProperty.id}/wishlist`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ guestToken: getGuestToken() })
-        });
-        const data = await res.json();
-        if (data.success) {
-          updateWishlistUi(data.saved);
-          showToast(data.message);
-        }
-      } catch (e) {
-        showToast('Saved to your bookmarks!');
+      if (!currentProperty || !currentProperty.id) return;
+      if (window.BilledkartWishlist) {
+        return window.BilledkartWishlist.toggle(currentProperty.id);
       }
     }
 
     async function checkWishlistStatus(propId) {
-      try {
-        const res = await fetch(`${API_BASE}/api/properties/${propId}/wishlist-status`, {
-          headers: { 'x-guest-token': getGuestToken() },
-          credentials: 'include'
-        });
-        const data = await res.json();
-        updateWishlistUi(Boolean(data.saved));
-      } catch (e) {}
+      if (window.BilledkartWishlist) {
+        const isSaved = window.BilledkartWishlist.isSaved(propId);
+        updateWishlistUi(isSaved);
+      }
     }
 
     function updateWishlistUi(saved) {
       const icon = document.getElementById('saveWishlistIcon');
       const text = document.getElementById('saveWishlistText');
-      const dtBadge = document.getElementById('desktop-wishlist-count');
-      const mobBadge = document.getElementById('mobile-wishlist-count');
-      const headerBadge = document.getElementById('headerWishlistBadge');
-      if (icon) icon.textContent = saved ? 'favorite' : 'favorite_border';
+      const btn = document.getElementById('saveWishlistBtn');
+      if (icon) {
+        icon.textContent = saved ? 'favorite' : 'favorite_border';
+        if (saved) {
+          icon.classList.add('text-secondary', 'filled');
+        } else {
+          icon.classList.remove('text-secondary', 'filled');
+        }
+      }
       if (text) text.textContent = saved ? 'Saved' : 'Save Listing';
-      const count = saved ? '4' : '3';
-      if (dtBadge) dtBadge.textContent = count;
-      if (mobBadge) mobBadge.textContent = count;
-      if (headerBadge) headerBadge.textContent = count;
+      if (btn) {
+        if (saved) {
+          btn.classList.add('bg-secondary/10', 'text-secondary');
+        } else {
+          btn.classList.remove('bg-secondary/10', 'text-secondary');
+        }
+      }
     }
 
     function getGuestToken() {

@@ -20,6 +20,7 @@ const authRouter  = require('./auth');
 const dealersRouter = require('./dealers');
 const buildersRouter = require('./builders');
 const propertiesRouter = require('./properties');
+const savedPropertiesRouter = require('./saved-properties');
 const chatRouter = require('./chat');
 const { initChatSocket } = require('./chat-socket');
 
@@ -123,6 +124,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/dealers', dealersRouter);
 app.use('/api/builders', buildersRouter);
 app.use('/api/properties', propertiesRouter);
+app.use('/api/saved-properties', savedPropertiesRouter);
 app.use('/api/chat', chatRouter);
 
 // Forward /api/admin/login-issues to authRouter's admin handler

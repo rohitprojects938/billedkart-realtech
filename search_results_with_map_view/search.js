@@ -1252,29 +1252,8 @@ async function togglePropertyWishlist(event, propertyId) {
     event.stopPropagation();
     event.preventDefault();
   }
-  const icon = document.getElementById(`wishlist-icon-${propertyId}`);
-  if (icon) {
-    icon.classList.add('heart-pop');
-    setTimeout(() => icon.classList.remove('heart-pop'), 400);
-  }
-
-  try {
-    const res = await fetch(`${API_BASE}/properties/${propertyId}/wishlist`, {
-      method: 'POST',
-      credentials: 'include'
-    });
-    const data = await res.json();
-    if (data.success) {
-      if (icon) {
-        icon.textContent = data.isSaved ? 'favorite' : 'favorite_border';
-        icon.className = data.isSaved 
-          ? 'material-symbols-outlined text-[19px] text-secondary heart-pop'
-          : 'material-symbols-outlined text-[19px] text-on-surface-variant heart-pop';
-      }
-      showToast(data.isSaved ? 'Added to your Wishlist' : 'Removed from Wishlist');
-    }
-  } catch (e) {
-    showToast('Saved to wishlist (Offline mode)');
+  if (window.BilledkartWishlist) {
+    return window.BilledkartWishlist.toggle(propertyId, event);
   }
 }
 

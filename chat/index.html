@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/css/critical-icons.css" />
   <script src="/js/icon-engine.js"></script>
   <script src="/js/auth-manager.js"></script>
+  <script src="/js/wishlist-manager.js"></script>
 
   <!-- Google Fonts & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -137,12 +138,12 @@
 
       <!-- Right Side User Actions -->
       <div class="flex items-center gap-3">
-        <button aria-label="Saved Properties"
+        <button id="desktopWishlistBtn" aria-label="Saved Properties"
           class="relative p-2 rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
-          type="button">
+          type="button" onclick="window.BilledkartWishlist ? window.BilledkartWishlist.openWishlistPage() : (window.location.href='/saved-properties/index.html')">
           <span class="material-symbols-outlined text-[22px]">favorite</span>
           <span id="desktop-wishlist-count"
-            class="absolute top-1 right-1 w-4 h-4 bg-secondary text-on-secondary text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm">3</span>
+            class="absolute top-1 right-1 w-4 h-4 bg-secondary text-on-secondary text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm">0</span>
         </button>
 
         <!-- Profile / Sign In -->
@@ -209,10 +210,11 @@
       </a>
 
       <button id="mobileWishlistBtn" aria-label="Wishlist"
-        class="relative p-1.5 text-on-surface-variant hover:text-primary transition-colors shrink-0">
+        class="relative p-1.5 text-on-surface-variant hover:text-primary transition-colors shrink-0"
+        onclick="window.BilledkartWishlist ? window.BilledkartWishlist.openWishlistPage() : (window.location.href='/saved-properties/index.html')">
         <span class="material-symbols-outlined text-[20px]">favorite</span>
         <span id="mobile-wishlist-count"
-          class="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-secondary text-on-secondary text-[9px] font-bold flex items-center justify-center rounded-full">3</span>
+          class="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-secondary text-on-secondary text-[9px] font-bold flex items-center justify-center rounded-full">0</span>
       </button>
     </div>
   </header>

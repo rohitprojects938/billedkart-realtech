@@ -211,6 +211,15 @@
         console.log('[BilledkartAuth] Resuming pending chat with seller for property:', propertyId);
         await window.BilledkartChat.openSellerChat(propertyId, sellerId, null, options || {});
       }
+    } else if (pending.type === 'save_property' && pending.data) {
+      const { propertyId } = pending.data;
+      if (propertyId && window.BilledkartWishlist && typeof window.BilledkartWishlist.saveProperty === 'function') {
+        console.log('[BilledkartAuth] Resuming pending save for property:', propertyId);
+        await window.BilledkartWishlist.saveProperty(propertyId);
+      }
+    } else if (pending.type === 'open_wishlist') {
+      console.log('[BilledkartAuth] Resuming pending open wishlist navigation');
+      window.location.href = '/saved-properties/index.html';
     }
   }
 

@@ -1022,18 +1022,27 @@ router.post('/:id/wishlist', async (req, res) => {
       [existing] = await pool.query('SELECT id FROM property_wishlist WHERE property_id = ? AND guest_token = ?', [propId, guestToken]);
     }
 
+    let currentCount = 0;
     if (existing && existing.length > 0) {
       // Remove from wishlist
       await pool.query('DELETE FROM property_wishlist WHERE id = ?', [existing[0].id]);
-      return res.json({ success: true, saved: false, message: 'Removed from Saved Properties.' });
+      if (userId) {
+        const [c] = await pool.query('SELECT COUNT(*) AS total FROM property_wishlist WHERE user_id = ?', [userId]);
+        currentCount = c[0].total;
+      }
+      return res.json({ success: true, saved: false, isSaved: false, count: currentCount, message: 'Removed from Saved Properties.' });
     } else {
       // Add to wishlist
-      await pool.query('INSERT INTO property_wishlist (property_id, user_id, guest_token) VALUES (?, ?, ?)', [
+      await pool.query('INSERT IGNORE INTO property_wishlist (property_id, user_id, guest_token) VALUES (?, ?, ?)', [
         propId,
         userId,
         userId ? null : guestToken
       ]);
-      return res.json({ success: true, saved: true, message: 'Saved to Wishlist successfully!' });
+      if (userId) {
+        const [c] = await pool.query('SELECT COUNT(*) AS total FROM property_wishlist WHERE user_id = ?', [userId]);
+        currentCount = c[0].total;
+      }
+      return res.json({ success: true, saved: true, isSaved: true, count: currentCount, message: 'Saved to Wishlist successfully!' });
     }
   } catch (err) {
     console.error('[properties:wishlist] Error:', err.message);
@@ -1164,5 +1173,6 @@ router.post('/:id/chat', async (req, res) => {
   }
 });
 
+router.formatProperty = formatProperty;
 module.exports = router;
 

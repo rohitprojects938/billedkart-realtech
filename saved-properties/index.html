@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Saved Properties | Billedkart Realtech</title>
+  <meta name="description" content="View and manage your shortlisted properties on Billedkart Realtech. Verified listings with direct owner and builder connections." />
+
+  <!-- Critical Icon Engine & Auth Architecture -->
+  <link rel="stylesheet" href="/css/critical-icons.css" />
+  <script src="/js/icon-engine.js"></script>
+  <script src="/js/auth-manager.js"></script>
+  <script src="/js/wishlist-manager.js"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#00236f',
+              container: '#0a3399',
+              light: '#1e40af',
+              dark: '#001850'
+            },
+            secondary: {
+              DEFAULT: '#ff6f3c',
+              container: '#ff8555',
+              dark: '#e05320',
+              light: '#fff2ed'
+            },
+            tertiary: '#059669',
+            surface: {
+              DEFAULT: '#ffffff',
+              container: '#f1f5f9',
+              'container-low': '#f8fafc',
+              'container-high': '#e2e8f0'
+            },
+            'on-surface': '#0f172a',
+            'on-surface-variant': '#64748b',
+            outline: '#94a3b8',
+            error: '#ef4444'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif']
+          },
+          boxShadow: {
+            card: '0 2px 8px -2px rgba(0, 35, 111, 0.05), 0 1px 4px -1px rgba(0, 35, 111, 0.03)',
+            elevated: '0 12px 24px -6px rgba(0, 35, 111, 0.12), 0 4px 10px -2px rgba(0, 35, 111, 0.06)',
+            'bottom-nav': '0 -2px 10px rgba(0,0,0,0.06)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .material-symbols-outlined,
+    .material-symbols-rounded {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+      user-select: none;
+    }
+    .material-symbols-outlined.filled,
+    .material-symbols-rounded.filled {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .heart-pop {
+      animation: heartPulse 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes heartPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body class="bg-surface-container-low text-on-surface antialiased min-h-screen flex flex-col font-sans selection:bg-secondary/20 selection:text-primary">
+
+  <!-- ===================================================
+       1. GLOBAL DESKTOP NAVBAR (Consistent with Discovery & Chat)
+       =================================================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-surface-container transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+
+        <!-- Left: Logo & City Picker -->
+        <div class="flex items-center gap-4 sm:gap-6">
+          <a href="/home_property_discovery/code.html" class="flex items-center gap-2 group">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
+              <span class="material-symbols-outlined text-[24px]">home_work</span>
+            </div>
+            <div>
+              <span class="text-lg sm:text-xl font-extrabold text-primary tracking-tight block leading-tight">Billedkart</span>
+              <span class="text-[10px] sm:text-[11px] font-bold text-secondary tracking-wider block -mt-1 uppercase">Realtech</span>
+            </div>
+          </a>
+
+          <!-- City Picker -->
+          <div class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container border border-surface-container-high/60 text-xs font-semibold text-primary cursor-pointer hover:bg-surface-container-high transition-colors" onclick="window.BilledkartLocation && window.BilledkartLocation.openLocationModal ? window.BilledkartLocation.openLocationModal() : null">
+            <span class="material-symbols-outlined text-[18px] text-secondary">location_on</span>
+            <span id="nav-selected-city">Bengaluru</span>
+            <span class="material-symbols-outlined text-[18px] text-outline">expand_more</span>
+          </div>
+        </div>
+
+        <!-- Middle: Nav Links (Desktop) -->
+        <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-semibold text-on-surface-variant">
+          <a href="/home_property_discovery/code.html" class="hover:text-primary transition-colors">Buy</a>
+          <a href="/search_results_with_map_view/code.html" class="hover:text-primary transition-colors">Rent</a>
+          <a href="/home_property_discovery/dealers.html" class="hover:text-primary transition-colors">Dealers</a>
+          <a href="/post_property_flow_listing_wizard/code.html" class="hover:text-primary transition-colors">Sell</a>
+          <a href="/chat/index.html" class="hover:text-primary transition-colors">Chat</a>
+        </nav>
+
+        <!-- Right: Actions (Wishlist, Chat, Profile, Post Property) -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          
+          <!-- Heart Icon: Saved Properties (Active page indicator) -->
+          <button id="desktopWishlistBtn" onclick="window.BilledkartWishlist.openWishlistPage()" type="button" aria-label="Saved Properties" class="relative p-2 rounded-xl text-primary bg-primary/10 transition-colors" title="Saved Properties">
+            <span class="material-symbols-outlined text-[22px] filled text-secondary">favorite</span>
+            <span id="desktop-wishlist-count" class="absolute top-1 right-1 w-4 h-4 bg-secondary text-white text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm">0</span>
+          </button>
+
+          <!-- Chat Enquiries -->
+          <a href="/chat/index.html" aria-label="Chat Enquiries" class="relative p-2 rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Chat Enquiries">
+            <span class="material-symbols-outlined text-[22px]">chat_bubble</span>
+            <span id="navChatBadge" class="nav-chat-unread-badge hidden absolute top-1 right-1 w-4 h-4 bg-primary text-white text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm">0</span>
+          </a>
+
+          <!-- Profile / Sign In Dropdown -->
+          <div class="relative" id="authHeaderContainer">
+            <button id="auth-user-btn" type="button" onclick="handleAuthButtonClick()" class="flex items-center gap-2 p-1.5 sm:px-3 sm:py-2 rounded-xl hover:bg-surface-container transition-colors text-primary font-bold text-xs sm:text-sm">
+              <span class="material-symbols-outlined text-[24px] text-outline">account_circle</span>
+              <span id="auth-user-name" class="hidden sm:inline">Sign In</span>
+            </button>
+          </div>
+
+          <!-- Post Property Free CTA -->
+          <a href="/post_property_flow_listing_wizard/code.html" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-secondary hover:bg-secondary-dark active:scale-95 text-white font-bold text-xs sm:text-sm shadow-sm transition-all">
+            <span>Post Property</span>
+            <span class="px-1.5 py-0.5 rounded-md bg-white/20 text-[10px] uppercase font-extrabold tracking-wider">Free</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================
+       2. MAIN CONTENT AREA
+       =================================================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-24 md:pb-12">
+    
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs font-semibold text-outline mb-4">
+      <a href="/home_property_discovery/code.html" class="hover:text-primary transition-colors flex items-center gap-1">
+        <span class="material-symbols-outlined text-[15px]">home</span>
+        <span>Home</span>
+      </a>
+      <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+      <span class="text-primary font-bold">Saved Properties</span>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-surface-container mb-6">
+      <div>
+        <div class="flex items-center gap-3">
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-primary tracking-tight">Saved Properties</h1>
+          <span id="savedPropertiesCountDisplay" class="px-3 py-1 rounded-full bg-secondary/10 text-secondary font-bold text-xs sm:text-sm">
+            0 Properties
+          </span>
+        </div>
+        <p class="text-sm text-on-surface-variant mt-1">Properties you have shortlisted.</p>
+      </div>
+
+      <!-- Quick Filter & Sort Options -->
+      <div id="savedFiltersToolbar" class="flex items-center gap-3 self-start sm:self-auto flex-wrap">
+        <div class="inline-flex p-1 rounded-xl bg-surface-container border border-surface-container-high/60 text-xs font-semibold text-on-surface-variant">
+          <button type="button" onclick="setFilter('all')" id="filter-all-btn" class="px-3 py-1.5 rounded-lg bg-white text-primary font-bold shadow-xs transition-all">All</button>
+          <button type="button" onclick="setFilter('buy')" id="filter-buy-btn" class="px-3 py-1.5 rounded-lg hover:text-primary transition-all">Buy</button>
+          <button type="button" onclick="setFilter('rent')" id="filter-rent-btn" class="px-3 py-1.5 rounded-lg hover:text-primary transition-all">Rent</button>
+        </div>
+
+        <select id="savedSortSelect" onchange="handleSortChange(this.value)" class="text-xs font-semibold text-primary bg-white border border-surface-container-high rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer shadow-xs">
+          <option value="recent">Recently Saved</option>
+          <option value="price_asc">Price: Low to High</option>
+          <option value="price_desc">Price: High to Low</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Loading Skeleton Grid -->
+    <div id="savedLoadingSkeleton" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white rounded-2xl border border-surface-container p-4 animate-pulse space-y-4">
+        <div class="h-48 bg-surface-container rounded-xl"></div>
+        <div class="h-5 bg-surface-container rounded w-3/4"></div>
+        <div class="h-4 bg-surface-container rounded w-1/2"></div>
+        <div class="h-10 bg-surface-container rounded"></div>
+      </div>
+      <div class="bg-white rounded-2xl border border-surface-container p-4 animate-pulse space-y-4">
+        <div class="h-48 bg-surface-container rounded-xl"></div>
+        <div class="h-5 bg-surface-container rounded w-3/4"></div>
+        <div class="h-4 bg-surface-container rounded w-1/2"></div>
+        <div class="h-10 bg-surface-container rounded"></div>
+      </div>
+      <div class="bg-white rounded-2xl border border-surface-container p-4 animate-pulse space-y-4">
+        <div class="h-48 bg-surface-container rounded-xl"></div>
+        <div class="h-5 bg-surface-container rounded w-3/4"></div>
+        <div class="h-4 bg-surface-container rounded w-1/2"></div>
+        <div class="h-10 bg-surface-container rounded"></div>
+      </div>
+    </div>
+
+    <!-- Unauthenticated State Card -->
+    <div id="unauthenticatedState" class="hidden text-center py-16 px-4 bg-white rounded-2xl border border-surface-container shadow-card max-w-xl mx-auto my-6">
+      <div class="w-16 h-16 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mx-auto mb-4">
+        <span class="material-symbols-outlined text-[32px]">favorite_border</span>
+      </div>
+      <h2 class="text-xl sm:text-2xl font-extrabold text-primary mb-2">Sign In to View Saved Properties</h2>
+      <p class="text-sm text-on-surface-variant max-w-md mx-auto mb-6">
+        Sign in with your verified account to access your shortlisted properties and sync across your mobile and desktop devices.
+      </p>
+      <button type="button" onclick="handleAuthButtonClick()" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary-container text-white font-bold text-sm shadow-md transition-all active:scale-95">
+        <span class="material-symbols-outlined text-[20px]">login</span>
+        <span>Sign In to Continue</span>
+      </button>
+    </div>
+
+    <!-- Empty Shortlist State -->
+    <div id="emptyWishlistState" class="hidden text-center py-16 px-4 bg-white rounded-2xl border border-surface-container shadow-card max-w-xl mx-auto my-6">
+      <div class="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
+        <span class="material-symbols-outlined text-[32px]">bookmark_border</span>
+      </div>
+      <h2 class="text-xl sm:text-2xl font-extrabold text-primary mb-2">Your shortlist is empty</h2>
+      <p class="text-sm text-on-surface-variant max-w-md mx-auto mb-6">
+        Save properties you like to easily find them later.
+      </p>
+      <a href="/home_property_discovery/code.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-secondary hover:bg-secondary-dark text-white font-bold text-sm shadow-md transition-all active:scale-95">
+        <span class="material-symbols-outlined text-[20px]">search</span>
+        <span>Explore Properties</span>
+      </a>
+    </div>
+
+    <!-- Saved Properties Grid -->
+    <div id="savedPropertiesGrid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Populated via renderSavedCards() -->
+    </div>
+
+  </main>
+
+  <!-- ===================================================
+       3. GLOBAL MOBILE BOTTOM NAVIGATION BAR
+       (Dimensions synchronized: 24px/26px icons, 11.5px labels)
+       =================================================== -->
+  <nav id="mobile-bottom-nav" class="fixed bottom-0 left-0 w-full z-40 bg-white border-t border-surface-container shadow-bottom-nav mobile-bottom-nav py-1 px-3 flex items-center justify-between md:hidden">
+    <a href="/home_property_discovery/code.html" class="flex flex-col items-center justify-center flex-1 py-1 text-on-surface-variant hover:text-primary active:scale-95 transition-transform">
+      <span class="material-symbols-outlined text-[24px]">home</span>
+      <span class="text-[11.5px] font-semibold mt-0.5">Home</span>
+    </a>
+    <a href="/search_results_with_map_view/code.html" class="flex flex-col items-center justify-center flex-1 py-1 text-on-surface-variant hover:text-primary active:scale-95 transition-transform">
+      <span class="material-symbols-outlined text-[24px]">search</span>
+      <span class="text-[11.5px] font-semibold mt-0.5">Search</span>
+    </a>
+    <a href="/post_property_flow_listing_wizard/code.html" class="flex flex-col items-center justify-center flex-1 py-0.5 -mt-3.5 group">
+      <div class="w-12 h-12 rounded-full bg-secondary text-white shadow-elevated flex items-center justify-center group-active:scale-95 transition-transform">
+        <span class="material-symbols-outlined text-[26px]">add_home</span>
+      </div>
+      <span class="text-[11.5px] font-extrabold text-secondary mt-0.5">Sell / Rent</span>
+    </a>
+    <a href="/chat/index.html" class="flex flex-col items-center justify-center flex-1 py-1 text-on-surface-variant hover:text-primary relative active:scale-95 transition-transform">
+      <span class="material-symbols-outlined text-[24px]">chat</span>
+      <span class="nav-chat-unread-badge hidden absolute top-0.5 right-[22%] min-w-[16px] h-4 px-1 rounded-full bg-secondary text-white text-[10px] font-bold flex items-center justify-center border-2 border-white leading-none">0</span>
+      <span class="text-[11.5px] font-semibold mt-0.5">Chat</span>
+    </a>
+    <button type="button" onclick="handleAuthButtonClick()" class="flex flex-col items-center justify-center flex-1 py-1 text-on-surface-variant hover:text-primary active:scale-95 transition-transform">
+      <span class="material-symbols-outlined text-[24px]">menu</span>
+      <span class="text-[11.5px] font-semibold mt-0.5">Menu</span>
+    </button>
+  </nav>
+
+  <!-- ===================================================
+       4. FLOATING WHATSAPP BUTTON (Desktop)
+       =================================================== -->
+  <div id="desktopFloatingWhatsApp" class="hidden md:block fixed bottom-6 right-6 z-30">
+    <a href="https://api.whatsapp.com/send?phone=919044268001&text=Hello%20Billedkart%20Realtech%2C%20I%20have%20an%20enquiry%20regarding%20saved%20properties." target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 py-3 rounded-full bg-[#25D366] text-white font-bold text-sm shadow-elevated hover:bg-[#20ba59] hover:scale-105 active:scale-95 transition-all">
+      <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.41a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.64c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.89 2.42 1.02 2.59.13.17 1.76 2.69 4.27 3.77.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.18-.47-.3"/></svg>
+      <span>WhatsApp</span>
+    </a>
+  </div>
+
+  <!-- Shared Contact & Chat Scripts -->
+  <script src="/billedkart-contact-config.js"></script>
+  <script src="/location-manager.js"></script>
+  <script src="/chat/chat-utility.js"></script>
+  <script src="/chat/chat-badge.js"></script>
+
+  <!-- Page Logic -->
+  <script>
+    let savedProperties = [];
+    let currentFilter = 'all';
+    let currentSort = 'recent';
+
+    function handleAuthButtonClick() {
+      const user = window.BilledkartAuth ? window.BilledkartAuth.getUser() : null;
+      if (user) {
+        window.location.href = '/chat/index.html';
+      } else if (typeof window.openAuthModal === 'function') {
+        window.openAuthModal('login');
+      } else if (typeof window.openLoginModal === 'function') {
+        window.openLoginModal();
+      } else {
+        window.location.href = '/home_property_discovery/code.html';
+      }
+    }
+
+    function setFilter(type) {
+      currentFilter = type;
+      ['all', 'buy', 'rent'].forEach(t => {
+        const btn = document.getElementById(`filter-${t}-btn`);
+        if (btn) {
+          if (t === type) {
+            btn.className = 'px-3 py-1.5 rounded-lg bg-white text-primary font-bold shadow-xs transition-all';
+          } else {
+            btn.className = 'px-3 py-1.5 rounded-lg hover:text-primary transition-all';
+          }
+        }
+      });
+      renderCards();
+    }
+
+    function handleSortChange(sortVal) {
+      currentSort = sortVal;
+      renderCards();
+    }
+
+    async function loadSavedProperties() {
+      const skeleton = document.getElementById('savedLoadingSkeleton');
+      const grid = document.getElementById('savedPropertiesGrid');
+      const emptyState = document.getElementById('emptyWishlistState');
+      const unauthState = document.getElementById('unauthenticatedState');
+      const countDisplay = document.getElementById('savedPropertiesCountDisplay');
+
+      skeleton.classList.remove('hidden');
+      grid.classList.add('hidden');
+      emptyState.classList.add('hidden');
+      unauthState.classList.add('hidden');
+
+      // Check auth status
+      let user = window.BilledkartAuth ? window.BilledkartAuth.getUser() : null;
+      if (!user && window.BilledkartAuth && typeof window.BilledkartAuth.waitForAuth === 'function') {
+        user = await window.BilledkartAuth.waitForAuth();
+      }
+
+      if (!user) {
+        skeleton.classList.add('hidden');
+        unauthState.classList.remove('hidden');
+        if (countDisplay) countDisplay.textContent = '0 Properties';
+        return;
+      }
+
+      const apiBase = window.BilledkartWishlist ? window.BilledkartWishlist.getApiBase() : '';
+      try {
+        const res = await fetch(`${apiBase}/api/saved-properties`, {
+          credentials: 'include',
+          headers: { 'Accept': 'application/json' }
+        });
+        const data = await res.json();
+
+        skeleton.classList.add('hidden');
+
+        if (data && data.success && Array.isArray(data.properties)) {
+          savedProperties = data.properties;
+          renderCards();
+        } else if (res.status === 401) {
+          unauthState.classList.remove('hidden');
+        } else {
+          emptyState.classList.remove('hidden');
+        }
+      } catch (err) {
+        console.error('Failed to load saved properties:', err);
+        skeleton.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+      }
+    }
+
+    function renderCards() {
+      const grid = document.getElementById('savedPropertiesGrid');
+      const emptyState = document.getElementById('emptyWishlistState');
+      const countDisplay = document.getElementById('savedPropertiesCountDisplay');
+
+      let filtered = [...savedProperties];
+
+      if (currentFilter === 'buy') {
+        filtered = filtered.filter(p => p.transactionType === 'buy' || p.transaction_type === 'buy' || !p.transactionType);
+      } else if (currentFilter === 'rent') {
+        filtered = filtered.filter(p => p.transactionType === 'rent' || p.transaction_type === 'rent');
+      }
+
+      // Sorting
+      if (currentSort === 'price_asc') {
+        filtered.sort((a, b) => Number(a.price || 0) - Number(b.price || 0));
+      } else if (currentSort === 'price_desc') {
+        filtered.sort((a, b) => Number(b.price || 0) - Number(a.price || 0));
+      }
+
+      if (countDisplay) {
+        countDisplay.textContent = savedProperties.length === 1 ? '1 Property' : `${savedProperties.length} Properties`;
+      }
+
+      if (filtered.length === 0) {
+        grid.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      grid.classList.remove('hidden');
+
+      grid.innerHTML = filtered.map(prop => {
+        const imageUrl = prop.primaryImageUrl || prop.primary_image_url || (Array.isArray(prop.images) && prop.images[0]) || '/image/property_placeholder.jpg';
+        const priceDisplay = prop.priceFormatted || (Number(prop.price) >= 10000000 ? `₹${(Number(prop.price) / 10000000).toFixed(2)} Cr` : `₹${(Number(prop.price) / 100000).toFixed(2)} Lac`);
+        const title = prop.title || 'Verified Property';
+        const locality = prop.locality || 'Prime Location';
+        const city = prop.city || 'Bengaluru';
+        const bhk = prop.bhk ? `${prop.bhk} BHK` : 'Spacious';
+        const area = prop.carpetAreaSqft || prop.superBuiltupAreaSqft || prop.carpet_area_sqft || prop.super_builtup_area_sqft || 1200;
+        const ownerName = prop.ownerName || prop.owner_name || 'Verified Owner';
+        const ownerId = prop.ownerUserId || prop.owner_user_id || 65;
+        const ownerPhone = prop.ownerPhone || prop.owner_phone || '';
+        const propSlug = prop.slug || prop.id;
+
+        let badgeHtml = '<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-tertiary text-white text-[11px] font-bold shadow-sm"><span class="material-symbols-outlined text-[13px]">check_circle</span> Verified</span>';
+        if (prop.isReraRegistered || prop.is_rera_registered) {
+          badgeHtml = '<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary text-white text-[11px] font-bold shadow-sm"><span class="material-symbols-outlined text-[13px]">verified</span> RERA Certified</span>';
+        }
+
+        return `
+          <article class="flex flex-col rounded-2xl bg-white shadow-card hover:shadow-elevated transition-all duration-300 border border-surface-container overflow-hidden group" id="saved-card-${prop.id}">
+            <!-- Media & Remove Button -->
+            <div class="relative aspect-[16/10] overflow-hidden bg-surface-container">
+              <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${imageUrl}" alt="${title}" loading="lazy" onerror="this.src='/image/property_placeholder.jpg'"/>
+              <div class="absolute top-2.5 left-2.5 flex flex-col gap-1">
+                ${badgeHtml}
+              </div>
+              <!-- Remove from Shortlist Heart Button -->
+              <button onclick="handleRemoveSaved(event, ${prop.id})" type="button" aria-label="Remove from Saved" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/95 backdrop-blur-sm flex items-center justify-center text-error hover:scale-110 shadow-sm transition-all" title="Remove from shortlist">
+                <span class="material-symbols-outlined text-[18px] filled text-error">favorite</span>
+              </button>
+            </div>
+
+            <!-- Details -->
+            <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
+              <div>
+                <div class="flex items-baseline justify-between mb-1">
+                  <span class="font-extrabold text-xl text-primary tracking-tight">${priceDisplay}</span>
+                  <span class="text-xs text-outline font-semibold">${prop.propertyType || prop.property_type || 'Apartment'}</span>
+                </div>
+                <h3 class="font-bold text-base text-on-surface hover:text-primary transition-colors line-clamp-1">
+                  <a href="/property_detail_page/code.html?slug=${encodeURIComponent(propSlug)}">${title}</a>
+                </h3>
+                <p class="text-xs text-on-surface-variant flex items-center gap-1 mt-1 truncate">
+                  <span class="material-symbols-outlined text-secondary text-[15px] shrink-0">location_on</span>
+                  <span class="truncate">${locality}, ${city}</span>
+                </p>
+
+                <!-- Key Metrics Grid -->
+                <div class="grid grid-cols-3 gap-1.5 p-2 bg-surface-container-low rounded-xl mt-3 text-center border border-surface-container/60">
+                  <div class="p-1">
+                    <span class="block text-xs font-bold text-on-surface">${bhk}</span>
+                    <span class="block text-[10px] text-outline">Configuration</span>
+                  </div>
+                  <div class="p-1 border-x border-surface-container">
+                    <span class="block text-xs font-bold text-on-surface">${area} sq.ft</span>
+                    <span class="block text-[10px] text-outline">Built-up</span>
+                  </div>
+                  <div class="p-1">
+                    <span class="block text-xs font-bold text-primary truncate">${prop.furnishingStatus || 'Furnished'}</span>
+                    <span class="block text-[10px] text-outline truncate">Status</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action CTAs -->
+              <div class="pt-3 border-t border-surface-container/60 flex items-center justify-between gap-1.5">
+                <div class="text-[11px] font-semibold text-outline truncate max-w-[85px] sm:max-w-[100px]" title="${ownerName}">
+                  ${ownerName}
+                </div>
+
+                <div class="flex items-center gap-1 sm:gap-1.5">
+                  <!-- View Details -->
+                  <a href="/property_detail_page/code.html?slug=${encodeURIComponent(propSlug)}" class="px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-bold text-xs flex items-center gap-1 transition-colors">
+                    <span class="material-symbols-outlined text-[15px]">visibility</span>
+                    <span class="hidden sm:inline">View</span>
+                  </a>
+
+                  <!-- Chat with Seller -->
+                  <button type="button" onclick="handleCardChatClick(event, ${prop.id}, ${ownerId})" class="p-2 rounded-lg bg-primary/10 hover:bg-primary text-primary hover:text-white transition-colors" title="Chat with Seller">
+                    <span class="material-symbols-outlined text-[16px]">forum</span>
+                  </button>
+
+                  <!-- WhatsApp -->
+                  <button type="button" onclick="handleCardWhatsAppClick(event, '${prop.id}', '${escapeQuote(title)}', '${escapeQuote(locality)}', '${ownerPhone}')" class="p-2 rounded-lg bg-emerald-50 hover:bg-emerald-600 text-emerald-700 hover:text-white transition-colors flex items-center justify-center" title="Chat on WhatsApp">
+                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.41a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.64c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.89 2.42 1.02 2.59.13.17 1.76 2.69 4.27 3.77.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.18-.47-.3"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    async function handleRemoveSaved(event, propertyId) {
+      if (event) event.stopPropagation();
+      const confirmed = window.BilledkartWishlist.remove(propertyId, event);
+      if (confirmed) {
+        // Animate card removal
+        const card = document.getElementById(`saved-card-${propertyId}`);
+        if (card) {
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.95)';
+          card.style.transition = 'all 0.25s ease-out';
+          setTimeout(() => {
+            savedProperties = savedProperties.filter(p => Number(p.id) !== Number(propertyId));
+            renderCards();
+          }, 250);
+        }
+      }
+    }
+
+    function handleCardChatClick(event, propId, sellerId) {
+      if (event) event.stopPropagation();
+      if (window.BilledkartChat && typeof window.BilledkartChat.openSellerChat === 'function') {
+        window.BilledkartChat.openSellerChat(propId, sellerId, event);
+      } else {
+        window.location.href = `/chat/index.html?propId=${propId}`;
+      }
+    }
+
+    function handleCardWhatsAppClick(event, propId, title, location, phone) {
+      if (event) event.stopPropagation();
+      if (window.BilledkartChat && typeof window.BilledkartChat.openSellerWhatsApp === 'function') {
+        window.BilledkartChat.openSellerWhatsApp(propId, title, location, phone, event);
+      } else {
+        const msg = encodeURIComponent(`Hi, I saw your listing "${title}" (${location}) on Billedkart Realtech and would like more details.`);
+        window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank');
+      }
+    }
+
+    function escapeQuote(str) {
+      return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSavedProperties();
+
+      if (window.BilledkartWishlist && typeof window.BilledkartWishlist.onWishlistChange === 'function') {
+        window.BilledkartWishlist.onWishlistChange(({ propertyId, saved }) => {
+          if (!saved) {
+            savedProperties = savedProperties.filter(p => Number(p.id) !== Number(propertyId));
+            renderCards();
+          } else {
+            loadSavedProperties();
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

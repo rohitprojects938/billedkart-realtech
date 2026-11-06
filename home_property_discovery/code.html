@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/critical-icons.css" />
   <script src="/js/icon-engine.js"></script>
   <script src="/js/auth-manager.js"></script>
+  <script src="/js/wishlist-manager.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -972,9 +973,9 @@
 
         <!-- Right Side User Actions -->
         <div class="flex items-center gap-3">
-          <button aria-label="Saved Properties" class="relative p-2 rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" type="button" onclick="showToast('You have 3 saved properties')">
+          <button id="desktopWishlistBtn" aria-label="Saved Properties" class="relative p-2 rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" type="button" onclick="window.BilledkartWishlist ? window.BilledkartWishlist.openWishlistPage() : (window.location.href='/saved-properties/index.html')">
             <span class="material-symbols-outlined text-[22px]">favorite</span>
-            <span id="desktop-wishlist-count" class="absolute top-1 right-1 w-4 h-4 bg-secondary text-on-secondary text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm">3</span>
+            <span id="desktop-wishlist-count" class="absolute top-1 right-1 w-4 h-4 bg-secondary text-on-secondary text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm">0</span>
           </button>
 
           <a aria-label="Chat Enquiries" href="/chat" class="relative p-2 rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors">
@@ -1736,9 +1737,9 @@
           <span class="bg-secondary-fixed text-on-secondary-fixed text-[8.5px] sm:text-[9px] px-1 rounded-full uppercase">FREE</span>
         </a>
 
-        <button aria-label="Wishlist" class="relative p-1 sm:p-1.5 text-on-surface-variant hover:text-primary transition-colors shrink-0" onclick="showToast('3 saved properties in your wishlist')">
+        <button id="mobileWishlistBtn" aria-label="Wishlist" class="relative p-1 sm:p-1.5 text-on-surface-variant hover:text-primary transition-colors shrink-0" onclick="window.BilledkartWishlist ? window.BilledkartWishlist.openWishlistPage() : (window.location.href='/saved-properties/index.html')">
           <span class="material-symbols-outlined text-[19px] sm:text-[20px]">favorite</span>
-          <span id="mobile-wishlist-count" class="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-secondary text-on-secondary text-[9px] font-bold flex items-center justify-center rounded-full">3</span>
+          <span id="mobile-wishlist-count" class="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-secondary text-on-secondary text-[9px] font-bold flex items-center justify-center rounded-full">0</span>
         </button>
 
         <!-- Hidden legacy anchor keeping mobile-profile-btn and menu IDs active for existing scripts -->
@@ -3900,7 +3901,7 @@
           <div class="relative aspect-[16/10] overflow-hidden bg-surface-container">
             <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${prop.image}" alt="${prop.title}" loading="lazy"/>
             <div class="absolute top-2.5 left-2.5 flex flex-col gap-1">${tagHtml}</div>
-            <button aria-label="Wishlist" class="wishlist-btn absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-on-surface-variant hover:text-error transition-colors shadow-sm" type="button" onclick="toggleWishlist(event, this)">
+            <button aria-label="Wishlist" data-wishlist-prop-id="${prop.dbId || prop.id}" class="wishlist-btn absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-on-surface-variant hover:text-error transition-colors shadow-sm" type="button" onclick="window.BilledkartWishlist ? window.BilledkartWishlist.toggle('${prop.dbId || prop.id}', event) : toggleWishlist(event, this)">
               <span class="material-symbols-outlined text-[18px]">favorite</span>
             </button>
             <div class="absolute bottom-2 right-2.5 px-2 py-0.5 rounded-md bg-on-background/80 text-white text-[11px] font-bold">
@@ -3975,7 +3976,7 @@
           <div class="relative aspect-[16/10] overflow-hidden bg-surface-container">
             <img class="w-full h-full object-cover" src="${prop.image}" alt="${prop.title}" loading="lazy"/>
             <div class="absolute top-2 left-2 flex gap-1">${tagHtml}</div>
-            <button aria-label="Wishlist" class="wishlist-btn absolute top-2 right-2 w-7 h-7 rounded-full bg-white/90 flex items-center justify-center text-on-surface-variant shadow-sm" type="button" onclick="toggleWishlist(event, this)">
+            <button aria-label="Wishlist" data-wishlist-prop-id="${prop.dbId || prop.id}" class="wishlist-btn absolute top-2 right-2 w-7 h-7 rounded-full bg-white/90 flex items-center justify-center text-on-surface-variant shadow-sm" type="button" onclick="window.BilledkartWishlist ? window.BilledkartWishlist.toggle('${prop.dbId || prop.id}', event) : toggleWishlist(event, this)">
               <span class="material-symbols-outlined text-[16px]">favorite</span>
             </button>
             <div class="absolute bottom-1.5 right-2 px-1.5 py-0.5 rounded bg-on-background/80 text-white text-[10px] font-bold">
@@ -5111,28 +5112,22 @@
     /* ===================================================
        10. WISHLIST TOGGLE & COUNTER
        =================================================== */
-    let wishlistCount = 3;
-    function toggleWishlist(e, btn) {
-      e.stopPropagation();
-      const icon = btn.querySelector('.material-symbols-outlined');
-      const isFilled = icon.classList.contains('filled');
-      const dtCount = document.getElementById('desktop-wishlist-count');
-      const mobCount = document.getElementById('mobile-wishlist-count');
-
-      if (isFilled) {
-        icon.classList.remove('filled', 'text-error');
-        btn.classList.remove('text-error');
-        wishlistCount = Math.max(0, wishlistCount - 1);
-        showToast('Removed from Saved Wishlist');
-      } else {
-        icon.classList.add('filled', 'text-error');
-        btn.classList.add('text-error');
-        wishlistCount++;
-        showToast('Saved to your Wishlist!');
+    function toggleWishlist(e, btnOrId) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
       }
-
-      if (dtCount) dtCount.textContent = wishlistCount;
-      if (mobCount) mobCount.textContent = wishlistCount;
+      if (typeof btnOrId === 'number' || (typeof btnOrId === 'string' && /^\d+$/.test(btnOrId))) {
+        if (window.BilledkartWishlist) return window.BilledkartWishlist.toggle(Number(btnOrId), e);
+      }
+      const btn = btnOrId || (e && e.currentTarget);
+      const propId = btn && btn.getAttribute ? btn.getAttribute('data-wishlist-prop-id') : null;
+      if (propId && window.BilledkartWishlist) {
+        return window.BilledkartWishlist.toggle(propId, e);
+      }
+      if (window.BilledkartWishlist) {
+        return window.BilledkartWishlist.openWishlistPage();
+      }
     }
 
     /* ===================================================

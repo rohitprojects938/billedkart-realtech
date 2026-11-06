@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/css/critical-icons.css" />
   <script src="/js/icon-engine.js"></script>
   <script src="/js/auth-manager.js"></script>
+  <script src="/js/wishlist-manager.js"></script>
 
   <!-- Google Fonts & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -135,6 +136,10 @@
 
       <!-- Right Actions: Wishlist + Post Property FREE -->
       <div class="flex items-center gap-3">
+        <button id="desktopWishlistBtn" onclick="window.BilledkartWishlist ? window.BilledkartWishlist.openWishlistPage() : (window.location.href='/saved-properties/index.html')" type="button" aria-label="Saved Properties" class="relative p-2 rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" title="Saved Properties">
+          <span class="material-symbols-outlined text-[22px]">favorite</span>
+          <span id="desktop-wishlist-count" class="absolute top-1 right-1 w-4 h-4 bg-secondary text-white text-[10px] font-bold flex items-center justify-center rounded-full shadow-sm">0</span>
+        </button>
         <a href="/post_property_flow_listing_wizard/code.html"
           class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-secondary text-on-secondary hover:bg-secondary-dark font-bold text-xs tracking-wide transition-all shadow-sm shadow-secondary/25">
           <span>Post Property</span>

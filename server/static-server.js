@@ -59,7 +59,11 @@ const ALLOWED_APP_PATHS = new Set([
   '/search_results_with_map_view/code.html',
   '/chat',
   '/chat/',
-  '/chat/index.html'
+  '/chat/index.html',
+  '/saved-properties',
+  '/saved-properties/',
+  '/saved-properties/index.html',
+  '/wishlist'
 ]);
 
 function applySecurityHeaders(res, isUpload = false) {
@@ -184,6 +188,8 @@ const server = http.createServer((req, res) => {
     reqPath = '/post_property_flow_listing_wizard/code.html';
   } else if (reqPath === '/chat' || reqPath === '/messages') {
     reqPath = '/chat/index.html';
+  } else if (reqPath === '/saved-properties' || reqPath === '/saved-properties/' || reqPath === '/wishlist') {
+    reqPath = '/saved-properties/index.html';
   }
 
   const filePath = path.join(ROOT, reqPath);
