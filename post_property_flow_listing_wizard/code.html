@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Post Property Free | Billedkart Realtech</title>
+  <meta name="description"
+    content="Post your residential, commercial, or plot property for free on Billedkart Realtech. Connect directly with verified buyers and tenants with zero brokerage." />
+
+  <!-- Fonts & Material Symbols Preload & Critical Styles -->
+  <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/critical-icons.css" />
+  <script src="/js/icon-engine.js"></script>
+  <script src="/js/auth-manager.js"></script>
+
+  <!-- Fonts & Google Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet" />
+
+  <!-- Custom Post Property Stylesheet -->
+  <link rel="stylesheet" href="post-property.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#00236f",
+            "primary-container": "#1e3a8a",
+            "on-primary": "#ffffff",
+            secondary: "#fd651e",
+            "secondary-dark": "#d94e0e",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#ffdbce",
+            "on-secondary-fixed": "#370e00",
+            surface: "#faf8ff",
+            "on-surface": "#131b2e",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f2f3ff",
+            "surface-container": "#eaedff",
+            "surface-container-high": "#e2e7ff",
+            "surface-container-highest": "#dae2fd",
+            "on-surface-variant": "#444651",
+            outline: "#757682",
+            "outline-variant": "#c5c5d3",
+            tertiary: "#003120",
+            "tertiary-container": "#004a32",
+            "on-tertiary": "#ffffff",
+            "tertiary-fixed": "#85f8c4",
+            error: "#ba1a1a"
+          },
+          fontFamily: {
+            sans: ["'Plus Jakarta Sans'", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-surface font-sans text-on-surface antialiased pb-20">
+
+  <!-- ===================================================
+       1. GLOBAL HEADER & NAVIGATION (Shared Billedkart Navbar)
+       =================================================== -->
+
+  <!-- DESKTOP NAVBAR (Identical to Home & PDP) -->
+  <header
+    class="hidden md:block fixed top-0 left-0 w-full z-50 bg-white border-b border-surface-container shadow-sm h-16">
+    <div class="h-full max-w-[1340px] mx-auto px-6 lg:px-8 flex items-center justify-between gap-4">
+
+      <!-- Left: Logo & Location Selector -->
+      <div class="flex items-center gap-6">
+        <a href="/" class="flex items-center gap-2 group" aria-label="Billedkart Realtech Homepage">
+          <div
+            class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm shadow-primary/20 group-hover:bg-primary-container transition-colors">
+            <span class="material-symbols-outlined text-[22px] text-tertiary-fixed">home_work</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-extrabold text-[22px] text-primary tracking-tight leading-none">Billedkart<span
+                class="text-secondary"> Realtech</span></span>
+            <span class="text-[9px] font-bold text-outline tracking-wider uppercase">Verified Properties</span>
+          </div>
+        </a>
+
+        <!-- Location Badge -->
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface text-xs font-bold border border-surface-container">
+          <span class="material-symbols-outlined text-secondary text-[17px]">location_on</span>
+          <span>Bengaluru</span>
+        </div>
+      </div>
+
+      <!-- Main Navigation Links -->
+      <nav class="flex items-center gap-1">
+        <a class="px-3.5 py-1.5 rounded-lg font-semibold text-xs lg:text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
+          href="/search?intent=buy">Buy</a>
+        <a class="px-3.5 py-1.5 rounded-lg font-semibold text-xs lg:text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
+          href="/search?intent=rent">Rent</a>
+        <a class="px-3.5 py-1.5 rounded-lg font-semibold text-xs lg:text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
+          href="/dealers">Dealers</a>
+        <a class="px-3.5 py-1.5 rounded-lg font-semibold text-xs lg:text-sm text-primary font-bold bg-surface-container-low"
+          href="/post-property">Sell / Post</a>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="flex items-center gap-3">
+        <a href="/home_property_discovery/code.html"
+          class="inline-flex items-center gap-1 text-xs font-bold text-outline hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+          <span>Back to Marketplace</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- DEDICATED MOBILE APP HEADER (Identical to Home Page) -->
+  <header
+    class="fixed top-0 left-0 w-full z-50 bg-white border-b border-surface-container h-14 px-2 sm:px-3.5 flex items-center justify-between shadow-xs md:hidden">
+    <!-- Left: Logo & Location Badge -->
+    <div class="flex items-center gap-1 sm:gap-2 min-w-0">
+      <a href="/" class="flex items-center gap-1 sm:gap-1.5 group shrink-0" aria-label="Billedkart Realtech">
+        <div class="w-6.5 h-6.5 sm:w-7 sm:h-7 rounded-lg bg-primary flex items-center justify-center text-on-primary shrink-0 shadow-xs">
+          <span class="material-symbols-outlined text-[15px] sm:text-[17px] text-tertiary-fixed">home_work</span>
+        </div>
+        <span class="font-extrabold text-[13.5px] sm:text-[15px] text-primary tracking-tight whitespace-nowrap">Billedkart<span class="text-secondary"> Realtech</span></span>
+      </a>
+
+      <!-- Mobile City Selector Button -->
+      <button id="mobile-city-btn"
+        class="w-6.5 h-6.5 sm:w-7 sm:h-7 rounded-lg bg-surface-container-low hover:bg-surface-container text-secondary flex items-center justify-center border border-surface-container shrink-0 transition-colors shadow-xs"
+        type="button" aria-label="Select City" title="Select City">
+        <span class="material-symbols-outlined text-[15px] sm:text-[16px]">location_on</span>
+        <span id="mobile-current-city" class="sr-only">Bengaluru</span>
+      </button>
+    </div>
+
+    <!-- Right: Contextual Post Property Actions (Help + Exit) -->
+    <div class="flex items-center gap-1.5 shrink-0">
+      <button type="button" onclick="triggerSupportCall()"
+        class="w-7 h-7 rounded-lg bg-surface-container-low hover:bg-surface-container text-primary flex items-center justify-center border border-surface-container transition-colors shadow-xs"
+        title="Listing Support Callback" aria-label="Support">
+        <span class="material-symbols-outlined text-[17px]">support_agent</span>
+      </button>
+
+      <a href="/home_property_discovery/code.html"
+        class="px-2 py-1 sm:px-2.5 sm:py-1 rounded-lg bg-surface-container-low hover:bg-surface-container border border-surface-container text-on-surface font-bold text-[11px] sm:text-xs flex items-center gap-1 transition-colors shadow-xs"
+        aria-label="Exit Listing Wizard">
+        <span class="material-symbols-outlined text-[14px] text-error">close</span>
+        <span>Exit</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Mobile City Dropdown Drawer -->
+  <div id="mobile-city-menu"
+    class="fixed inset-x-0 top-14 bg-white border-b border-surface-container p-3 shadow-card hidden z-50 animate-slide-down md:hidden">
+    <div class="text-[11px] font-bold text-outline uppercase tracking-wider mb-2">Select Your Territory</div>
+    <div class="grid grid-cols-2 gap-2">
+      <button class="mobile-city-opt p-2 rounded-lg bg-surface-container-low text-xs font-bold text-primary text-left flex justify-between" data-city="Bengaluru">Bengaluru <span class="text-tertiary">18k</span></button>
+      <button class="mobile-city-opt p-2 rounded-lg bg-surface-container-low text-xs font-medium text-on-surface text-left flex justify-between" data-city="Mumbai">Mumbai MMR <span class="text-outline">24k</span></button>
+      <button class="mobile-city-opt p-2 rounded-lg bg-surface-container-low text-xs font-medium text-on-surface text-left flex justify-between" data-city="Delhi NCR">Delhi NCR <span class="text-outline">22k</span></button>
+      <button class="mobile-city-opt p-2 rounded-lg bg-surface-container-low text-xs font-medium text-on-surface text-left flex justify-between" data-city="Hyderabad">Hyderabad <span class="text-outline">14k</span></button>
+      <button class="mobile-city-opt p-2 rounded-lg bg-surface-container-low text-xs font-medium text-on-surface text-left flex justify-between" data-city="Pune">Pune <span class="text-outline">11k</span></button>
+      <button class="mobile-city-opt p-2 rounded-lg bg-surface-container-low text-xs font-medium text-on-surface text-left flex justify-between" data-city="Lucknow">Lucknow <span class="text-outline">6k</span></button>
+    </div>
+  </div>
+
+  <!-- Native Mobile App Progress Bar (Fixed under Mobile Header) -->
+  <div class="block md:hidden fixed top-14 left-0 w-full z-30 px-3.5 py-2 bg-white/98 backdrop-blur-md border-b border-surface-container shadow-xs">
+    <div class="flex items-center justify-between gap-2 mb-1.5">
+      <div class="flex items-center gap-1.5 min-w-0">
+        <span class="w-2 h-2 rounded-full bg-secondary shrink-0 animate-pulse"></span>
+        <span id="mobileStepText" class="text-xs font-extrabold text-primary truncate">Step 1 of 8: Purpose</span>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span id="mobileStrengthBadge" class="text-[10px] font-bold text-tertiary bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+          Strength: 25%
+        </span>
+        <span id="mobileAutoSaveIndicator" class="text-[10px] font-semibold text-outline flex items-center gap-0.5">
+          <span class="material-symbols-outlined text-[13px] text-emerald-600">cloud_done</span>
+          <span>Saved</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Linear Progress Bar -->
+    <div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+      <div id="mobileProgressBar" class="h-full bg-gradient-to-r from-secondary to-secondary-dark rounded-full transition-all duration-300" style="width: 12.5%;"></div>
+    </div>
+
+    <!-- 8 Micro Dots / Quick Nav Indicators -->
+    <div class="flex items-center justify-between pt-1.5 px-0.5 text-[10px]" id="mobileStepDots">
+      <!-- Populated dynamically in post-property.js -->
+    </div>
+  </div>
+
+  <!-- ===================================================
+       2. WIZARD MAIN WRAPPER
+       =================================================== -->
+  <main class="w-full pt-[116px] md:pt-20 bg-surface min-h-screen pb-28 md:pb-12">
+    <div class="max-w-[1320px] mx-auto px-3 sm:px-4 lg:px-6 pt-1 sm:pt-4">
+
+      <!-- Top Wizard Announcement Banner (Desktop only - hidden on mobile for clean native app experience) -->
+      <div class="hidden md:block relative overflow-hidden rounded-xl bg-gradient-to-r from-primary via-primary-container to-primary p-4 sm:p-6 text-white shadow-md mb-6">
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary text-white text-[11px] font-bold uppercase tracking-wider">
+              <span class="material-symbols-outlined text-[13px]">bolt</span> Zero Brokerage Marketplace
+            </div>
+            <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight">Post Your Property For Free</h1>
+            <p class="text-xs sm:text-sm text-surface-container-highest max-w-2xl leading-relaxed">
+              Reach over 40 Lakh+ verified buyers, NRI investors, and high-intent tenants with instant digital title trust and direct owner visibility.
+            </p>
+          </div>
+          <div class="flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-lg self-start md:self-auto shrink-0 border border-white/15">
+            <div class="text-right">
+              <span class="text-[10px] text-surface-container-highest block uppercase font-bold">Cloud Session</span>
+              <span id="autoSaveStatusText" class="text-xs sm:text-sm font-bold text-white">Auto-Saved</span>
+            </div>
+            <div class="w-9 h-9 rounded-full bg-emerald-700 flex items-center justify-center text-white shadow-inner">
+              <span class="material-symbols-outlined text-[20px]">cloud_done</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stepper Strip (8 Steps) (Desktop only) -->
+      <div class="hidden md:block bg-white rounded-xl p-4 shadow-sm border border-surface-container mb-6 overflow-x-auto">
+        <div class="min-w-[780px]">
+          <div class="flex items-center justify-between mb-2.5">
+            <span class="text-xs text-primary uppercase font-bold tracking-wider flex items-center gap-1.5" id="stepperMilestoneText">
+              <span class="w-2 h-2 rounded-full bg-secondary"></span> Milestone 1 of 8
+            </span>
+            <span class="text-xs text-on-surface-variant font-medium">Estimated Time Remaining: 3 mins</span>
+          </div>
+
+          <ol class="grid grid-cols-8 gap-2 items-center" id="stepperList">
+            <!-- Step 1 -->
+            <li class="stepper-node flex flex-col gap-1 cursor-pointer" onclick="goToStep(1)">
+              <div class="flex items-center gap-1">
+                <div class="stepper-bubble">1</div>
+                <div class="stepper-line"></div>
+              </div>
+              <span class="stepper-label">1. Purpose</span>
+            </li>
+            <!-- Step 2 -->
+            <li class="stepper-node flex flex-col gap-1 cursor-pointer" onclick="goToStep(2)">
+              <div class="flex items-center gap-1">
+                <div class="stepper-bubble">2</div>
+                <div class="stepper-line"></div>
+              </div>
+              <span class="stepper-label">2. Location</span>
+            </li>
+            <!-- Step 3 -->
+            <li class="stepper-node flex flex-col gap-1 cursor-pointer" onclick="goToStep(3)">
+              <div class="flex items-center gap-1">
+                <div class="stepper-bubble">3</div>
+                <div class="stepper-line"></div>
+              </div>
+              <span class="stepper-label">3. Specs</span>
+            </li>
+            <!-- Step 4 -->
+            <li class="stepper-node flex flex-col gap-1 cursor-pointer" onclick="goToStep(4)">
+              <div class="flex items-center gap-1">
+                <div class="stepper-bubble">4</div>
+                <div class="stepper-line"></div>
+              </div>
+              <span class="stepper-label">4. Pricing</span>
+            </li>
+            <!-- Step 5 -->
+            <li class="stepper-node flex flex-col gap-1 cursor-pointer" onclick="goToStep(5)">
+              <div class="flex items-center gap-1">
+                <div class="stepper-bubble">5</div>
+                <div class="stepper-line"></div>
+              </div>
+              <span class="stepper-label">5. Amenities</span>
+            </li>
+            <!-- Step 6 -->
+            <li class="stepper-node flex flex-col gap-1 cursor-pointer" onclick="goToStep(6)">
+              <div class="flex items-center gap-1">
+                <div class="stepper-bubble">6</div>
+                <div class="stepper-line"></div>
+              </div>
+              <span class="stepper-label">6. Photos</span>
+            </li>
+            <!-- Step 7 -->
+            <li class="stepper-node flex flex-col gap-1 cursor-pointer" onclick="goToStep(7)">
+              <div class="flex items-center gap-1">
+                <div class="stepper-bubble">7</div>
+                <div class="stepper-line"></div>
+              </div>
+              <span class="stepper-label">7. KYC</span>
+            </li>
+            <!-- Step 8 -->
+            <li class="stepper-node flex flex-col gap-1 cursor-pointer" onclick="goToStep(8)">
+              <div class="flex items-center gap-1">
+                <div class="stepper-bubble">8</div>
+                <div class="stepper-line"></div>
+              </div>
+              <span class="stepper-label">8. Preview</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Main Layout: Form (Left 8 Cols) + Sidebar (Right 4 Cols) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+        <!-- ==============================================
+             LEFT WORKSPACE: 8 DYNAMIC STEP PANES
+             ============================================== -->
+        <div class="lg:col-span-8 flex flex-col gap-5">
+
+          <!-- --------------------------------------------
+               STEP 1: PURPOSE & CATEGORY
+               -------------------------------------------- -->
+          <div id="step-pane-1" class="space-y-5">
+            <section class="brand-section p-5 sm:p-6 space-y-4">
+              <div class="flex items-center justify-between border-b border-surface-container pb-3">
+                <div>
+                  <span class="text-[11px] text-secondary uppercase font-bold tracking-wider">Step 1 of 8</span>
+                  <h2 class="text-base sm:text-lg font-bold text-primary">What would you like to do?</h2>
+                </div>
+                <span class="w-7 h-7 rounded-full bg-surface-container-low text-primary flex items-center justify-center font-bold text-xs">1</span>
+              </div>
+
+              <!-- Purpose Selection -->
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-on-surface block">Listing Purpose</label>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  <button type="button" data-purpose="Sell" onclick="selectPurpose('Sell')"
+                    class="purpose-btn choice-card active p-3 rounded-lg flex items-center justify-center gap-2 font-bold text-xs sm:text-sm">
+                    <span class="material-symbols-outlined text-[18px]">sell</span>
+                    <span>Sell</span>
+                  </button>
+                  <button type="button" data-purpose="Rent" onclick="selectPurpose('Rent')"
+                    class="purpose-btn choice-card p-3 rounded-lg flex items-center justify-center gap-2 font-semibold text-xs sm:text-sm text-on-surface-variant">
+                    <span class="material-symbols-outlined text-[18px]">key</span>
+                    <span>Rent Out</span>
+                  </button>
+                  <button type="button" data-purpose="Lease" onclick="selectPurpose('Lease')"
+                    class="purpose-btn choice-card p-3 rounded-lg flex items-center justify-center gap-2 font-semibold text-xs sm:text-sm text-on-surface-variant">
+                    <span class="material-symbols-outlined text-[18px]">corporate_fare</span>
+                    <span>Commercial Lease</span>
+                  </button>
+                  <button type="button" data-purpose="PG" onclick="selectPurpose('PG')"
+                    class="purpose-btn choice-card p-3 rounded-lg flex items-center justify-center gap-2 font-semibold text-xs sm:text-sm text-on-surface-variant">
+                    <span class="material-symbols-outlined text-[18px]">hotel</span>
+                    <span>PG / Co-Living</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Property Category -->
+              <div class="space-y-2 pt-2">
+                <label class="text-xs font-bold text-on-surface block">Property Category</label>
+                <div class="grid grid-cols-3 gap-2.5">
+                  <button type="button" data-category="Residential" onclick="selectCategory('Residential')"
+                    class="category-btn choice-card active p-3.5 rounded-lg flex flex-col items-center gap-1.5 font-bold text-xs sm:text-sm text-center">
+                    <div class="choice-icon w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                      <span class="material-symbols-outlined text-[18px]">home</span>
+                    </div>
+                    <span>Residential</span>
+                  </button>
+                  <button type="button" data-category="Commercial" onclick="selectCategory('Commercial')"
+                    class="category-btn choice-card p-3.5 rounded-lg flex flex-col items-center gap-1.5 font-semibold text-xs sm:text-sm text-center text-on-surface-variant">
+                    <div class="choice-icon w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                      <span class="material-symbols-outlined text-[18px]">storefront</span>
+                    </div>
+                    <span>Commercial</span>
+                  </button>
+                  <button type="button" data-category="Plot" onclick="selectCategory('Plot')"
+                    class="category-btn choice-card p-3.5 rounded-lg flex flex-col items-center gap-1.5 font-semibold text-xs sm:text-sm text-center text-on-surface-variant">
+                    <div class="choice-icon w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                      <span class="material-symbols-outlined text-[18px]">landscape</span>
+                    </div>
+                    <span>Plot / Land</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Dynamic Property Type Pills -->
+              <div class="space-y-2 pt-2">
+                <label class="text-xs font-bold text-on-surface block">Property Type</label>
+                <div class="flex flex-wrap gap-2" id="propertyTypeContainer">
+                  <!-- Populated dynamically via JS -->
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- --------------------------------------------
+               STEP 2: PROPERTY LOCATION
+               -------------------------------------------- -->
+          <div id="step-pane-2" class="space-y-5 hidden">
+            <section class="brand-section p-5 sm:p-6 space-y-4">
+              <div class="flex items-center justify-between border-b border-surface-container pb-3">
+                <div>
+                  <span class="text-[11px] text-secondary uppercase font-bold tracking-wider">Step 2 of 8</span>
+                  <h2 class="text-base sm:text-lg font-bold text-primary">Property Location & Project</h2>
+                </div>
+                <span class="w-7 h-7 rounded-full bg-surface-container-low text-primary flex items-center justify-center font-bold text-xs">2</span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- City -->
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Major City *</label>
+                  <select id="inputCity" onchange="handleLocationInput('city', this.value)"
+                    class="brand-input w-full h-11 px-3 text-xs font-semibold cursor-pointer">
+                    <option value="Bengaluru" selected>Bengaluru</option>
+                    <option value="Mumbai">Mumbai MMR</option>
+                    <option value="Delhi NCR">Delhi NCR</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Ahmedabad">Ahmedabad</option>
+                  </select>
+                </div>
+
+                <!-- Locality -->
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Locality / Area *</label>
+                  <input type="text" id="inputLocality" value="Indiranagar"
+                    oninput="handleLocationInput('locality', this.value)"
+                    placeholder="e.g. Indiranagar, Whitefield, HSR Layout"
+                    class="brand-input w-full h-11 px-3 text-xs font-semibold" />
+                </div>
+
+                <!-- Sub-locality -->
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Sub-locality / Sector</label>
+                  <input type="text" id="inputSubLocality" value="100 Feet Road"
+                    oninput="handleLocationInput('subLocality', this.value)"
+                    placeholder="e.g. 100ft Road, 4th Block, Stage 2"
+                    class="brand-input w-full h-11 px-3 text-xs font-semibold" />
+                </div>
+
+                <!-- Society / Project Name -->
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Project / Society Name</label>
+                  <input type="text" id="inputProjectName" value="Godrej Splendour"
+                    oninput="handleLocationInput('projectName', this.value)"
+                    placeholder="e.g. Prestige Shantiniketan, Godrej Splendour"
+                    class="brand-input w-full h-11 px-3 text-xs font-semibold" />
+                </div>
+
+                <!-- Full Address -->
+                <div class="sm:col-span-2 space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Full Address Line</label>
+                  <input type="text" id="inputAddress"
+                    oninput="handleLocationInput('addressLine', this.value)"
+                    placeholder="Tower / House Number, Street, Sector"
+                    class="brand-input w-full h-11 px-3 text-xs font-semibold" />
+                </div>
+
+                <!-- PIN Code -->
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">PIN Code</label>
+                  <input type="text" id="inputPincode" value="560038"
+                    oninput="handleLocationInput('pincode', this.value)"
+                    placeholder="e.g. 560038"
+                    class="brand-input w-full h-11 px-3 text-xs font-semibold" />
+                </div>
+
+                <!-- Landmark -->
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Prominent Landmark</label>
+                  <input type="text" id="inputLandmark"
+                    oninput="handleLocationInput('landmark', this.value)"
+                    placeholder="e.g. Near Metro Station, Opposite Central Mall"
+                    class="brand-input w-full h-11 px-3 text-xs font-semibold" />
+                </div>
+              </div>
+
+              <!-- Privacy Toggle -->
+              <div class="p-3 rounded-lg bg-surface-container-low border border-surface-container flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-[18px]">visibility_off</span>
+                  <div>
+                    <span class="text-xs font-bold text-primary block">Protect Exact Door Number</span>
+                    <span class="text-[11px] text-on-surface-variant">Only verified enquiry leads can view exact door/flat number.</span>
+                  </div>
+                </div>
+                <input type="checkbox" id="checkHideExactLocation" checked onchange="wizardState.hideExactLocation = this.checked; triggerAutoSave();"
+                  class="accent-primary w-4 h-4 cursor-pointer" />
+              </div>
+            </section>
+          </div>
+
+          <!-- --------------------------------------------
+               STEP 3: SPECIFICATIONS
+               -------------------------------------------- -->
+          <div id="step-pane-3" class="space-y-5 hidden">
+            <!-- Dimensions Section -->
+            <section class="brand-section p-5 sm:p-6 space-y-4">
+              <div class="flex items-center justify-between border-b border-surface-container pb-3">
+                <div>
+                  <span class="text-[11px] text-secondary uppercase font-bold tracking-wider">Step 3 of 8</span>
+                  <h2 class="text-base sm:text-lg font-bold text-primary">Configuration & Blueprint Dimensions</h2>
+                </div>
+                <span class="w-7 h-7 rounded-full bg-surface-container-low text-primary flex items-center justify-center font-bold text-xs">3</span>
+              </div>
+
+              <!-- SBUA & Carpet -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <div class="flex items-center justify-between">
+                    <label class="text-xs font-bold text-on-surface">Super Built-up Area</label>
+                    <span class="text-[10px] text-outline uppercase font-semibold">sq.ft</span>
+                  </div>
+                  <div class="relative">
+                    <input type="text" id="inputSba" value="1,850" oninput="handleAreaChange()"
+                      class="brand-input w-full h-11 px-3 pr-12 text-sm font-bold" />
+                    <span class="absolute right-3 top-3 text-outline text-xs font-bold">Sq.Ft</span>
+                  </div>
+                  <p class="text-[11px] text-outline">Includes proportionate share of elevator and lobby areas.</p>
+                </div>
+
+                <div class="space-y-1.5">
+                  <div class="flex items-center justify-between">
+                    <label class="text-xs font-bold text-on-surface">Carpet Area (RERA Mandated)</label>
+                    <span id="carpetEfficiencyBadge" class="text-[10px] text-emerald-700 font-bold uppercase bg-emerald-50 px-1.5 py-0.5 rounded">80.0% efficiency</span>
+                  </div>
+                  <div class="relative">
+                    <input type="text" id="inputCarpet" value="1,480" oninput="handleAreaChange()"
+                      class="brand-input w-full h-11 px-3 pr-12 text-sm font-bold" />
+                    <span class="absolute right-3 top-3 text-outline text-xs font-bold">Sq.Ft</span>
+                  </div>
+                  <p class="text-[11px] text-emerald-800 font-medium">Net usable floor area inside perimeter walls.</p>
+                </div>
+              </div>
+
+              <!-- BHK Buttons -->
+              <div class="space-y-2 pt-2">
+                <label class="text-xs font-bold text-on-surface block">Number of Bedrooms (BHK)</label>
+                <div class="grid grid-cols-5 gap-2">
+                  <button type="button" data-bhk="1" onclick="selectBHK(1)"
+                    class="bhk-btn h-10 rounded-lg bg-surface-container-low text-on-surface font-semibold text-xs sm:text-sm hover:bg-surface-container">1 BHK</button>
+                  <button type="button" data-bhk="2" onclick="selectBHK(2)"
+                    class="bhk-btn h-10 rounded-lg bg-surface-container-low text-on-surface font-semibold text-xs sm:text-sm hover:bg-surface-container">2 BHK</button>
+                  <button type="button" data-bhk="3" onclick="selectBHK(3)"
+                    class="bhk-btn h-10 rounded-lg bg-primary text-white font-bold text-xs sm:text-sm shadow-xs">3 BHK</button>
+                  <button type="button" data-bhk="4" onclick="selectBHK(4)"
+                    class="bhk-btn h-10 rounded-lg bg-surface-container-low text-on-surface font-semibold text-xs sm:text-sm hover:bg-surface-container">4 BHK</button>
+                  <button type="button" data-bhk="5" onclick="selectBHK(5)"
+                    class="bhk-btn h-10 rounded-lg bg-surface-container-low text-on-surface font-semibold text-xs sm:text-sm hover:bg-surface-container">5+ BHK</button>
+                </div>
+              </div>
+
+              <!-- Bathrooms & Balconies -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Bathrooms</label>
+                  <div class="grid grid-cols-4 gap-2">
+                    <button type="button" data-bath="1" onclick="selectBathrooms(1)" class="bath-btn h-9 rounded-lg bg-surface-container-low text-xs font-semibold">1</button>
+                    <button type="button" data-bath="2" onclick="selectBathrooms(2)" class="bath-btn h-9 rounded-lg bg-surface-container-low text-xs font-semibold">2</button>
+                    <button type="button" data-bath="3" onclick="selectBathrooms(3)" class="bath-btn h-9 rounded-lg bg-primary text-white font-bold text-xs shadow-xs">3</button>
+                    <button type="button" data-bath="4" onclick="selectBathrooms(4)" class="bath-btn h-9 rounded-lg bg-surface-container-low text-xs font-semibold">4+</button>
+                  </div>
+                </div>
+
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Balconies</label>
+                  <div class="grid grid-cols-3 gap-2">
+                    <button type="button" data-balc="1" onclick="selectBalconies(1)" class="balc-btn h-9 rounded-lg bg-surface-container-low text-xs font-semibold">1</button>
+                    <button type="button" data-balc="2" onclick="selectBalconies(2)" class="balc-btn h-9 rounded-lg bg-primary text-white font-bold text-xs shadow-xs">2</button>
+                    <button type="button" data-balc="3" onclick="selectBalconies(3)" class="balc-btn h-9 rounded-lg bg-surface-container-low text-xs font-semibold">3+</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floor & Vaastu -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Property on Floor</label>
+                  <input type="number" id="inputFloorNumber" value="9"
+                    oninput="wizardState.floorNumber = Number(this.value); updateLivePreview(); triggerAutoSave();"
+                    class="brand-input w-full h-10 px-3 text-xs font-bold" />
+                </div>
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Total Floors in Wing</label>
+                  <input type="number" id="inputTotalFloors" value="18"
+                    oninput="wizardState.totalFloors = Number(this.value); triggerAutoSave();"
+                    class="brand-input w-full h-10 px-3 text-xs font-bold" />
+                </div>
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Vaastu / Facing</label>
+                  <select id="inputFacing" onchange="wizardState.facing = this.value; updateLivePreview(); triggerAutoSave();"
+                    class="brand-input w-full h-10 px-3 text-xs font-bold cursor-pointer">
+                    <option value="East Facing (Surya Vaastu)" selected>East Facing (Surya)</option>
+                    <option value="North Facing (Kubera)">North Facing (Kubera)</option>
+                    <option value="North-East Facing (Ishanya)">North-East (Ishanya)</option>
+                    <option value="West Facing">West Facing</option>
+                    <option value="South Facing">South Facing</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Furnishing & Parking -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Furnishing Level</label>
+                  <div class="grid grid-cols-3 gap-2">
+                    <button type="button" data-furnish="unfurnished" onclick="selectFurnishing('unfurnished')"
+                      class="furnish-btn h-10 rounded-lg bg-surface-container-low text-xs font-semibold">Unfurnished</button>
+                    <button type="button" data-furnish="semi_furnished" onclick="selectFurnishing('semi_furnished')"
+                      class="furnish-btn h-10 rounded-lg bg-primary text-white font-bold text-xs shadow-xs">Semi-Furnished</button>
+                    <button type="button" data-furnish="fully_furnished" onclick="selectFurnishing('fully_furnished')"
+                      class="furnish-btn h-10 rounded-lg bg-surface-container-low text-xs font-semibold">Fully Furnished</button>
+                  </div>
+                </div>
+
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Dedicated Parking Slots</label>
+                  <div class="grid grid-cols-3 gap-2">
+                    <button type="button" data-park="1" onclick="selectParking(1)"
+                      class="park-btn h-10 rounded-lg bg-surface-container-low text-xs font-semibold">1 Covered</button>
+                    <button type="button" data-park="2" onclick="selectParking(2)"
+                      class="park-btn h-10 rounded-lg bg-primary text-white font-bold text-xs shadow-xs">2 Covered</button>
+                    <button type="button" data-park="0" onclick="selectParking(0)"
+                      class="park-btn h-10 rounded-lg bg-surface-container-low text-xs font-semibold">Open / None</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- --------------------------------------------
+               STEP 4: PRICING & FINANCIALS
+               -------------------------------------------- -->
+          <div id="step-pane-4" class="space-y-5 hidden">
+            <section class="brand-section p-5 sm:p-6 space-y-4">
+              <div class="flex items-center justify-between border-b border-surface-container pb-3">
+                <div>
+                  <span class="text-[11px] text-secondary uppercase font-bold tracking-wider">Step 4 of 8</span>
+                  <h2 class="text-base sm:text-lg font-bold text-primary">Price & Financial Details</h2>
+                </div>
+                <span class="w-7 h-7 rounded-full bg-surface-container-low text-primary flex items-center justify-center font-bold text-xs">4</span>
+              </div>
+
+              <!-- Price Box -->
+              <div class="p-4 rounded-xl bg-surface-container-low border border-surface-container space-y-3">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <label id="priceInputLabel" class="text-xs sm:text-sm font-bold text-on-surface">
+                    Total Expected Selling Price (INR) *
+                  </label>
+                  <span class="text-[11px] text-outline font-semibold">Indiranagar Avg: ₹14,800/sq.ft</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+                  <div class="sm:col-span-7 relative">
+                    <span class="absolute left-3.5 top-2.5 font-bold text-base text-outline">₹</span>
+                    <input type="text" id="inputPrice" value="2,65,00,000" oninput="handlePriceInput(this.value)"
+                      class="brand-input w-full h-12 pl-8 pr-3 text-lg font-extrabold" />
+                  </div>
+                  <div class="sm:col-span-5 bg-white p-2.5 rounded-lg border border-surface-container shadow-xs">
+                    <div id="priceInWords" class="text-sm font-extrabold text-primary">₹2.65 Crore</div>
+                    <div id="priceBreakupText" class="text-[11px] text-outline font-semibold">Breakup: ₹14,324 / sq.ft</div>
+                  </div>
+                </div>
+
+                <!-- Price Negotiable Switch -->
+                <div class="pt-1 flex items-center justify-between">
+                  <label class="flex items-center gap-2 cursor-pointer text-xs font-semibold text-on-surface">
+                    <input type="checkbox" id="checkPriceNegotiable" checked onchange="wizardState.isNegotiable = this.checked; triggerAutoSave();"
+                      class="accent-secondary w-4 h-4 cursor-pointer" />
+                    <span>Price Negotiable for Serious Buyers</span>
+                  </label>
+                  <span class="text-[11px] text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded">High Buyer Response</span>
+                </div>
+              </div>
+
+              <!-- Maintenance & Stamp Duty -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Monthly Society Maintenance</label>
+                  <div class="relative">
+                    <span class="absolute left-3 top-2.5 text-outline text-xs">₹</span>
+                    <input type="number" id="inputMaintenance" value="6500"
+                      oninput="wizardState.maintenance = Number(this.value); triggerAutoSave();"
+                      class="brand-input w-full h-10 pl-7 pr-16 text-xs font-bold" />
+                    <span class="absolute right-3 top-2.5 text-outline text-[11px] font-semibold">/ Month</span>
+                  </div>
+                </div>
+
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Stamp Duty & Registration</label>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button type="button" onclick="wizardState.stampDutyBorneBy = 'Included'; triggerAutoSave();"
+                      class="h-10 rounded-lg bg-surface-container-low text-xs font-semibold text-center hover:bg-surface-container">Included in Price</button>
+                    <button type="button" onclick="wizardState.stampDutyBorneBy = 'Buyer'; triggerAutoSave();"
+                      class="h-10 rounded-lg bg-primary text-white font-bold text-xs text-center shadow-xs">Borne by Buyer</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Rental Specific Options (If Rent selected) -->
+              <div id="rentalSpecificRow" class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1 hidden">
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Security Deposit (INR)</label>
+                  <div class="relative">
+                    <span class="absolute left-3 top-2.5 text-outline text-xs">₹</span>
+                    <input type="number" id="inputDeposit"
+                      oninput="wizardState.deposit = Number(this.value); triggerAutoSave();"
+                      placeholder="e.g. 150000"
+                      class="brand-input w-full h-10 pl-7 pr-3 text-xs font-bold" />
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Available From Date</label>
+                  <input type="date" id="inputAvailableFrom"
+                    class="brand-input w-full h-10 px-3 text-xs font-semibold" />
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- --------------------------------------------
+               STEP 5: AMENITIES & DESCRIPTION
+               -------------------------------------------- -->
+          <div id="step-pane-5" class="space-y-5 hidden">
+            <section class="brand-section p-5 sm:p-6 space-y-4">
+              <div class="flex items-center justify-between border-b border-surface-container pb-3">
+                <div>
+                  <span class="text-[11px] text-secondary uppercase font-bold tracking-wider">Step 5 of 8</span>
+                  <h2 class="text-base sm:text-lg font-bold text-primary">Amenities & Property Narrative</h2>
+                </div>
+                <span class="w-7 h-7 rounded-full bg-surface-container-low text-primary flex items-center justify-center font-bold text-xs">5</span>
+              </div>
+
+              <!-- Dynamic Amenities Grid -->
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-on-surface block">Select Verified Amenities</label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="amenitiesChecklistContainer">
+                  <!-- Populated dynamically via JS -->
+                </div>
+              </div>
+
+              <!-- Property Title -->
+              <div class="space-y-1.5 pt-2">
+                <label class="text-xs font-bold text-on-surface block">Listing Title *</label>
+                <input type="text" id="inputTitle" value="3 BHK High-Rise Apartment in Indiranagar"
+                  oninput="wizardState.title = this.value; updateLivePreview(); triggerAutoSave();"
+                  placeholder="e.g. 3 BHK Corner Apartment in Godrej Splendour"
+                  class="brand-input w-full h-11 px-3 text-xs sm:text-sm font-bold" />
+              </div>
+
+              <!-- Description with Suggestions -->
+              <div class="space-y-1.5 pt-1">
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-bold text-on-surface">Detailed Property Description</label>
+                  <span id="descCharCounter" class="text-[11px] text-outline font-semibold">124 chars</span>
+                </div>
+                <textarea id="inputDescription" rows="4"
+                  oninput="wizardState.description = this.value; document.getElementById('descCharCounter').textContent = this.value.length + ' chars'; triggerAutoSave();"
+                  class="brand-input w-full p-3 text-xs font-medium leading-relaxed">Spacious 3 BHK home situated in prime Indiranagar with expansive balcony view, modular kitchen, and full RERA compliance.</textarea>
+                
+                <!-- Quick Suggestions -->
+                <div class="pt-1 space-y-1">
+                  <span class="text-[10px] uppercase font-bold text-outline tracking-wider">Suggested Templates:</span>
+                  <div class="flex flex-wrap gap-1.5">
+                    <button type="button" onclick="applySuggestedDescription('Exceptional east-facing 3 BHK residence with unobstructed greenery view, 100% Vaastu compliance, Italian marble flooring, and ready clubhouse access.')"
+                      class="px-2.5 py-1 rounded bg-surface-container-low text-[11px] font-semibold text-primary hover:bg-surface-container transition-colors border border-surface-container">
+                      + Vaastu & Balcony View
+                    </button>
+                    <button type="button" onclick="applySuggestedDescription('Direct owner listing with zero brokerage. Prime metro connectivity within 500m, Cauvery water connection, and dual reserved basement parking.')"
+                      class="px-2.5 py-1 rounded bg-surface-container-low text-[11px] font-semibold text-primary hover:bg-surface-container transition-colors border border-surface-container">
+                      + Metro & Zero Brokerage
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- --------------------------------------------
+               STEP 6: PHOTOS & MEDIA UPLOAD
+               -------------------------------------------- -->
+          <div id="step-pane-6" class="space-y-5 hidden">
+            <section class="brand-section p-5 sm:p-6 space-y-4">
+              <div class="flex items-center justify-between border-b border-surface-container pb-3">
+                <div>
+                  <span class="text-[11px] text-secondary uppercase font-bold tracking-wider">Step 6 of 8</span>
+                  <h2 class="text-base sm:text-lg font-bold text-primary">Photos & Property Gallery</h2>
+                </div>
+                <span class="w-7 h-7 rounded-full bg-surface-container-low text-primary flex items-center justify-center font-bold text-xs">6</span>
+              </div>
+
+              <!-- Drag and drop zone -->
+              <div id="photoDropzone" class="dropzone-box p-6 text-center cursor-pointer space-y-3"
+                onclick="document.getElementById('photoFileInput').click()">
+                <input type="file" id="photoFileInput" multiple accept="image/jpeg,image/png,image/webp" class="hidden" />
+                
+                <div class="w-12 h-12 rounded-full bg-primary/10 text-primary mx-auto flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[28px]">add_a_photo</span>
+                </div>
+                <div>
+                  <p class="text-sm font-bold text-primary">Click to upload photos or drag and drop</p>
+                  <p class="text-xs text-outline mt-0.5">JPEG, PNG, WebP up to 10MB per photo. Minimum 3 photos recommended.</p>
+                </div>
+                <button type="button" class="brand-btn-outline px-4 py-1.5 text-xs">
+                  Browse Files from Device
+                </button>
+              </div>
+
+              <!-- Upload Progress Indicator -->
+              <div id="uploadProgressBox" class="space-y-1 hidden">
+                <div class="flex items-center justify-between text-xs font-semibold text-primary">
+                  <span>Uploading photos...</span>
+                  <span id="uploadProgressPct">Processing</span>
+                </div>
+                <div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+                  <div id="uploadProgressBar" class="h-full bg-secondary transition-all duration-300 w-0"></div>
+                </div>
+              </div>
+
+              <!-- Uploaded Gallery Grid -->
+              <div class="space-y-2 pt-2">
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-bold text-on-surface">Gallery Photos</label>
+                  <span id="uploadedPhotoCount" class="text-xs font-bold text-secondary">2 photos added</span>
+                </div>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3" id="imageGalleryGrid">
+                  <!-- Populated dynamically via JS -->
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- --------------------------------------------
+               STEP 7: OWNER KYC & VERIFICATION
+               -------------------------------------------- -->
+          <div id="step-pane-7" class="space-y-5 hidden">
+            <section class="brand-section p-5 sm:p-6 space-y-4">
+              <div class="flex items-center justify-between border-b border-surface-container pb-3">
+                <div>
+                  <span class="text-[11px] text-secondary uppercase font-bold tracking-wider">Step 7 of 8</span>
+                  <h2 class="text-base sm:text-lg font-bold text-primary">Owner / Seller Verification</h2>
+                </div>
+                <span class="w-7 h-7 rounded-full bg-surface-container-low text-primary flex items-center justify-center font-bold text-xs">7</span>
+              </div>
+
+              <!-- Posting As Radio Cards -->
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-on-surface block">You are posting as</label>
+                <div class="grid grid-cols-3 gap-2.5">
+                  <button type="button" data-ownertype="owner" onclick="selectOwnerType('owner')"
+                    class="owner-type-btn choice-card active p-3 rounded-lg flex items-center gap-2 font-bold text-xs sm:text-sm">
+                    <span class="material-symbols-outlined text-[18px]">person</span>
+                    <span>Direct Owner</span>
+                  </button>
+                  <button type="button" data-ownertype="agent" onclick="selectOwnerType('agent')"
+                    class="owner-type-btn choice-card p-3 rounded-lg flex items-center gap-2 font-semibold text-xs sm:text-sm text-on-surface-variant">
+                    <span class="material-symbols-outlined text-[18px]">badge</span>
+                    <span>Certified Agent</span>
+                  </button>
+                  <button type="button" data-ownertype="builder" onclick="selectOwnerType('builder')"
+                    class="owner-type-btn choice-card p-3 rounded-lg flex items-center gap-2 font-semibold text-xs sm:text-sm text-on-surface-variant">
+                    <span class="material-symbols-outlined text-[18px]">domain</span>
+                    <span>Builder Team</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Contact Information -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Your Full Name *</label>
+                  <input type="text" id="inputOwnerName" value="Venkatesh Rao"
+                    oninput="wizardState.ownerName = this.value; triggerAutoSave();"
+                    class="brand-input w-full h-11 px-3 text-xs font-semibold" />
+                </div>
+
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Registered Mobile Number (+91) *</label>
+                  <div class="relative">
+                    <span class="absolute left-3 top-3 text-xs font-bold text-outline">+91</span>
+                    <input type="tel" id="inputOwnerPhone" value="9845012345" maxlength="10"
+                      oninput="wizardState.ownerPhone = this.value; triggerAutoSave();"
+                      class="brand-input w-full h-11 pl-11 pr-3 text-xs font-semibold" />
+                  </div>
+                </div>
+
+                <div class="sm:col-span-2 space-y-1.5">
+                  <label class="text-xs font-bold text-on-surface block">Email Address (Optional for enquiry alerts)</label>
+                  <input type="email" id="inputOwnerEmail" value="venkatesh.rao@example.com"
+                    oninput="wizardState.ownerEmail = this.value; triggerAutoSave();"
+                    class="brand-input w-full h-11 px-3 text-xs font-semibold" />
+                </div>
+              </div>
+
+              <!-- Private Ownership Proof Upload -->
+              <div class="p-4 rounded-xl bg-surface-container-low border border-surface-container space-y-3 pt-3">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+                  <div>
+                    <h3 class="text-xs font-bold text-primary">Upload Ownership Proof (Private & Encrypted)</h3>
+                    <p class="text-[11px] text-on-surface-variant">Khata certificate, electricity bill, or sale deed copy. Never shared publicly.</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                  <input type="file" id="docFileInput" accept=".pdf,.jpg,.jpeg,.png" class="hidden" onchange="handleDocUpload(this)" />
+                  <button type="button" onclick="document.getElementById('docFileInput').click()"
+                    class="brand-btn-outline px-3.5 py-2 text-xs flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[16px]">upload_file</span>
+                    <span>Upload Document</span>
+                  </button>
+                  <span class="text-[11px] text-outline">Supported: PDF, JPG, PNG (up to 15MB)</span>
+                </div>
+
+                <div id="uploadedDocsList" class="space-y-1.5 pt-1">
+                  <!-- Rendered via JS -->
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- --------------------------------------------
+               STEP 8: COMPLETE PREVIEW & FINAL SUBMISSION
+               -------------------------------------------- -->
+          <div id="step-pane-8" class="space-y-5 hidden">
+            <section class="brand-section p-5 sm:p-6 space-y-5">
+              <div class="flex items-center justify-between border-b border-surface-container pb-3">
+                <div>
+                  <span class="text-[11px] text-secondary uppercase font-bold tracking-wider">Step 8 of 8</span>
+                  <h2 class="text-base sm:text-lg font-bold text-primary">Final Verification & Submission</h2>
+                </div>
+                <span class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">8</span>
+              </div>
+
+              <!-- Dynamic Final Review Canvas (Synchronized to PDP layout) -->
+              <div id="step8ReviewSummary" class="space-y-4">
+                <!-- Injected via post-property.js -->
+              </div>
+
+              <!-- Submit Box -->
+              <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-emerald-700 text-[22px]">verified</span>
+                  <div>
+                    <div class="text-xs font-bold text-emerald-900">Zero Brokerage Guarantee Active</div>
+                    <div class="text-[11px] text-emerald-800">Your listing will be published live immediately on Billedkart Realtech.</div>
+                  </div>
+                </div>
+
+                <button type="button" id="finalSubmitBtn" onclick="submitPropertyListing()"
+                  class="brand-btn-primary px-6 py-3 text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md">
+                  <span>Publish Property Now</span>
+                  <span class="material-symbols-outlined text-[18px]">check_circle</span>
+                </button>
+              </div>
+            </section>
+          </div>
+
+          <!-- ==============================================
+               BOTTOM STEPPER ACTION FOOTER
+               ============================================== -->
+          <div class="brand-section p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
+            <button type="button" onclick="prevStep()" id="btnPrevStep"
+              class="w-full sm:w-auto brand-btn-outline px-4 py-2 text-xs flex items-center justify-center gap-1.5">
+              <span class="material-symbols-outlined text-[17px]">arrow_back</span>
+              <span>Previous Step</span>
+            </button>
+
+            <div class="w-full sm:w-auto flex items-center gap-2 justify-end">
+              <button type="button" onclick="triggerAutoSave(); showToast('Draft saved successfully');"
+                class="w-full sm:w-auto px-4 py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors text-xs font-semibold flex items-center justify-center gap-1">
+                <span class="material-symbols-outlined text-[16px]">bookmark</span>
+                <span>Save Draft</span>
+              </button>
+
+              <button type="button" onclick="nextStep()" id="btnNextStep"
+                class="w-full sm:w-auto brand-btn-primary px-6 py-2.5 text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-sm">
+                <span>Continue</span>
+                <span class="material-symbols-outlined text-[17px]">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Contextual Safety Tip Callout -->
+          <div class="p-3.5 rounded-lg bg-surface-container-low border border-surface-container flex items-start gap-2.5 text-xs">
+            <span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">verified_user</span>
+            <div>
+              <span class="font-bold text-primary block mb-0.5">Billedkart Realtech Safety Note</span>
+              <p id="contextualSafetyTip" class="text-on-surface-variant leading-relaxed">
+                Choose the most precise property category so institutional buyers and families searching for your exact property type can reach you instantly.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==============================================
+             RIGHT SIDEBAR: METRICS, LIVE PREVIEW & ASSISTANT
+             ============================================== -->
+        <aside class="lg:col-span-4 flex flex-col gap-5 sticky top-20">
+
+          <!-- 1. Listing Strength Gauge Card -->
+          <div class="brand-card p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></div>
+                <h3 class="text-xs sm:text-sm font-bold text-primary">Listing Strength</h3>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] uppercase font-bold">Good</span>
+            </div>
+
+            <div class="flex items-center gap-3.5 bg-surface-container-low p-3.5 rounded-xl border border-surface-container">
+              <!-- SVG Gauge Chart -->
+              <div class="relative w-16 h-16 shrink-0 flex items-center justify-center">
+                <svg class="w-16 h-16 transform -rotate-90" viewBox="0 0 36 36">
+                  <path class="strength-circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                  <path id="strengthCircleFg" class="strength-circle-fg" stroke-dasharray="65, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                  <span id="strengthScoreText" class="text-sm font-extrabold text-on-surface">65%</span>
+                  <span class="text-[8px] text-outline uppercase font-bold">Score</span>
+                </div>
+              </div>
+
+              <div class="space-y-0.5">
+                <p class="text-xs font-bold text-on-surface">Next Boost: Photos</p>
+                <p class="text-[11px] text-on-surface-variant leading-tight">Adding 3+ photos & Khata extract boosts serious enquiries by <span class="text-secondary font-bold">4x</span>.</p>
+              </div>
+            </div>
+
+            <!-- Strength Checklist -->
+            <div class="space-y-2 pt-1 text-xs">
+              <div class="flex items-center justify-between" id="checkItemSpecs">
+                <span class="flex items-center gap-1.5 text-on-surface">
+                  <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+                  Basic Blueprint Specs
+                </span>
+                <span class="text-emerald-700 font-bold">+25%</span>
+              </div>
+              <div class="flex items-center justify-between" id="checkItemMedia">
+                <span class="flex items-center gap-1.5 text-on-surface-variant">
+                  <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+                  Living Room & Kitchen Media
+                </span>
+                <span class="text-emerald-700 font-bold">+25%</span>
+              </div>
+              <div class="flex items-center justify-between" id="checkItemKyc">
+                <span class="flex items-center gap-1.5 text-on-surface-variant">
+                  <span class="material-symbols-outlined text-[16px] text-outline">radio_button_unchecked</span>
+                  Owner e-KYC Verification
+                </span>
+                <span class="text-outline font-semibold">+15%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Live Property Preview Snippet Card -->
+          <div class="brand-card overflow-hidden">
+            <div class="relative h-36 w-full bg-surface-container">
+              <img id="sidebarPreviewImage" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80"
+                class="w-full h-full object-cover" alt="Preview Thumbnail" />
+              <div class="absolute bottom-2 left-2 px-2 py-0.5 bg-white/90 backdrop-blur-md rounded text-[10px] font-bold text-primary">
+                Live Card Preview
+              </div>
+              <div id="sidebarPreviewLocation" class="absolute top-2 right-2 px-2 py-0.5 bg-primary text-white rounded text-[10px] font-bold">
+                Indiranagar, Bengaluru
+              </div>
+            </div>
+
+            <div class="p-3.5 space-y-1">
+              <div id="sidebarPreviewTitle" class="text-xs sm:text-sm font-bold text-on-surface truncate">
+                3 BHK High-Rise Apartment in Indiranagar
+              </div>
+              <div id="sidebarPreviewSpecs" class="text-[11px] text-outline">
+                1,850 sq.ft • Floor 9 • East Facing
+              </div>
+              <div class="flex items-baseline justify-between pt-1">
+                <span id="sidebarPreviewPrice" class="text-sm sm:text-base font-extrabold text-primary">₹2.65 Crore</span>
+                <span id="sidebarPreviewRate" class="text-[10px] text-outline font-semibold">₹14,324 / sq.ft</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Locality Valuation Trend Card -->
+          <div class="brand-card p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-on-surface">Locality Valuation Trend</span>
+              <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded">+8.4% YoY</span>
+            </div>
+            <div class="w-full h-10 pt-1">
+              <svg class="w-full h-full text-primary" fill="none" viewBox="0 0 200 40">
+                <path d="M0 35 L30 32 L60 28 L90 29 L120 22 L150 18 L180 10 L200 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+                <path d="M0 35 L30 32 L60 28 L90 29 L120 22 L150 18 L180 10 L200 6 L200 40 L0 40 Z" fill="currentColor" fill-opacity="0.08"></path>
+              </svg>
+            </div>
+            <div class="flex justify-between text-[10px] text-outline pt-0.5">
+              <span>Q1 2024: ₹13.2k/sq.ft</span>
+              <span class="font-bold text-on-surface">Today: ₹14.8k/sq.ft</span>
+            </div>
+          </div>
+
+          <!-- 4. Need Form Assistance? (Concierge) -->
+          <div class="brand-card p-4 bg-gradient-to-br from-surface-container-high/60 to-white space-y-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shrink-0">
+                <span class="material-symbols-outlined text-[18px]">support_agent</span>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-primary">Need Listing Assistance?</h4>
+                <p class="text-[11px] text-on-surface-variant">Listing specialist is online</p>
+              </div>
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed">
+              Stuck on carpet area conversion or finding your Khata number? Our listing specialists will guide you directly.
+            </p>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="triggerSupportCall()"
+                class="flex-1 brand-btn-navy py-1.5 px-3 text-xs flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-[15px]">call</span>
+                <span>Free Callback</span>
+              </button>
+              <button type="button" onclick="triggerSupportWhatsApp()"
+                class="p-1.5 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition-colors" title="Chat via WhatsApp">
+                <span class="material-symbols-outlined text-[18px]">chat</span>
+              </button>
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===================================================
+       3. 10-SECOND INACTIVITY ASSISTANCE MODAL (Section 8)
+       =================================================== -->
+  <div id="idleAssistanceModal" class="idle-modal-backdrop">
+    <div class="idle-modal-box p-6 space-y-4">
+      <div class="flex items-start justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">contact_support</span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-primary">Need Help Posting Your Property?</h3>
+            <p class="text-xs text-on-surface-variant">Our Billedkart Realtech team can guide you right now.</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeInactivityModal(true)" class="text-outline hover:text-on-surface">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <p class="text-xs text-on-surface-variant leading-relaxed">
+        If you are stuck on property dimensions, RERA verification, or pricing details, our dedicated onboarding specialists are available to assist free of charge.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+        <button type="button" onclick="triggerSupportWhatsApp()"
+          class="p-2.5 rounded-lg bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-emerald-700 transition-colors shadow-xs">
+          <span class="material-symbols-outlined text-[16px]">chat</span> WhatsApp
+        </button>
+        <button type="button" onclick="triggerSupportCall()"
+          class="p-2.5 rounded-lg bg-primary text-white font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-primary-container transition-colors shadow-xs">
+          <span class="material-symbols-outlined text-[16px]">call</span> Call Agent
+        </button>
+        <button type="button" onclick="triggerSupportEmail()"
+          class="p-2.5 rounded-lg bg-surface-container-high text-on-surface font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-surface-container-highest transition-colors">
+          <span class="material-symbols-outlined text-[16px]">mail</span> Email
+        </button>
+      </div>
+
+      <div class="pt-2 text-center">
+        <button type="button" onclick="closeInactivityModal(false)" class="text-xs font-bold text-secondary hover:underline">
+          I'm good, continue posting →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================
+       4. SUBMISSION SUCCESS CONFIRMATION MODAL
+       =================================================== -->
+  <div id="submissionSuccessModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs items-center justify-center p-4">
+    <div class="bg-white rounded-xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl border border-surface-container">
+      <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-700 mx-auto flex items-center justify-center">
+        <span class="material-symbols-outlined text-[36px]">verified</span>
+      </div>
+
+      <div class="space-y-1">
+        <span id="successListingId" class="text-xs font-extrabold text-secondary tracking-wider block">REF: #BKR-101</span>
+        <h2 class="text-xl font-bold text-primary">Property Listing Published!</h2>
+        <p class="text-xs text-on-surface-variant leading-relaxed">
+          Your property is now active on Billedkart Realtech with zero brokerage. Verified buyers and tenants can view details and schedule visits.
+        </p>
+      </div>
+
+      <div class="p-3 bg-surface-container-low rounded-lg text-xs font-semibold text-primary text-left space-y-1">
+        <div class="flex items-center gap-1.5 text-emerald-800">
+          <span class="material-symbols-outlined text-[16px]">check</span> Visible in Bengaluru Search Results
+        </div>
+        <div class="flex items-center gap-1.5 text-emerald-800">
+          <span class="material-symbols-outlined text-[16px]">check</span> Linked to Dynamic Property Detail Page
+        </div>
+      </div>
+
+      <div class="pt-2 flex flex-col sm:flex-row gap-2">
+        <a id="successViewListingBtn" href="/property_detail_page/code.html"
+          class="flex-1 brand-btn-primary py-2.5 px-4 text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm">
+          <span>View Property Page</span>
+          <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+        </a>
+        <a href="/home_property_discovery/code.html"
+          class="brand-btn-outline py-2.5 px-4 text-xs font-bold flex items-center justify-center">
+          Go to Homepage
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================
+       5. FIXED MOBILE BOTTOM NAVIGATION BAR
+       (Identical to Homepage, Sell / Rent Highlighted Active)
+       =================================================== -->
+  <nav class="fixed bottom-0 left-0 w-full z-40 bg-white border-t border-surface-container mobile-bottom-nav py-1 px-3 flex items-center justify-between md:hidden">
+    
+    <!-- Tab 1: Home -->
+    <a href="/home_property_discovery/code.html" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary flex-1 py-1" aria-label="Home">
+      <span class="material-symbols-outlined text-[22px]">home</span>
+      <span class="text-[10px] font-semibold mt-0.5">Home</span>
+    </a>
+
+    <!-- Tab 2: Search -->
+    <a href="/search_results_with_map_view/code.html" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary flex-1 py-1" aria-label="Search">
+      <span class="material-symbols-outlined text-[22px]">search</span>
+      <span class="text-[10px] font-semibold mt-0.5">Search</span>
+    </a>
+
+    <!-- Tab 3: Sell / Rent (Center Highlighted Action - ACTIVE TAB) -->
+    <a href="/post_property_flow_listing_wizard/code.html" class="flex flex-col items-center justify-center -mt-4 relative group flex-1" aria-label="Sell or Rent Out">
+      <div class="w-11 h-11 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-md shadow-secondary/30 ring-4 ring-white">
+        <span class="material-symbols-outlined text-[24px]">add_home</span>
+      </div>
+      <span class="text-[10px] font-extrabold text-secondary mt-1">Sell / Rent</span>
+    </a>
+
+    <!-- Tab 4: Chat (Direct Inquiry / Support) -->
+    <button type="button" onclick="triggerSupportWhatsApp()" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary flex-1 py-1 relative" aria-label="Chat">
+      <div class="relative">
+        <span class="material-symbols-outlined text-[22px]">chat_bubble</span>
+        <span class="absolute -top-1 -right-1.5 w-3.5 h-3.5 bg-primary text-on-primary text-[9px] font-bold flex items-center justify-center rounded-full shadow-xs">2</span>
+      </div>
+      <span class="text-[10px] font-semibold mt-0.5">Chat</span>
+    </button>
+
+    <!-- Tab 5: Menu -->
+    <button type="button" onclick="toggleMobileMenuDrawer(event)" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary flex-1 py-1 cursor-pointer group" aria-label="Menu" id="mobile-bottom-menu-btn">
+      <span class="material-symbols-outlined text-[22px] group-hover:text-primary transition-colors">menu</span>
+      <span class="text-[10px] font-semibold mt-0.5 group-hover:text-primary transition-colors">Menu</span>
+    </button>
+
+  </nav>
+
+  <!-- Mobile Menu Drawer / Bottom Sheet -->
+  <div id="mobile-menu-drawer-backdrop" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden opacity-0 transition-opacity duration-300 md:hidden" onclick="closeMobileMenuDrawer()"></div>
+  <div id="mobile-menu-drawer" class="fixed inset-x-0 bottom-0 z-50 bg-white rounded-t-2xl shadow-elevated border-t border-surface-container max-h-[85vh] overflow-y-auto transform translate-y-full transition-transform duration-300 ease-out hidden md:hidden">
+    <!-- Drawer Header -->
+    <div class="sticky top-0 bg-white pt-3.5 pb-2.5 px-4 flex items-center justify-between border-b border-surface-container z-10">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-primary flex items-center justify-center text-on-primary shadow-xs">
+          <span class="material-symbols-outlined text-[16px] text-tertiary-fixed">home_work</span>
+        </div>
+        <span class="font-extrabold text-sm text-primary tracking-tight">Billedkart <span class="text-secondary">Realtech</span> Menu</span>
+      </div>
+      <button type="button" onclick="closeMobileMenuDrawer()" class="w-7 h-7 rounded-full hover:bg-surface-container text-outline flex items-center justify-center transition-colors" aria-label="Close Menu">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+    </div>
+
+    <div class="p-4 space-y-4">
+      <!-- 1. Post Property Shortcuts -->
+      <div>
+        <div class="text-[10px] font-extrabold uppercase tracking-wider text-outline px-1 mb-1.5 flex items-center justify-between">
+          <span>Current Session</span>
+          <span class="text-[9px] font-bold text-secondary uppercase bg-secondary-fixed/20 px-1.5 py-0.2 rounded-full">In Progress</span>
+        </div>
+        <div class="p-3 bg-surface-container-low rounded-xl border border-surface-container space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-primary">Post Property Listing</span>
+            <span class="text-[11px] font-bold text-secondary">Free</span>
+          </div>
+          <div class="flex gap-2">
+            <button type="button" onclick="triggerAutoSave(); closeMobileMenuDrawer(); showToast('Progress saved');" class="flex-1 py-1.5 px-3 rounded-lg bg-white border border-surface-container text-xs font-semibold text-primary">Save Draft</button>
+            <a href="/home_property_discovery/code.html" class="flex-1 py-1.5 px-3 rounded-lg bg-surface-container-high text-xs font-semibold text-center text-on-surface">Exit Wizard</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Primary Marketplace Discovery -->
+      <div>
+        <div class="text-[10px] font-extrabold uppercase tracking-wider text-outline px-1 mb-1.5">Marketplace Navigation</div>
+        <div class="space-y-1.5">
+          <!-- Buy Homes -->
+          <a href="/search_results_with_map_view/code.html?intent=buy" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-bold text-xs transition-colors border border-surface-container/60">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[18px]">apartment</span>
+              </span>
+              <div>
+                <div class="font-bold text-xs text-primary">Buy Properties</div>
+                <div class="text-[10px] text-outline font-normal">Flats, villas, and penthouses</div>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-[18px] text-outline">chevron_right</span>
+          </a>
+
+          <!-- Rent Homes -->
+          <a href="/search_results_with_map_view/code.html?intent=rent" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-bold text-xs transition-colors border border-surface-container/60">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-lg bg-tertiary/15 text-tertiary flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[18px]">key</span>
+              </span>
+              <div>
+                <div class="font-bold text-xs text-primary">Rent Homes</div>
+                <div class="text-[10px] text-outline font-normal">Zero brokerage verified rentals</div>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-[18px] text-outline">chevron_right</span>
+          </a>
+
+          <!-- Dealers -->
+          <a href="/dealers" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-bold text-xs transition-colors border border-surface-container/60">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-lg bg-surface-container text-primary flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[18px]">handshake</span>
+              </span>
+              <div>
+                <div class="font-bold text-xs text-primary">Empaneled Dealers</div>
+                <div class="text-[10px] text-outline font-normal">Top local real estate consultants</div>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-[18px] text-outline">chevron_right</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Centralized Official Billedkart Contact Configuration -->
+  <script src="/billedkart-contact-config.js"></script>
+  <!-- Wizard JavaScript Engine -->
+  <script src="post-property.js"></script>
+
+</body>
+</html>

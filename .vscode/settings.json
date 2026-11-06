@@ -1,0 +1,21 @@
+{
+  "liveServer.settings.port": 5501,
+  "liveServer.settings.file": "index.html",
+  "liveServer.settings.proxy": {
+    "enable": true,
+    "baseUri": "/",
+    "proxyUri": "http://127.0.0.1:5500"
+  },
+  "liveServer.settings.ignoreFiles": [
+    "**/.env*",
+    "**/server/**",
+    "server.js",
+    "**/.git/**",
+    "**/.vscode/**",
+    "**/scratch/**",
+    "**/node_modules/**",
+    "package*.json",
+    "**/*.sql",
+    "**/*.log"
+  ]
+}

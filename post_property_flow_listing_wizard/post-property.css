@@ -1,0 +1,356 @@
+/* ===================================================
+   Billedkart Realtech - Post Property Listing Wizard CSS
+   Strict Brand Identity: Sharp & Curved Balance
+   - Form sections: 8px - 10px radius
+   - Input controls: 4px - 6px radius
+   - Buttons: 6px - 8px radius
+   - Theme: Primary Navy (#00236f), Secondary Orange (#fd651e)
+   - Zero occurrences of prohibited branding terms
+   =================================================== */
+
+:root {
+  --brand-primary: #00236f;
+  --brand-primary-dark: #00174c;
+  --brand-primary-light: #1e3a8a;
+  --brand-secondary: #fd651e;
+  --brand-secondary-dark: #d94e0e;
+  --brand-surface: #faf8ff;
+  --brand-surface-card: #ffffff;
+  --brand-border: #eaedff;
+  --brand-border-focus: #00236f;
+  --brand-text: #131b2e;
+  --brand-text-muted: #575c6c;
+  --brand-success: #00875a;
+  --brand-success-bg: #e3fcef;
+}
+
+/* Custom Sharp/Curved Components */
+.brand-section {
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid var(--brand-border);
+  box-shadow: 0 1px 3px rgba(0, 35, 111, 0.04);
+}
+
+.brand-card {
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid var(--brand-border);
+  box-shadow: 0 2px 8px rgba(0, 35, 111, 0.05);
+}
+
+.brand-input {
+  border-radius: 6px;
+  border: 1.5px solid #dce1f0;
+  background: #f8faff;
+  color: var(--brand-text);
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.brand-input:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 35, 111, 0.12);
+}
+
+.brand-btn-primary {
+  border-radius: 6px;
+  background: var(--brand-secondary);
+  color: #ffffff;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.brand-btn-primary:hover {
+  background: var(--brand-secondary-dark);
+  box-shadow: 0 4px 12px rgba(253, 101, 30, 0.28);
+}
+
+.brand-btn-navy {
+  border-radius: 6px;
+  background: var(--brand-primary);
+  color: #ffffff;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.brand-btn-navy:hover {
+  background: var(--brand-primary-light);
+  box-shadow: 0 4px 12px rgba(0, 35, 111, 0.24);
+}
+
+.brand-btn-outline {
+  border-radius: 6px;
+  border: 1.5px solid #dce1f0;
+  background: #ffffff;
+  color: var(--brand-text);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.brand-btn-outline:hover {
+  border-color: var(--brand-primary);
+  background: #f2f5fc;
+  color: var(--brand-primary);
+}
+
+/* Category & Choice Selectors */
+.choice-card {
+  border-radius: 8px;
+  border: 1.5px solid #eaedff;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.choice-card:hover {
+  border-color: #cbd5e1;
+  background: #f8faff;
+  transform: translateY(-1px);
+}
+
+.choice-card.active {
+  border-color: var(--brand-primary);
+  background: #f0f4ff;
+  color: var(--brand-primary);
+  box-shadow: 0 2px 6px rgba(0, 35, 111, 0.1);
+}
+
+.choice-card.active .choice-icon {
+  background: var(--brand-primary);
+  color: #ffffff;
+}
+
+/* Stepper Bar */
+.stepper-bubble {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.stepper-item.completed .stepper-bubble {
+  background: var(--brand-success);
+  color: #ffffff;
+}
+
+.stepper-item.completed .stepper-line {
+  background: var(--brand-success);
+}
+
+.stepper-item.active .stepper-bubble {
+  background: var(--brand-primary);
+  color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 35, 111, 0.2);
+}
+
+.stepper-item.active .stepper-line {
+  background: var(--brand-primary);
+}
+
+.stepper-item.pending .stepper-bubble {
+  background: #eaedff;
+  color: #757682;
+}
+
+.stepper-item.pending .stepper-line {
+  background: #eaedff;
+}
+
+/* Drag-and-drop Dropzone */
+.dropzone-box {
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  background: #f8faff;
+  transition: all 0.2s ease;
+}
+
+.dropzone-box.dragover {
+  border-color: var(--brand-secondary);
+  background: #fff6f2;
+}
+
+/* Image preview thumbnails */
+.image-thumbnail-card {
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #dce1f0;
+  transition: all 0.2s ease;
+}
+
+.image-thumbnail-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cover-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: var(--brand-secondary);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* SVG Strength Gauge Chart */
+.strength-circle-bg {
+  stroke: #eaedff;
+  stroke-width: 3.5;
+  fill: none;
+}
+
+.strength-circle-fg {
+  stroke: var(--brand-secondary);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  fill: none;
+  transition: stroke-dasharray 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Non-intrusive Assistance Modal */
+.idle-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(3px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.idle-modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.idle-modal-box {
+  background: #ffffff;
+  border-radius: 10px;
+  max-width: 460px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 35, 111, 0.25);
+  border: 1px solid var(--brand-border);
+  transform: translateY(12px) scale(0.98);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.idle-modal-backdrop.open .idle-modal-box {
+  transform: translateY(0) scale(1);
+}
+
+/* Auto-save Pill Animation */
+@keyframes savePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.saving-active {
+  animation: savePulse 1.2s infinite ease-in-out;
+}
+
+/* ===================================================
+   MOBILE NATIVE APP-LIKE INTERFACE (Scoped to < 768px)
+   Matches Home Page Mobile Design Language
+   Desktop styles remain 100% untouched
+   =================================================== */
+@media (max-width: 767px) {
+  html, body {
+    overflow-x: hidden;
+    background-color: #faf8ff;
+  }
+
+  body {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom)) !important;
+  }
+
+  /* Full screen app feel - clean container padding */
+  .brand-section {
+    border-radius: 10px;
+    border: 1px solid #eaedff;
+    box-shadow: 0 1px 3px rgba(0, 35, 111, 0.03);
+    margin-bottom: 0.75rem;
+  }
+
+  /* Fixed mobile bottom navigation */
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 45;
+    background-color: #ffffff;
+    border-top: 1px solid #eaedff;
+    box-shadow: 0 -4px 16px rgba(0, 35, 111, 0.08);
+    padding-top: 0.25rem;
+    padding-bottom: max(0.45rem, env(safe-area-inset-bottom));
+  }
+
+  /* Touch targets for mobile inputs and buttons */
+  .brand-input {
+    font-size: 14px;
+    min-height: 42px;
+  }
+
+  .choice-card {
+    min-height: 44px;
+  }
+
+  /* Compact button styling on mobile */
+  .brand-btn-primary, .brand-btn-navy, .brand-btn-outline {
+    min-height: 42px;
+  }
+
+  /* Smooth drawer animations */
+  .animate-slide-down {
+    animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Micro dots in mobile progress bar */
+  .mobile-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  .mobile-dot.completed {
+    background-color: #00875a;
+  }
+  .mobile-dot.active {
+    background-color: #fd651e;
+    transform: scale(1.35);
+  }
+  .mobile-dot.pending {
+    background-color: #eaedff;
+  }
+}
+

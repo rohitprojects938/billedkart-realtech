@@ -1,0 +1,2059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+  <title>Empaneled Dealers & Real Estate Agents | Billedkart Realtech Verified Directory</title>
+  <meta name="description" content="Connect directly with verified real estate dealers, RERA certified brokers and neighborhood agents across Bengaluru, Mumbai, Delhi NCR, Hyderabad and Pune on Billedkart Realtech."/>
+
+  <!-- Fonts & Material Symbols Preload & Critical Styles -->
+  <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/critical-icons.css" />
+  <script src="/js/icon-engine.js"></script>
+  <script src="/js/auth-manager.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#00236f",
+            "primary-container": "#1e3a8a",
+            "on-primary": "#ffffff",
+            "primary-fixed": "#dce1ff",
+            "primary-fixed-dim": "#b6c4ff",
+            "secondary": "#fd651e",
+            "secondary-dark": "#a73a00",
+            "secondary-fixed": "#ffdbce",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed": "#370e00",
+            "tertiary": "#004a32",
+            "tertiary-fixed": "#85f8c4",
+            "tertiary-fixed-dim": "#4ac08f",
+            "on-tertiary": "#ffffff",
+            "surface": "#faf8ff",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f2f3ff",
+            "surface-container": "#eaedff",
+            "surface-container-high": "#e2e7ff",
+            "surface-container-highest": "#dae2fd",
+            "on-surface": "#131b2e",
+            "on-surface-variant": "#444651",
+            "outline": "#757682",
+            "outline-variant": "#c5c5d3",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-error": "#ffffff",
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "3xl": "1.5rem",
+            "full": "9999px"
+          },
+          fontFamily: {
+            sans: ["'Plus Jakarta Sans'", "sans-serif"],
+          },
+          boxShadow: {
+            "subtle": "0 2px 10px rgba(0, 35, 111, 0.04)",
+            "card": "0 4px 20px -2px rgba(0, 35, 111, 0.06), 0 2px 6px -1px rgba(0, 35, 111, 0.04)",
+            "elevated": "0 12px 32px -4px rgba(0, 35, 111, 0.12), 0 4px 12px -2px rgba(0, 35, 111, 0.06)",
+            "sticky": "0 4px 18px rgba(0, 35, 111, 0.08)",
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    @layer base {
+      html {
+        scroll-behavior: smooth;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #faf8ff;
+        color: #131b2e;
+        overflow-x: hidden;
+      }
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+    .material-symbols-outlined.filled {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Modal Overlays */
+    #agent-mini-profile-modal-overlay,
+    #agent-consultation-modal-overlay,
+    #agent-review-modal-overlay,
+    #agent-manage-profile-modal-overlay,
+    #auth-modal-overlay,
+    #review-delete-dialog-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1020;
+      background: rgba(0, 35, 111, 0.50);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    #agent-mini-profile-modal-overlay.hidden,
+    #agent-consultation-modal-overlay.hidden,
+    #agent-review-modal-overlay.hidden,
+    #agent-manage-profile-modal-overlay.hidden,
+    #auth-modal-overlay.hidden,
+    #review-delete-dialog-overlay.hidden {
+      display: none !important;
+    }
+
+    #agent-mini-profile-modal,
+    #agent-consultation-modal,
+    #agent-review-modal,
+    #agent-manage-profile-modal,
+    #auth-modal {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 16px 48px -8px rgba(0, 35, 111, 0.22);
+      max-width: 540px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px;
+      position: relative;
+    }
+
+    #review-delete-dialog {
+      background: #ffffff;
+      border-radius: 18px;
+      max-width: 420px;
+      width: 100%;
+      padding: 22px;
+      position: relative;
+    }
+
+    /* Star rating */
+    .star-selector {
+      display: inline-flex;
+      gap: 4px;
+    }
+    .star-selector button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #c5c5d3;
+      padding: 2px;
+      transition: transform 0.15s, color 0.15s;
+    }
+    .star-selector button:hover {
+      transform: scale(1.15);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- ========================================================
+       1. GLOBAL NAVIGATION HEADER
+       ======================================================== -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-surface-container transition-all">
+    <div class="max-w-[1340px] mx-auto px-4 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-6">
+        <a href="code.html" class="flex items-center gap-2 group">
+          <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm shadow-primary/20 group-hover:scale-105 transition-transform">
+            <span class="material-symbols-outlined text-[24px]">apartment</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-extrabold text-xl lg:text-2xl text-primary tracking-tight leading-none">
+              Billedkart<span class="text-secondary"> Realtech</span>
+            </span>
+            <span class="text-[9px] font-bold text-outline tracking-wider uppercase mt-0.5">
+              Verified Properties
+            </span>
+          </div>
+        </a>
+
+        <!-- City Selector Dropdown -->
+        <div class="relative hidden sm:block">
+          <button id="header-city-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-xs font-bold text-on-surface transition-colors border border-surface-container" type="button">
+            <span class="material-symbols-outlined text-secondary text-[16px]">location_on</span>
+            <span id="header-current-city">Bengaluru</span>
+            <span class="material-symbols-outlined text-outline text-[16px]">expand_more</span>
+          </button>
+          <div id="header-city-menu" class="absolute left-0 top-full mt-1.5 w-44 bg-white rounded-xl shadow-elevated border border-surface-container py-1.5 hidden z-50">
+            <button class="w-full text-left px-3 py-1.5 text-xs font-semibold text-on-surface hover:bg-surface-container-low transition-colors city-opt" data-city="Bengaluru">Bengaluru</button>
+            <button class="w-full text-left px-3 py-1.5 text-xs font-semibold text-on-surface hover:bg-surface-container-low transition-colors city-opt" data-city="Mumbai">Mumbai</button>
+            <button class="w-full text-left px-3 py-1.5 text-xs font-semibold text-on-surface hover:bg-surface-container-low transition-colors city-opt" data-city="Delhi NCR">Delhi NCR</button>
+            <button class="w-full text-left px-3 py-1.5 text-xs font-semibold text-on-surface hover:bg-surface-container-low transition-colors city-opt" data-city="Hyderabad">Hyderabad</button>
+            <button class="w-full text-left px-3 py-1.5 text-xs font-semibold text-on-surface hover:bg-surface-container-low transition-colors city-opt" data-city="Pune">Pune</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Nav Links -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-on-surface-variant">
+        <a href="code.html" class="hover:text-primary transition-colors">Home</a>
+        <a href="code.html" class="hover:text-primary transition-colors">Buy</a>
+        <a href="code.html" class="hover:text-primary transition-colors">Rent</a>
+        <a href="dealers.html" class="text-primary font-bold border-b-2 border-primary pb-0.5 flex items-center gap-1">
+          <span>Dealers &amp; Agents</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+        </a>
+        <a href="code.html" class="hover:text-primary transition-colors">Packages</a>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Register as Agent CTA -->
+        <button onclick="openAgentManagementModal(event)" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-surface-container hover:bg-primary hover:text-on-primary text-primary font-bold text-xs transition-colors" type="button">
+          <span class="material-symbols-outlined text-[16px] text-secondary">badge</span>
+          <span>List Your Profile</span>
+        </button>
+
+        <!-- Account Profile Dropdown -->
+        <div class="relative" id="desktop-profile-wrapper">
+          <button id="desktop-profile-btn" class="flex items-center gap-1 p-1 rounded-full hover:ring-2 hover:ring-primary/20 transition-all" type="button">
+            <div id="desktop-profile-avatar" class="w-8 h-8 rounded-full overflow-hidden bg-surface-container flex items-center justify-center font-bold text-xs text-primary border border-surface-container">
+              <span class="material-symbols-outlined text-[20px]">account_circle</span>
+            </div>
+            <span class="material-symbols-outlined text-outline text-[18px]">arrow_drop_down</span>
+          </button>
+          <div id="desktop-profile-menu" class="absolute right-0 top-full mt-1.5 w-56 bg-white rounded-xl shadow-card border border-surface-container py-1.5 hidden z-50">
+            <div id="desktop-profile-menu-content"></div>
+          </div>
+        </div>
+
+        <!-- Post Property CTA -->
+        <a class="inline-flex items-center gap-1 px-3 py-2 rounded-xl bg-secondary text-on-secondary hover:bg-secondary-dark font-bold text-xs shadow-sm transition-colors" href="code.html">
+          <span>Post Property</span>
+          <span class="bg-secondary-fixed text-on-secondary-fixed text-[9px] font-extrabold px-1 rounded-full">FREE</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================
+       2. DIRECTORY HERO & BREADCRUMBS
+       ======================================================== -->
+  <section class="w-full bg-surface-container-low/70 border-b border-surface-container py-8 px-4 lg:px-8">
+    <div class="max-w-[1340px] mx-auto space-y-3">
+      
+      <!-- Breadcrumbs -->
+      <div class="flex items-center gap-2 text-xs font-semibold text-outline">
+        <a href="code.html" class="hover:text-primary transition-colors flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">home</span>
+          <span>Home</span>
+        </a>
+        <span>/</span>
+        <span class="text-primary font-bold">Empaneled Dealers &amp; Agents</span>
+      </div>
+
+      <!-- Hero Title Row -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="text-xs font-bold text-secondary uppercase tracking-wider mb-1 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">badge</span>
+            <span>Empaneled Property Experts</span>
+          </div>
+          <h1 class="text-2xl lg:text-4xl font-extrabold text-primary tracking-tight">
+            Dealers &amp; Agents Who Can Help You
+          </h1>
+          <p class="text-xs lg:text-sm text-on-surface-variant max-w-2xl mt-1 leading-relaxed">
+            Connect directly with verified area specialists, RERA-certified brokers and licensed property consultants for neighborhood consultations and transparent site visits.
+          </p>
+        </div>
+
+        <button onclick="openAgentManagementModal(event)" class="px-5 py-3 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all hover:scale-[1.01] shrink-0" type="button">
+          <span class="material-symbols-outlined text-[18px] text-tertiary-fixed">person_add</span>
+          <span>Register as Agent / Dealer</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       3. SEARCH & FILTER TOOLBAR
+       ======================================================== -->
+  <section class="max-w-[1340px] mx-auto px-4 lg:px-8 pt-6 pb-4 w-full">
+    <div class="bg-white p-4 rounded-2xl border border-surface-container shadow-subtle space-y-3">
+      
+      <div class="grid grid-cols-12 gap-3 items-center">
+        <!-- Search Input -->
+        <div class="col-span-12 md:col-span-4 relative flex items-center bg-surface-container-low rounded-xl px-3.5 py-2.5 border border-surface-container focus-within:border-primary focus-within:bg-white transition-all">
+          <span class="material-symbols-outlined text-secondary text-[20px] mr-2">search</span>
+          <input id="dir-search-input" type="text" placeholder="Search by advisor name, agency or locality..." class="w-full bg-transparent text-xs text-on-surface placeholder:text-outline focus:outline-none font-medium"/>
+        </div>
+
+        <!-- City Filter -->
+        <div class="col-span-6 sm:col-span-3 md:col-span-2">
+          <select id="dir-city-filter" class="w-full h-[42px] bg-surface-container-low text-on-surface text-xs font-semibold rounded-xl px-3 border border-surface-container focus:outline-none cursor-pointer">
+            <option value="">All Metros</option>
+            <option value="Bengaluru">Bengaluru</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Delhi NCR">Delhi NCR</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Pune">Pune</option>
+          </select>
+        </div>
+
+        <!-- Role Filter -->
+        <div class="col-span-6 sm:col-span-3 md:col-span-2">
+          <select id="dir-role-filter" class="w-full h-[42px] bg-surface-container-low text-on-surface text-xs font-semibold rounded-xl px-3 border border-surface-container focus:outline-none cursor-pointer">
+            <option value="">All Roles</option>
+            <option value="agent">Real Estate Agent</option>
+            <option value="broker">Certified Broker</option>
+            <option value="dealer">Property Dealer</option>
+            <option value="seller">Direct Seller</option>
+          </select>
+        </div>
+
+        <!-- Specialization Filter -->
+        <div class="col-span-6 sm:col-span-3 md:col-span-2">
+          <select id="dir-spec-filter" class="w-full h-[42px] bg-surface-container-low text-on-surface text-xs font-semibold rounded-xl px-3 border border-surface-container focus:outline-none cursor-pointer">
+            <option value="">All Specializations</option>
+            <option value="Luxury">Luxury Highrises &amp; Villas</option>
+            <option value="Plots">Plots &amp; Land</option>
+            <option value="Commercial">Commercial Spaces</option>
+            <option value="Rentals">Rentals &amp; Leasing</option>
+            <option value="Resale">Resale &amp; Kaveri Clearance</option>
+          </select>
+        </div>
+
+        <!-- Sort Filter -->
+        <div class="col-span-6 sm:col-span-3 md:col-span-2">
+          <select id="dir-sort-filter" class="w-full h-[42px] bg-surface-container-low text-on-surface text-xs font-semibold rounded-xl px-3 border border-surface-container focus:outline-none cursor-pointer">
+            <option value="ranking">Recommended</option>
+            <option value="rating">Highest Rating</option>
+            <option value="reviews">Most Reviews</option>
+            <option value="experience">Most Experienced</option>
+            <option value="newest">Newest Empaneled</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Secondary Filter Row -->
+      <div class="flex items-center justify-between pt-2 border-t border-surface-container/60 text-xs flex-wrap gap-2">
+        <label class="flex items-center gap-2 cursor-pointer select-none">
+          <input type="checkbox" id="dir-verified-only" class="accent-primary w-4 h-4 rounded cursor-pointer"/>
+          <span class="font-bold text-primary flex items-center gap-1">
+            <span class="material-symbols-outlined text-tertiary text-[16px]">verified</span>
+            Show Only Empaneled &amp; Verified Advisors
+          </span>
+        </label>
+
+        <div class="flex items-center gap-3">
+          <span id="dir-results-count" class="text-xs font-semibold text-outline">Loading advisors...</span>
+          <button onclick="resetDirectoryFilters()" class="text-xs font-bold text-secondary hover:underline" type="button">Reset Filters</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       4. AGENTS DIRECTORY GRID
+       ======================================================== -->
+  <main class="max-w-[1340px] mx-auto px-4 lg:px-8 py-6 flex-1 w-full">
+    
+    <!-- Cards Grid -->
+    <div id="dir-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- Dynamically rendered via renderDirectoryGrid() -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="dir-empty-state" class="hidden text-center py-16 space-y-3">
+      <div class="w-16 h-16 rounded-2xl bg-surface-container text-outline flex items-center justify-center mx-auto">
+        <span class="material-symbols-outlined text-[36px]">person_search</span>
+      </div>
+      <h3 class="text-lg font-extrabold text-primary">No Advisors Found</h3>
+      <p class="text-xs text-outline max-w-sm mx-auto">
+        We couldn't find any empaneled advisors matching your current filter criteria. Try adjusting your city, role, or search keyword.
+      </p>
+      <div class="pt-2">
+        <button onclick="resetDirectoryFilters()" class="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-bold text-xs shadow-sm">
+          Reset All Filters
+        </button>
+      </div>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div id="dir-pagination-wrap" class="flex items-center justify-center gap-2 pt-10">
+      <!-- Rendered via JS -->
+    </div>
+
+  </main>
+
+  <!-- ========================================================
+       5. FOOTER
+       ======================================================== -->
+  <footer class="w-full bg-white border-t border-surface-container py-8 px-4 lg:px-8 mt-12">
+    <div class="max-w-[1340px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-outline">
+      <div class="flex items-center gap-2">
+        <span class="font-extrabold text-primary text-sm">Billedkart<span class="text-secondary"> Realtech</span></span>
+        <span>• India's Verified Real Estate Marketplace</span>
+      </div>
+      <p class="text-center md:text-right">
+        &copy; 2026 Billedkart Realtech Pvt. Ltd. All Rights Reserved. Empaneled advisors operate under platform compliance standards.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       6. MODALS
+       ======================================================== -->
+
+  <!-- Agent Mini Profile Modal -->
+  <div id="agent-mini-profile-modal-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="agent-popup-name">
+    <div id="agent-mini-profile-modal">
+      <button onclick="closeAgentMiniProfile()" aria-label="Close profile modal"
+        style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:#757682;padding:6px;z-index:20;border-radius:8px;"
+        type="button" class="hover:bg-surface-container-low transition-colors">
+        <span class="material-symbols-outlined" style="font-size:22px;">close</span>
+      </button>
+      <div id="agent-mini-profile-content"></div>
+    </div>
+  </div>
+
+  <!-- Agent Consultation Modal -->
+  <div id="agent-consultation-modal-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="consult-modal-agent-name">
+    <div id="agent-consultation-modal">
+      <button onclick="closeAgentConsultationModal()" aria-label="Close consultation modal"
+        style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:#757682;padding:6px;z-index:20;border-radius:8px;"
+        type="button" class="hover:bg-surface-container-low transition-colors">
+        <span class="material-symbols-outlined" style="font-size:22px;">close</span>
+      </button>
+      <div id="agent-consultation-content"></div>
+    </div>
+  </div>
+
+  <!-- Agent Review Modal -->
+  <div id="agent-review-modal-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="agent-rev-modal-title">
+    <div id="agent-review-modal">
+      <button onclick="closeAgentReviewModal()" aria-label="Close review modal"
+        style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:#757682;padding:6px;z-index:20;border-radius:8px;"
+        type="button" class="hover:bg-surface-container-low transition-colors">
+        <span class="material-symbols-outlined" style="font-size:22px;">close</span>
+      </button>
+      <div id="agent-review-content">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="material-symbols-outlined text-[20px] text-secondary">rate_review</span>
+          <span class="text-[10px] font-bold text-outline tracking-wider uppercase">Advisor Review</span>
+        </div>
+        <h3 id="agent-rev-modal-title" style="font-size:18px;font-weight:800;color:#00236f;margin:0 0 3px 0;">Review Real Estate Advisor</h3>
+        <p id="agent-rev-modal-sub" style="font-size:11px;color:#757682;margin:0 0 16px 0;">Share your verified feedback about consulting or working with this specialist.</p>
+
+        <div id="agent-rev-cooldown-notice" style="display:none;background:#f2f3ff;border:1.5px solid #dce1ff;border-radius:14px;padding:12px 14px;margin-bottom:14px;">
+          <div style="display:flex;align-items:flex-start;gap:8px;">
+            <span class="material-symbols-outlined" style="color:#00236f;font-size:20px;flex-shrink:0;">info</span>
+            <div style="flex:1;">
+              <h4 style="margin:0 0 3px 0;font-size:12px;font-weight:800;color:#00236f;">Review Cooldown Active</h4>
+              <p id="agent-rev-cooldown-text" style="margin:0;font-size:11px;color:#444651;line-height:1.4;"></p>
+              <button type="button" id="agent-rev-cooldown-edit-btn" onclick="handleAgentCooldownEditClick()" style="margin-top:8px;padding:5px 12px;background:#00236f;color:#ffffff;border-radius:8px;font-size:11px;font-weight:700;border:none;cursor:pointer;">
+                Edit Your Existing Review
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <form id="agent-review-form" onsubmit="handleAgentReviewSubmit(event)" novalidate>
+          <div class="mb-3">
+            <label class="block text-xs font-bold text-on-surface mb-1">Star Rating <span style="color:#fd651e;">*</span></label>
+            <div class="star-selector" id="agent-star-selector-wrap" role="radiogroup" aria-label="Star rating">
+              <button type="button" aria-label="1 star"><span class="material-symbols-outlined">star</span></button>
+              <button type="button" aria-label="2 stars"><span class="material-symbols-outlined">star</span></button>
+              <button type="button" aria-label="3 stars"><span class="material-symbols-outlined">star</span></button>
+              <button type="button" aria-label="4 stars"><span class="material-symbols-outlined">star</span></button>
+              <button type="button" aria-label="5 stars"><span class="material-symbols-outlined">star</span></button>
+            </div>
+            <span class="text-xs text-error block mt-0.5" id="agent-rf-rating-error"></span>
+          </div>
+
+          <div class="mb-3">
+            <label for="agent-rf-text" class="block text-xs font-bold text-on-surface mb-1">Your Feedback <span style="color:#fd651e;">*</span></label>
+            <textarea id="agent-rf-text" placeholder="Share your experience regarding responsiveness, property knowledge, and advisory quality..." maxlength="1000" required style="width:100%;min-height:90px;border-radius:10px;padding:10px;border:1.5px solid #c5c5d3;background:#faf8ff;font-size:12px;box-sizing:border-box;"></textarea>
+            <span class="text-xs text-error block mt-0.5" id="agent-rf-text-error"></span>
+          </div>
+
+          <div class="mb-4">
+            <label for="agent-rf-property" class="block text-xs font-bold text-on-surface mb-1">Property / Transaction Context <span style="color:#757682;font-weight:400;">(optional)</span></label>
+            <input id="agent-rf-property" type="text" placeholder="e.g. Bought 3 BHK in Whitefield" maxlength="150" style="width:100%;border-radius:10px;padding:9px 12px;border:1.5px solid #c5c5d3;background:#faf8ff;font-size:12px;box-sizing:border-box;"/>
+          </div>
+
+          <div style="display:flex;gap:10px;">
+            <button id="agent-rev-submit-btn" class="btn-submit" type="submit" style="flex:1;padding:11px;border-radius:12px;background:#00236f;color:#fff;font-weight:700;font-size:13px;border:none;cursor:pointer;">
+              Submit Review
+            </button>
+            <button class="btn-cancel" type="button" onclick="closeAgentReviewModal()" style="padding:11px 16px;border-radius:12px;background:#eaedff;color:#00236f;font-weight:700;font-size:13px;border:none;cursor:pointer;">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agent Registration / Profile Management Modal -->
+  <div id="agent-manage-profile-modal-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="agent-manage-modal-title">
+    <div id="agent-manage-profile-modal">
+      <button onclick="closeAgentManagementModal()" aria-label="Close registration modal"
+        style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:#757682;padding:6px;z-index:20;border-radius:8px;"
+        type="button" class="hover:bg-surface-container-low transition-colors">
+        <span class="material-symbols-outlined" style="font-size:22px;">close</span>
+      </button>
+      <div id="agent-manage-profile-content"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-notification" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="px-4 py-2.5 rounded-xl bg-on-surface text-white text-xs font-semibold shadow-elevated flex items-center gap-2">
+      <span class="material-symbols-outlined text-secondary text-[18px]">info</span>
+      <span id="toast-message">Notification</span>
+    </div>
+  </div>
+
+  <!-- Delete Review Confirmation Dialog -->
+  <div id="review-delete-dialog-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="review-delete-dialog-title">
+    <div id="review-delete-dialog">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <div style="width:40px;height:40px;border-radius:50%;background:#ffdad6;display:flex;align-items:center;justify-content:center;color:#ba1a1a;flex-shrink:0;">
+          <span class="material-symbols-outlined" style="font-size:22px;">delete</span>
+        </div>
+        <div>
+          <h4 id="review-delete-dialog-title" style="margin:0;font-size:16px;font-weight:800;color:#00236f;">Delete Review?</h4>
+          <span style="font-size:11px;color:#757682;">This action cannot be undone.</span>
+        </div>
+      </div>
+      <p style="font-size:12px;color:#444651;line-height:1.5;margin:0 0 16px 0;">
+        Are you sure you want to delete your review?
+      </p>
+      <div id="review-delete-error" style="display:none;color:#ba1a1a;font-size:11px;margin-bottom:12px;font-weight:600;"></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button type="button" onclick="closeDeleteReviewDialog()" style="padding:10px 16px;border-radius:10px;background:#eaedff;color:#00236f;font-size:12px;font-weight:700;border:none;cursor:pointer;">
+          Cancel
+        </button>
+        <button type="button" id="review-delete-confirm-btn" style="padding:10px 16px;border-radius:10px;background:#ba1a1a;color:#ffffff;font-size:12px;font-weight:700;border:none;cursor:pointer;">
+          Delete Review
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Application Logic -->
+  <script>
+    const API_BASE = 'http://127.0.0.1:4000';
+    let currentUser = null;
+
+    let dirState = {
+      search: '',
+      city: '',
+      role: '',
+      specialization: '',
+      sort: 'ranking',
+      verifiedOnly: false,
+      page: 1,
+      limit: 12,
+      totalPages: 1,
+      totalCount: 0
+    };
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('toast-notification');
+      const toastMsg = document.getElementById('toast-message');
+      if (!toast || !toastMsg) return;
+      toastMsg.textContent = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3000);
+    }
+
+    /* Auth check */
+    async function checkAuthStatus() {
+      try {
+        const res = await fetch(`${API_BASE}/api/auth/me`, { credentials: 'include', cache: 'no-store' });
+        const data = await res.json();
+        currentUser = (data.authenticated && data.user) ? data.user : null;
+      } catch (e) {
+        currentUser = null;
+      } finally {
+        updateAuthHeaderUI();
+      }
+    }
+
+    // Safe user avatar rendering with no-referrer policy & graceful initials fallback
+    function renderUserAvatar(url, name, sizeClass = 'w-full h-full text-xs') {
+      const cleanName = (name || '').trim();
+      const initials = cleanName
+        ? cleanName.split(' ').filter(Boolean).map(n => n[0]).slice(0, 2).join('').toUpperCase()
+        : 'U';
+      if (url) {
+        return `<img src="${escapeHtml(url)}" referrerpolicy="no-referrer" crossorigin="anonymous" alt="${escapeHtml(cleanName)}" class="${sizeClass} object-cover rounded-full" onerror="this.onerror=null;this.parentElement.innerHTML='<span class=\\'font-extrabold ${sizeClass} text-white bg-gradient-to-tr from-primary to-primary-container rounded-full flex items-center justify-center\\'>${initials}</span>';"/>`;
+      }
+      return `<span class="font-extrabold ${sizeClass} text-white bg-gradient-to-tr from-primary to-primary-container rounded-full flex items-center justify-center">${initials}</span>`;
+    }
+
+    // Trigger photo file picker for authenticated user
+    function triggerProfileAvatarUpload(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      let input = document.getElementById('user-profile-avatar-input');
+      if (!input) {
+        input = document.createElement('input');
+        input.type = 'file';
+        input.id = 'user-profile-avatar-input';
+        input.accept = 'image/jpeg,image/png,image/webp';
+        input.style.display = 'none';
+        input.addEventListener('change', handleProfileAvatarSelected);
+        document.body.appendChild(input);
+      }
+      input.value = '';
+      input.click();
+    }
+
+    // Handle avatar file selection & upload via /api/auth/profile-image
+    async function handleProfileAvatarSelected(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+        showToast('Please select a JPG, PNG, or WebP image file.');
+        return;
+      }
+      if (file.size > 2 * 1024 * 1024) {
+        showToast('Profile image must be under 2 MB.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('avatar', file);
+
+      showToast('Uploading profile photo...');
+
+      try {
+        const res = await fetch(`${API_BASE}/api/auth/profile-image`, {
+          method: 'POST',
+          body: formData,
+          credentials: 'include',
+        });
+        const data = await res.json();
+        if (data.success && data.profileImageUrl) {
+          if (!currentUser) currentUser = {};
+          currentUser.profileImageUrl = data.profileImageUrl;
+          if (data.user) {
+            currentUser = Object.assign(currentUser, data.user);
+          }
+          updateAuthHeaderUI();
+          showToast('Profile photo updated successfully!');
+        } else {
+          showToast(data.error || 'Failed to upload photo.');
+        }
+      } catch (err) {
+        console.error('[Avatar upload]', err);
+        showToast('Network error while uploading photo.');
+      }
+    }
+
+    function updateAuthHeaderUI() {
+      const dtAvatar = document.getElementById('desktop-profile-avatar');
+      const dtMenu = document.getElementById('desktop-profile-menu-content');
+      if (!dtAvatar || !dtMenu) return;
+
+      if (currentUser) {
+        const fullName = currentUser.fullName || currentUser.full_name || currentUser.username || 'User';
+        const email = currentUser.email || '';
+        const avatarUrl = currentUser.profileImageUrl || currentUser.profile_image_url || currentUser.avatar_url;
+
+        dtAvatar.innerHTML = renderUserAvatar(avatarUrl, fullName, 'w-full h-full text-xs');
+        dtMenu.innerHTML = `
+          <div class="px-4 py-3 bg-surface-container-low border-b border-surface-container rounded-t-xl">
+            <div class="flex items-center gap-3">
+              <!-- Avatar with upload hover / edit badge -->
+              <div class="relative group cursor-pointer flex-shrink-0" onclick="triggerProfileAvatarUpload(event)" title="Click to upload or change profile photo">
+                <div class="w-10 h-10 rounded-full overflow-hidden border border-outline/20 shadow-xs bg-surface-container">
+                  ${renderUserAvatar(avatarUrl, fullName, 'w-10 h-10 text-xs')}
+                </div>
+                <div class="absolute inset-0 rounded-full bg-black/45 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span class="material-symbols-outlined text-[16px]">photo_camera</span>
+                </div>
+                <div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-primary text-white rounded-full flex items-center justify-center shadow-xs">
+                  <span class="material-symbols-outlined text-[10px]">edit</span>
+                </div>
+              </div>
+
+              <!-- User name, email, and upload icon button -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <div class="font-extrabold text-xs text-primary truncate max-w-[130px]">${escapeHtml(fullName)}</div>
+                  <button type="button" onclick="triggerProfileAvatarUpload(event)" class="text-outline hover:text-primary transition-colors p-0.5 rounded flex items-center" title="Upload / change profile photo">
+                    <span class="material-symbols-outlined text-[15px]">upload</span>
+                  </button>
+                </div>
+                <div class="text-[10px] text-outline truncate">${escapeHtml(email)}</div>
+                
+                <!-- High Contrast Verified Account Badge -->
+                <div class="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-full bg-emerald-100 border border-emerald-300 shadow-xs">
+                  <span class="material-symbols-outlined text-[12px] text-emerald-700 font-bold">verified</span>
+                  <span class="text-[10px] font-extrabold text-emerald-950 tracking-wide">Verified Account</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="w-full text-left block px-4 py-2 text-xs font-semibold text-primary hover:bg-surface-container-low transition-colors flex items-center gap-1.5" onclick="openAgentManagementModal(event)">
+            <span class="material-symbols-outlined text-[16px] text-secondary">badge</span>
+            <span>Agent / Dealer Profile</span>
+          </button>
+          <hr class="my-1 border-surface-container"/>
+          <button type="button" class="w-full text-left block px-4 py-2 text-xs font-bold text-error hover:bg-error-container/40 transition-colors flex items-center gap-1.5" onclick="handleLogout()">
+            <span class="material-symbols-outlined text-[16px]">logout</span>
+            <span>Sign Out</span>
+          </button>
+        `;
+      } else {
+        dtAvatar.innerHTML = `<span class="material-symbols-outlined text-[20px] text-primary">account_circle</span>`;
+        dtMenu.innerHTML = `
+          <div class="px-4 py-2.5 bg-surface-container-low border-b border-surface-container rounded-t-xl">
+            <div class="font-bold text-xs text-primary">Welcome to Billedkart Realtech</div>
+          </div>
+          <a href="code.html" class="w-full text-left px-4 py-2.5 text-xs font-bold text-primary hover:bg-surface-container-low transition-colors flex items-center gap-2 block">
+            <span class="material-symbols-outlined text-[18px]">login</span>
+            <span>Sign In on Homepage</span>
+          </a>
+          <button type="button" onclick="openAgentManagementModal(event)" class="w-full text-left px-4 py-2 text-xs font-semibold text-secondary hover:bg-surface-container-low transition-colors flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">badge</span>
+            <span>Register as Advisor</span>
+          </button>
+        `;
+      }
+    }
+
+    async function handleLogout() {
+      try {
+        await fetch(`${API_BASE}/api/auth/logout`, { method: 'POST', credentials: 'include' });
+        currentUser = null;
+        updateAuthHeaderUI();
+        showToast('Signed out successfully.');
+      } catch (e) {
+        showToast('Error signing out.');
+      }
+    }
+
+    /* Directory Fetch & Render */
+    async function fetchDirectoryDealers() {
+      const grid = document.getElementById('dir-cards-grid');
+      const empty = document.getElementById('dir-empty-state');
+      const countEl = document.getElementById('dir-results-count');
+
+      grid.innerHTML = Array(8).fill(`
+        <div class="p-4 rounded-2xl bg-white border border-surface-container animate-pulse space-y-3 h-[280px]">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-surface-container"></div>
+            <div class="flex-1 space-y-1.5">
+              <div class="w-24 h-3 bg-surface-container rounded"></div>
+              <div class="w-16 h-2 bg-surface-container rounded"></div>
+            </div>
+          </div>
+          <div class="h-16 bg-surface-container-low rounded-xl"></div>
+          <div class="h-3 bg-surface-container rounded w-3/4"></div>
+          <div class="h-8 bg-surface-container rounded-xl mt-4"></div>
+        </div>
+      `).join('');
+
+      try {
+        const params = new URLSearchParams({
+          page: dirState.page,
+          limit: dirState.limit,
+          sort: dirState.sort
+        });
+        if (dirState.search) params.set('q', dirState.search);
+        if (dirState.city) params.set('city', dirState.city);
+        if (dirState.role) params.set('role', dirState.role);
+        if (dirState.specialization) params.set('specialization', dirState.specialization);
+        if (dirState.verifiedOnly) params.set('verified_only', 'true');
+
+        const res = await fetch(`${API_BASE}/api/dealers?${params.toString()}&_t=${Date.now()}`, {
+          credentials: 'include',
+          cache: 'no-store'
+        });
+        const data = await res.json();
+
+        if (data.success && Array.isArray(data.dealers) && data.dealers.length > 0) {
+          dirState.totalPages = data.pagination ? data.pagination.totalPages : 1;
+          dirState.totalCount = data.pagination ? data.pagination.total : data.dealers.length;
+          countEl.textContent = `Showing ${data.dealers.length} of ${dirState.totalCount} verified advisors`;
+
+          grid.innerHTML = data.dealers.map(renderDealerCard).join('');
+          grid.classList.remove('hidden');
+          empty.classList.add('hidden');
+          renderPagination();
+        } else {
+          grid.innerHTML = '';
+          grid.classList.add('hidden');
+          empty.classList.remove('hidden');
+          countEl.textContent = '0 advisors found';
+          document.getElementById('dir-pagination-wrap').innerHTML = '';
+        }
+      } catch (err) {
+        console.error('[fetchDirectoryDealers]', err);
+        grid.innerHTML = `<div class="col-span-12 p-8 text-center text-xs text-error">Unable to connect to Dealers API. Please verify backend server is running.</div>`;
+      }
+    }
+
+    function renderDealerCard(agent) {
+      const avatarUrl = agent.photo || agent.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(agent.name)}&background=eaedff&color=00236f&size=100`;
+      const verifiedBadge = agent.isVerified
+        ? `<span class="material-symbols-outlined text-tertiary text-[16px]" title="Empaneled &amp; Verified Professional">verified</span>`
+        : '';
+      const ratingDisplay = agent.rating > 0
+        ? `${Number(agent.rating).toFixed(1)}★ <span class="font-normal text-outline">(${agent.reviewsCount || 0})</span>`
+        : `<span class="text-outline">New★ (0)</span>`;
+
+      return `
+        <div class="p-4 rounded-2xl bg-white border border-surface-container shadow-card hover:shadow-elevated transition-all flex flex-col justify-between cursor-pointer group select-none"
+             onclick="openAgentMiniProfile(event, ${agent.id})"
+             role="button"
+             tabindex="0"
+             aria-label="View profile of ${escapeHtml(agent.name)}">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <img src="${avatarUrl}" alt="${escapeHtml(agent.name)}" class="w-12 h-12 rounded-full object-cover border border-surface-container group-hover:ring-2 group-hover:ring-primary/20 transition-all"/>
+              <div>
+                <div class="flex items-center gap-1">
+                  <h3 class="font-bold text-sm text-primary group-hover:text-secondary transition-colors">${escapeHtml(agent.name)}</h3>
+                  ${verifiedBadge}
+                </div>
+                <div class="text-[11px] text-outline font-medium truncate max-w-[150px]">${escapeHtml(agent.agency || 'Independent Advisor')}</div>
+              </div>
+            </div>
+            <div class="p-2 rounded-xl bg-surface-container-low space-y-1 text-xs">
+              <div class="flex justify-between text-[11px]"><span class="text-outline">Territory:</span><span class="font-bold text-on-surface truncate ml-2 text-right">${escapeHtml(agent.territory || agent.city)}</span></div>
+              <div class="flex justify-between text-[11px]"><span class="text-outline">Active:</span><span class="font-bold text-primary">${agent.activeListings || agent.propertyCount || 0} listings</span></div>
+              <div class="flex justify-between text-[11px]"><span class="text-outline">Rating:</span><span class="font-bold text-secondary">${ratingDisplay}</span></div>
+            </div>
+            <p class="text-[11px] text-on-surface-variant line-clamp-2">Specialization: <span class="font-semibold text-on-surface">${escapeHtml(agent.specialization || 'Residential Properties')}</span></p>
+          </div>
+          <div class="pt-3 border-t border-surface-container/60 mt-3">
+            <button onclick="openAgentConsultationModal(event, ${agent.id})" class="w-full py-2 rounded-xl bg-surface-container-high hover:bg-primary hover:text-on-primary text-primary font-bold text-xs transition-colors flex items-center justify-center gap-1" type="button">
+              <span class="material-symbols-outlined text-[15px]">phone_in_talk</span>
+              <span>Get Consultation</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPagination() {
+      const wrap = document.getElementById('dir-pagination-wrap');
+      if (!wrap || dirState.totalPages <= 1) {
+        if (wrap) wrap.innerHTML = '';
+        return;
+      }
+
+      let btns = '';
+      if (dirState.page > 1) {
+        btns += `<button onclick="changeDirPage(${dirState.page - 1})" class="px-3.5 py-1.5 rounded-lg bg-white border border-surface-container text-xs font-bold text-primary hover:bg-surface-container transition-colors">Prev</button>`;
+      }
+      for (let i = 1; i <= dirState.totalPages; i++) {
+        const active = (i === dirState.page);
+        btns += `<button onclick="changeDirPage(${i})" class="w-8 h-8 rounded-lg text-xs font-bold transition-colors ${active ? 'bg-primary text-on-primary shadow-sm' : 'bg-white border border-surface-container text-primary hover:bg-surface-container'}">${i}</button>`;
+      }
+      if (dirState.page < dirState.totalPages) {
+        btns += `<button onclick="changeDirPage(${dirState.page + 1})" class="px-3.5 py-1.5 rounded-lg bg-white border border-surface-container text-xs font-bold text-primary hover:bg-surface-container transition-colors">Next</button>`;
+      }
+      wrap.innerHTML = btns;
+    }
+
+    function changeDirPage(page) {
+      dirState.page = page;
+      fetchDirectoryDealers();
+      window.scrollTo({ top: 220, behavior: 'smooth' });
+    }
+
+    function resetDirectoryFilters() {
+      dirState.search = '';
+      dirState.city = '';
+      dirState.role = '';
+      dirState.specialization = '';
+      dirState.sort = 'ranking';
+      dirState.verifiedOnly = false;
+      dirState.page = 1;
+
+      document.getElementById('dir-search-input').value = '';
+      document.getElementById('dir-city-filter').value = '';
+      document.getElementById('dir-role-filter').value = '';
+      document.getElementById('dir-spec-filter').value = '';
+      document.getElementById('dir-sort-filter').value = 'ranking';
+      document.getElementById('dir-verified-only').checked = false;
+
+      fetchDirectoryDealers();
+    }
+
+    /* Modal Handlers identical to code.html */
+    let _activeMiniProfileAgentId = null;
+
+    async function openAgentMiniProfile(e, agentId) {
+      if (e) e.stopPropagation();
+      _activeMiniProfileAgentId = agentId;
+      const overlay = document.getElementById('agent-mini-profile-modal-overlay');
+      const contentEl = document.getElementById('agent-mini-profile-content');
+      if (!overlay || !contentEl) return;
+
+      overlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+
+      contentEl.innerHTML = `
+        <div class="py-8 text-center text-xs text-outline">
+          <span class="material-symbols-outlined animate-spin text-[24px] text-primary">progress_activity</span>
+          <p class="mt-2">Loading advisor profile…</p>
+        </div>
+      `;
+
+      try {
+        const [agentRes, revRes] = await Promise.all([
+          fetch(`${API_BASE}/api/dealers/${agentId}`, { credentials: 'include', cache: 'no-store' }),
+          fetch(`${API_BASE}/api/dealers/${agentId}/reviews`, { credentials: 'include', cache: 'no-store' })
+        ]);
+        const aData = await agentRes.json();
+        const rData = await revRes.json();
+
+        if (aData.success && aData.dealer) {
+          renderAgentMiniProfileContent(aData.dealer, rData.reviews || []);
+        }
+      } catch (err) {
+        contentEl.innerHTML = `<div class="p-6 text-center text-xs text-error">Unable to load advisor profile.</div>`;
+      }
+    }
+
+    function closeAgentMiniProfile() {
+      const overlay = document.getElementById('agent-mini-profile-modal-overlay');
+      if (overlay) overlay.classList.add('hidden');
+      document.body.style.overflow = '';
+      _activeMiniProfileAgentId = null;
+    }
+
+    function renderAgentMiniProfileContent(agent, agentReviews = []) {
+      const contentEl = document.getElementById('agent-mini-profile-content');
+      if (!contentEl || !agent) return;
+
+      const avatarUrl = agent.photo || agent.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(agent.name)}&background=eaedff&color=00236f&size=120`;
+      const roleName = agent.role ? agent.role.charAt(0).toUpperCase() + agent.role.slice(1) : 'Real Estate Agent';
+      const isVerified = Boolean(agent.isVerified);
+      const rating = Number(agent.rating || 0);
+      const revCount = Number(agent.reviewsCount || 0);
+      const activeListings = agent.activeListings || agent.propertyCount || 0;
+      const completedDeals = agent.completedDeals || 0;
+      const expYears = agent.experienceYears || '5+';
+
+      const certHtml = isVerified
+        ? `<div class="p-3 rounded-xl bg-tertiary-fixed/40 border border-tertiary-fixed flex items-center gap-2.5">
+             <span class="material-symbols-outlined text-tertiary text-[22px]">verified</span>
+             <div>
+               <div class="text-xs font-bold text-tertiary">Verified &amp; Empaneled Professional</div>
+               <div class="text-[10px] text-on-surface-variant">${escapeHtml(agent.certificationDetails || 'RERA and KYC compliance verified by Billedkart Realtech Legal Cell')}</div>
+             </div>
+           </div>`
+        : `<div class="p-3 rounded-xl bg-surface-container-low border border-surface-container flex items-center gap-2.5">
+             <span class="material-symbols-outlined text-outline text-[20px]">badge</span>
+             <div>
+               <div class="text-xs font-bold text-primary">${escapeHtml(agent.agency || 'Independent Advisor')}</div>
+               <div class="text-[10px] text-outline">Empaneled partner under standard marketplace guidelines</div>
+             </div>
+           </div>`;
+
+      let reviewsListHtml = '';
+      if (agentReviews && agentReviews.length > 0) {
+        reviewsListHtml = agentReviews.map(r => {
+          const stars = Array(r.rating).fill('<span class="material-symbols-outlined filled text-[14px]">star</span>').join('');
+          const revAvatar = r.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.name)}&background=eaedff&color=00236f&size=60`;
+          const ownerMenuHtml = r.isOwner ? `
+            <div class="flex items-center gap-1">
+              <button onclick="openAgentReviewModal(${agent.id}, ${r.id})" class="p-1 rounded text-outline hover:text-primary" title="Edit Review">
+                <span class="material-symbols-outlined text-[15px]">edit</span>
+              </button>
+              <button onclick="confirmDeleteAgentReview(event, ${agent.id}, ${r.id})" class="p-1 rounded text-outline hover:text-error" title="Delete Review">
+                <span class="material-symbols-outlined text-[15px]">delete</span>
+              </button>
+            </div>
+          ` : '';
+
+          return `
+            <div class="p-3 rounded-xl bg-surface-container-low border border-surface-container space-y-1.5">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <img src="${revAvatar}" alt="${escapeHtml(r.name)}" class="w-7 h-7 rounded-full object-cover"/>
+                  <div>
+                    <span class="font-bold text-xs text-primary block leading-tight">${escapeHtml(r.name)}</span>
+                    <span class="text-[10px] text-outline">${r.createdAtFormatted || 'Verified User'}</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <div class="flex text-secondary">${stars}</div>
+                  ${ownerMenuHtml}
+                </div>
+              </div>
+              <p class="text-xs text-on-surface italic leading-relaxed">"${escapeHtml(r.text)}"</p>
+              ${r.propertyContext ? `<div class="text-[10px] font-semibold text-secondary">${escapeHtml(r.propertyContext)}</div>` : ''}
+            </div>
+          `;
+        }).join('');
+      } else {
+        reviewsListHtml = `
+          <div class="p-4 rounded-xl bg-surface-container-low text-center text-xs text-outline">
+            No public reviews published yet. Be the first to share your experience!
+          </div>
+        `;
+      }
+
+      contentEl.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-start gap-4">
+            <img src="${avatarUrl}" alt="${escapeHtml(agent.name)}" class="w-16 h-16 rounded-2xl object-cover border-2 border-surface-container shadow-sm flex-shrink-0"/>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <h3 id="agent-popup-name" class="font-extrabold text-lg text-primary">${escapeHtml(agent.name)}</h3>
+                ${isVerified ? '<span class="material-symbols-outlined text-tertiary text-[18px]" title="Empaneled & Verified">verified</span>' : ''}
+              </div>
+              <div class="text-xs font-semibold text-outline">${escapeHtml(agent.agency || 'Independent Advisor')} • <span class="text-primary font-bold">${roleName}</span></div>
+              <div class="text-xs text-on-surface-variant flex items-center gap-1 mt-1">
+                <span class="material-symbols-outlined text-secondary text-[15px]">location_on</span>
+                <span>${escapeHtml(agent.territory || agent.city)}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-4 gap-2 text-center">
+            <div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container">
+              <span class="block text-xs font-extrabold text-primary">${expYears} yrs</span>
+              <span class="block text-[10px] text-outline font-medium">Experience</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container">
+              <span class="block text-xs font-extrabold text-primary">${activeListings}</span>
+              <span class="block text-[10px] text-outline font-medium">Listings</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container">
+              <span class="block text-xs font-extrabold text-tertiary">${completedDeals > 0 ? completedDeals : '--'}</span>
+              <span class="block text-[10px] text-outline font-medium">Deals Done</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container">
+              <span class="block text-xs font-extrabold text-secondary">${rating > 0 ? rating.toFixed(1) + '★' : 'New'}</span>
+              <span class="block text-[10px] text-outline font-medium">(${revCount} revs)</span>
+            </div>
+          </div>
+
+          ${certHtml}
+
+          ${agent.bio ? `
+            <div>
+              <h4 class="text-xs font-bold text-primary mb-1 uppercase tracking-wider">About Advisor</h4>
+              <p class="text-xs text-on-surface-variant leading-relaxed bg-surface p-3 rounded-xl border border-surface-container/60">${escapeHtml(agent.bio)}</p>
+            </div>
+          ` : ''}
+
+          <div>
+            <h4 class="text-xs font-bold text-primary mb-1.5 uppercase tracking-wider">Specializations</h4>
+            <div class="flex flex-wrap gap-1.5">
+              ${(agent.specialization || 'Residential Properties, Site Visits')
+                .split(',')
+                .map(s => `<span class="px-2.5 py-1 rounded-full bg-surface-container text-primary text-[11px] font-bold">${escapeHtml(s.trim())}</span>`)
+                .join('')}
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 pt-2 border-t border-surface-container">
+            <button onclick="openAgentConsultationModal(event, ${agent.id})" class="flex-1 py-2.5 rounded-xl bg-secondary hover:bg-secondary-dark text-on-secondary font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-colors" type="button">
+              <span class="material-symbols-outlined text-[16px]">phone_in_talk</span>
+              <span>Get Consultation</span>
+            </button>
+            <a href="code.html" class="px-4 py-2.5 rounded-xl bg-primary text-on-primary hover:bg-primary-container font-bold text-xs flex items-center gap-1 transition-colors">
+              <span class="material-symbols-outlined text-[16px]">real_estate_agent</span>
+              <span>View Listings (${activeListings})</span>
+            </a>
+            <button onclick="openAgentReviewModal(${agent.id})" class="px-3 py-2.5 rounded-xl bg-surface-container hover:bg-primary hover:text-on-primary text-primary font-bold text-xs flex items-center gap-1 transition-colors" title="Write a Review" type="button">
+              <span class="material-symbols-outlined text-[16px]">rate_review</span>
+            </button>
+          </div>
+
+          <div class="pt-2 border-t border-surface-container space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-primary uppercase tracking-wider">Verified Reviews (${revCount})</h4>
+              <button onclick="openAgentReviewModal(${agent.id})" class="text-xs font-bold text-secondary hover:underline flex items-center gap-1" type="button">
+                <span>Write Review</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </button>
+            </div>
+            <div class="space-y-2 max-h-48 overflow-y-auto pr-1">
+              ${reviewsListHtml}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* Consultation Modal Logic */
+    async function openAgentConsultationModal(e, agentId) {
+      if (e) e.stopPropagation();
+      const overlay = document.getElementById('agent-consultation-modal-overlay');
+      const contentEl = document.getElementById('agent-consultation-content');
+      if (!overlay || !contentEl) return;
+
+      overlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+
+      contentEl.innerHTML = `
+        <div class="py-8 text-center text-xs text-outline">
+          <span class="material-symbols-outlined animate-spin text-[24px] text-primary">progress_activity</span>
+          <p class="mt-2">Loading contact channels…</p>
+        </div>
+      `;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/dealers/${agentId}`, { credentials: 'include', cache: 'no-store' });
+        const data = await res.json();
+        if (data.success && data.dealer) {
+          renderAgentConsultationContent(data.dealer);
+        }
+      } catch (err) {
+        contentEl.innerHTML = `<div class="p-6 text-center text-xs text-error">Unable to load advisor contact options.</div>`;
+      }
+    }
+    window.openAgentConsultationModal = openAgentConsultationModal;
+
+    function closeAgentConsultationModal() {
+      const overlay = document.getElementById('agent-consultation-modal-overlay');
+      if (overlay) overlay.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function renderAgentConsultationContent(agent) {
+      const contentEl = document.getElementById('agent-consultation-content');
+      if (!contentEl || !agent) return;
+
+      const avatarUrl = agent.photo || agent.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(agent.name)}&background=eaedff&color=00236f&size=80`;
+      const pref = agent.consultationPreference || 'all';
+      const showPhone = (pref === 'phone' || pref === 'all') && agent.phone;
+      const showWa = (pref === 'whatsapp' || pref === 'all');
+      const clientName = currentUser ? (currentUser.fullName || currentUser.full_name || '') : '';
+      const clientEmail = currentUser ? (currentUser.email || '') : '';
+      const clientPhone = currentUser ? (currentUser.phoneNumber || currentUser.phone || '') : '';
+
+      contentEl.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center gap-3 pb-3 border-b border-surface-container">
+            <img src="${avatarUrl}" alt="${escapeHtml(agent.name)}" class="w-12 h-12 rounded-full object-cover border border-surface-container"/>
+            <div>
+              <div class="text-[10px] font-bold text-secondary uppercase tracking-wider">Neighborhood Consultation</div>
+              <h3 id="consult-modal-agent-name" class="font-extrabold text-base text-primary">${escapeHtml(agent.name)}</h3>
+              <div class="text-xs text-outline">${escapeHtml(agent.agency || 'Independent')} • ${escapeHtml(agent.territory || agent.city)}</div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            ${showPhone ? `
+              <a href="${window.BilledkartContact ? window.BilledkartContact.getTelHref(agent.phone) : 'tel:+919044268001'}" class="p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container border border-surface-container flex items-center justify-center gap-2 text-xs font-bold text-primary transition-colors">
+                <span class="material-symbols-outlined text-[18px] text-tertiary">call</span>
+                <span>Call Directly</span>
+              </a>
+            ` : `
+              <div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container flex items-center justify-center gap-2 text-xs font-semibold text-outline">
+                <span class="material-symbols-outlined text-[18px]">verified_user</span>
+                <span>Privacy Protected</span>
+              </div>
+            `}
+
+            ${showWa ? `
+              <button type="button" onclick="handleAgentWhatsAppDirect('${escapeHtml(agent.name)}', '${escapeHtml(agent.territory || agent.city)}', '${agent.phone || ''}')" class="p-2.5 rounded-xl bg-tertiary-fixed/30 hover:bg-tertiary-fixed/50 border border-tertiary-fixed text-tertiary flex items-center justify-center gap-2 text-xs font-bold transition-colors">
+                <span class="material-symbols-outlined text-[18px]">chat</span>
+                <span>WhatsApp</span>
+              </button>
+            ` : `
+              <div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container flex items-center justify-center gap-2 text-xs font-semibold text-outline">
+                <span class="material-symbols-outlined text-[18px]">schedule</span>
+                <span>Callback Only</span>
+              </div>
+            `}
+          </div>
+
+          <div class="relative flex items-center py-1">
+            <div class="flex-grow border-t border-surface-container"></div>
+            <span class="flex-shrink mx-3 text-[10px] font-bold text-outline uppercase tracking-wider">Or Request Callback</span>
+            <div class="flex-grow border-t border-surface-container"></div>
+          </div>
+
+          <form id="agent-consult-form" onsubmit="handleAgentConsultationSubmit(event, ${agent.id})" class="space-y-3" novalidate>
+            <div id="agent-consult-status" class="hidden p-2.5 rounded-xl text-xs font-semibold"></div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Your Name <span class="text-secondary">*</span></label>
+                <input type="text" id="consult-name" value="${escapeHtml(clientName)}" required placeholder="e.g. Rahul Sharma" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Phone Number <span class="text-secondary">*</span></label>
+                <input type="tel" id="consult-phone" value="${escapeHtml(clientPhone)}" required placeholder="e.g. 9876543210" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Email <span class="text-outline font-normal">(optional)</span></label>
+                <input type="email" id="consult-email" value="${escapeHtml(clientEmail)}" placeholder="name@example.com" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Preferred Time</label>
+                <select id="consult-time" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none">
+                  <option value="Anytime today">Anytime today</option>
+                  <option value="Morning (9 AM - 12 PM)">Morning (9 AM - 12 PM)</option>
+                  <option value="Afternoon (12 PM - 4 PM)">Afternoon (12 PM - 4 PM)</option>
+                  <option value="Evening (4 PM - 8 PM)">Evening (4 PM - 8 PM)</option>
+                  <option value="Weekend site visit">Weekend site visit</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-on-surface mb-1">Property Requirements / Message</label>
+              <textarea id="consult-message" rows="2" placeholder="e.g. Looking for 3 BHK flat or villa in ${escapeHtml(agent.territory || agent.city)} within 1.5 Cr budget" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"></textarea>
+            </div>
+
+            <label class="flex items-start gap-2 cursor-pointer pt-1">
+              <input type="checkbox" id="consult-consent" checked class="mt-0.5 accent-primary cursor-pointer"/>
+              <span class="text-[10px] text-outline leading-tight">
+                I agree to share my contact details with ${escapeHtml(agent.name)} solely for property consultation on Billedkart Realtech.
+              </span>
+            </label>
+
+            <div class="flex items-center gap-2 pt-2">
+              <button id="agent-consult-submit-btn" type="submit" class="flex-1 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+                <span>Submit Consultation Request</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </button>
+              <button type="button" onclick="closeAgentConsultationModal()" class="px-4 py-2.5 rounded-xl bg-surface-container text-primary font-bold text-xs transition-colors">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      `;
+    }
+
+    function handleAgentWhatsAppDirect(agentName, territory, agentPhone) {
+      const msg = `Hello ${agentName}, I saw your verified profile on Billedkart Realtech for ${territory}. I would like to schedule a consultation regarding available properties.`;
+      const waUrl = (window.BilledkartContact)
+        ? window.BilledkartContact.resolveConsultantWhatsApp({ phone: agentPhone }, msg)
+        : `https://wa.me/919044268001?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, '_blank');
+    }
+
+    async function handleAgentConsultationSubmit(e, agentId) {
+      e.preventDefault();
+      const statusEl = document.getElementById('agent-consult-status');
+      const submitBtn = document.getElementById('agent-consult-submit-btn');
+      const name = (document.getElementById('consult-name')?.value || '').trim();
+      const phone = (document.getElementById('consult-phone')?.value || '').trim();
+      const email = (document.getElementById('consult-email')?.value || '').trim();
+      const preferredTime = document.getElementById('consult-time')?.value;
+      const message = (document.getElementById('consult-message')?.value || '').trim();
+      const consent = document.getElementById('consult-consent')?.checked;
+
+      if (!name || name.length < 2) {
+        statusEl.className = 'p-2.5 rounded-xl text-xs font-semibold bg-error-container text-error';
+        statusEl.textContent = 'Please enter your full name.';
+        statusEl.classList.remove('hidden');
+        return;
+      }
+      if (!phone || phone.length < 10) {
+        statusEl.className = 'p-2.5 rounded-xl text-xs font-semibold bg-error-container text-error';
+        statusEl.textContent = 'Please enter a valid 10-digit phone number.';
+        statusEl.classList.remove('hidden');
+        return;
+      }
+      if (!consent) {
+        statusEl.className = 'p-2.5 rounded-xl text-xs font-semibold bg-error-container text-error';
+        statusEl.textContent = 'Please agree to share your contact details.';
+        statusEl.classList.remove('hidden');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[16px]">progress_activity</span><span>Sending...</span>`;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/dealers/${agentId}/consult`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            client_name: name,
+            client_phone: phone,
+            client_email: email,
+            preferred_time: preferredTime,
+            message: message,
+            consent: true
+          })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          if (res.status === 429) {
+            statusEl.className = 'p-2.5 rounded-xl text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200';
+            statusEl.textContent = data.error || 'A request was recently submitted. Please wait before requesting again.';
+            statusEl.classList.remove('hidden');
+            return;
+          }
+          throw new Error(data.error || 'Failed to submit request.');
+        }
+
+        const contentEl = document.getElementById('agent-consultation-content');
+        if (contentEl) {
+          contentEl.innerHTML = `
+            <div class="text-center py-6 space-y-3">
+              <div class="w-14 h-14 rounded-full bg-tertiary-fixed text-tertiary flex items-center justify-center mx-auto shadow-sm">
+                <span class="material-symbols-outlined text-[32px]">check_circle</span>
+              </div>
+              <h3 class="text-base font-extrabold text-primary">Consultation Request Sent!</h3>
+              <p class="text-xs text-on-surface-variant max-w-sm mx-auto leading-relaxed">
+                Your request has been delivered to the empaneled advisor. They will reach out to you within the requested time window.
+              </p>
+              <div class="pt-3">
+                <button type="button" onclick="closeAgentConsultationModal()" class="px-6 py-2.5 rounded-xl bg-primary text-on-primary font-bold text-xs shadow-sm">
+                  Done
+                </button>
+              </div>
+            </div>
+          `;
+        }
+        showToast('Consultation request submitted!');
+      } catch (err) {
+        statusEl.className = 'p-2.5 rounded-xl text-xs font-semibold bg-error-container text-error';
+        statusEl.textContent = err.message || 'Error sending request.';
+        statusEl.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>Submit Consultation Request</span><span class="material-symbols-outlined text-[16px]">arrow_forward</span>`;
+      }
+    }
+
+    /* Agent Star Selector & Review Modal Logic */
+    let _agentSelectedRating = 0;
+    let _activeAgentReviewTargetId = null;
+    let _activeAgentEditingReviewId = null;
+
+    function initAgentStarSelector() {
+      const wrap = document.getElementById('agent-star-selector-wrap');
+      if (!wrap) return;
+      const btns = wrap.querySelectorAll('button');
+      btns.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+          _agentSelectedRating = index + 1;
+          updateAgentStarUI(_agentSelectedRating);
+          const err = document.getElementById('agent-rf-rating-error');
+          if (err) err.textContent = '';
+        });
+        btn.addEventListener('mouseenter', () => updateAgentStarUI(index + 1));
+      });
+      wrap.addEventListener('mouseleave', () => updateAgentStarUI(_agentSelectedRating));
+    }
+
+    function updateAgentStarUI(rating) {
+      const wrap = document.getElementById('agent-star-selector-wrap');
+      if (!wrap) return;
+      const btns = wrap.querySelectorAll('button');
+      btns.forEach((btn, i) => {
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (i < rating) {
+          icon.classList.add('filled');
+          btn.style.color = '#fd651e';
+        } else {
+          icon.classList.remove('filled');
+          btn.style.color = '#c5c5d3';
+        }
+      });
+    }
+
+    async function openAgentReviewModal(agentId, editReviewId = null) {
+      if (!currentUser) {
+        showToast('Please sign in to review an advisor.');
+        return;
+      }
+      _activeAgentReviewTargetId = agentId;
+      _activeAgentEditingReviewId = editReviewId;
+
+      const overlay = document.getElementById('agent-review-modal-overlay');
+      const titleEl = document.getElementById('agent-rev-modal-title');
+      const subEl = document.getElementById('agent-rev-modal-sub');
+      const submitBtn = document.getElementById('agent-rev-submit-btn');
+      const formEl = document.getElementById('agent-review-form');
+      const cooldownNotice = document.getElementById('agent-rev-cooldown-notice');
+      const cooldownText = document.getElementById('agent-rev-cooldown-text');
+      const cooldownEditBtn = document.getElementById('agent-rev-cooldown-edit-btn');
+      const textInput = document.getElementById('agent-rf-text');
+      const propInput = document.getElementById('agent-rf-property');
+
+      if (!overlay) return;
+
+      document.getElementById('agent-rf-rating-error').textContent = '';
+      document.getElementById('agent-rf-text-error').textContent = '';
+
+      if (editReviewId) {
+        if (titleEl) titleEl.textContent = 'Edit Advisor Review';
+        if (subEl) subEl.textContent = 'Update your feedback and rating for this specialist.';
+        if (submitBtn) submitBtn.textContent = 'Update Review';
+        if (cooldownNotice) cooldownNotice.style.display = 'none';
+        if (formEl) formEl.style.display = '';
+
+        try {
+          const revRes = await fetch(`${API_BASE}/api/dealers/${agentId}/reviews`, { credentials: 'include', cache: 'no-store' });
+          const revData = await revRes.json();
+          if (revData.success && Array.isArray(revData.reviews)) {
+            const target = revData.reviews.find(r => String(r.id) === String(editReviewId));
+            if (target) {
+              _agentSelectedRating = target.rating || 5;
+              updateAgentStarUI(_agentSelectedRating);
+              textInput.value = target.text || '';
+              propInput.value = target.propertyContext || '';
+            }
+          }
+        } catch (err) {
+          console.warn(err);
+        }
+      } else {
+        _agentSelectedRating = 0;
+        updateAgentStarUI(0);
+        textInput.value = '';
+        propInput.value = '';
+
+        if (titleEl) titleEl.textContent = 'Review Real Estate Advisor';
+        if (subEl) subEl.textContent = 'Share verified feedback about consulting or working with this specialist.';
+        if (submitBtn) submitBtn.textContent = 'Submit Review';
+
+        try {
+          const cdRes = await fetch(`${API_BASE}/api/dealers/${agentId}/reviews/cooldown`, { credentials: 'include', cache: 'no-store' });
+          const cdData = await cdRes.json();
+          if (cdData.success && cdData.inCooldown) {
+            if (cooldownNotice && cooldownText) {
+              cooldownText.textContent = cdData.message || 'You reviewed this advisor within the last 30 days.';
+              cooldownNotice.style.display = 'block';
+              if (cdData.existingReview && cdData.existingReview.id) {
+                cooldownEditBtn.style.display = 'inline-block';
+                cooldownEditBtn.onclick = () => openAgentReviewModal(agentId, cdData.existingReview.id);
+              } else {
+                cooldownEditBtn.style.display = 'none';
+              }
+            }
+            if (formEl) formEl.style.display = 'none';
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            return;
+          }
+        } catch (cdErr) {
+          console.warn(cdErr);
+        }
+
+        if (cooldownNotice) cooldownNotice.style.display = 'none';
+        if (formEl) formEl.style.display = '';
+      }
+
+      overlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAgentReviewModal() {
+      const overlay = document.getElementById('agent-review-modal-overlay');
+      if (overlay) overlay.classList.add('hidden');
+      document.body.style.overflow = '';
+      _activeAgentReviewTargetId = null;
+      _activeAgentEditingReviewId = null;
+    }
+
+    async function handleAgentReviewSubmit(e) {
+      e.preventDefault();
+      const rErr = document.getElementById('agent-rf-rating-error');
+      const tErr = document.getElementById('agent-rf-text-error');
+      const textInput = document.getElementById('agent-rf-text');
+      const propInput = document.getElementById('agent-rf-property');
+      const submitBtn = document.getElementById('agent-rev-submit-btn');
+
+      rErr.textContent = '';
+      tErr.textContent = '';
+      const text = (textInput.value || '').trim();
+      const propContext = (propInput.value || '').trim();
+
+      if (_agentSelectedRating < 1 || _agentSelectedRating > 5) {
+        rErr.textContent = 'Please choose a star rating (1 to 5).';
+        return;
+      }
+      if (!text || text.length < 10) {
+        tErr.textContent = 'Feedback must be at least 10 characters.';
+        return;
+      }
+
+      const isEditing = Boolean(_activeAgentEditingReviewId);
+      const url = isEditing
+        ? `${API_BASE}/api/dealers/${_activeAgentReviewTargetId}/reviews/${_activeAgentEditingReviewId}`
+        : `${API_BASE}/api/dealers/${_activeAgentReviewTargetId}/reviews`;
+      const method = isEditing ? 'PATCH' : 'POST';
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = isEditing ? 'Updating…' : 'Submitting…';
+
+      try {
+        const res = await fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            rating: _agentSelectedRating,
+            review_text: text,
+            property_context: propContext
+          })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || 'Failed to submit review.');
+        }
+
+        closeAgentReviewModal();
+        showToast(isEditing ? 'Advisor review updated.' : 'Advisor review submitted!');
+        fetchDirectoryDealers();
+
+        if (_activeMiniProfileAgentId) {
+          openAgentMiniProfile(null, _activeMiniProfileAgentId);
+        }
+      } catch (err) {
+        tErr.textContent = err.message || 'Error submitting review.';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = isEditing ? 'Update Review' : 'Submit Review';
+      }
+    }
+
+    let _delTargetAgentId = null;
+    let _delTargetReviewId = null;
+
+    function confirmDeleteAgentReview(e, agentId, reviewId) {
+      if (e) e.stopPropagation();
+      _delTargetAgentId = agentId;
+      _delTargetReviewId = reviewId;
+
+      const overlay = document.getElementById('review-delete-dialog-overlay');
+      const confirmBtn = document.getElementById('review-delete-confirm-btn');
+      if (confirmBtn) confirmBtn.onclick = executeAgentReviewDelete;
+      if (overlay) overlay.classList.remove('hidden');
+    }
+
+    function closeDeleteReviewDialog() {
+      const overlay = document.getElementById('review-delete-dialog-overlay');
+      if (overlay) overlay.classList.add('hidden');
+      _delTargetAgentId = null;
+      _delTargetReviewId = null;
+    }
+
+    async function executeAgentReviewDelete() {
+      const overlay = document.getElementById('review-delete-dialog-overlay');
+      const btn = document.getElementById('review-delete-confirm-btn');
+
+      if (!_delTargetAgentId || !_delTargetReviewId) return;
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/dealers/${_delTargetAgentId}/reviews/${_delTargetReviewId}`, {
+          method: 'DELETE',
+          credentials: 'include'
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.error || 'Failed to delete review.');
+
+        closeDeleteReviewDialog();
+        showToast('Review deleted.');
+        fetchDirectoryDealers();
+
+        if (_activeMiniProfileAgentId) {
+          openAgentMiniProfile(null, _activeMiniProfileAgentId);
+        }
+      } catch (err) {
+        document.getElementById('review-delete-error').textContent = err.message;
+        document.getElementById('review-delete-error').style.display = 'block';
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    /* Agent Management Modal */
+    async function openAgentManagementModal(e) {
+      if (e) e.preventDefault();
+      if (!currentUser) {
+        showToast('Please sign in to register as an advisor. Redirecting...'); setTimeout(() => { window.location.href = 'code.html?action=register-agent'; }, 800);
+        return;
+      }
+
+      const overlay = document.getElementById('agent-manage-profile-modal-overlay');
+      const contentEl = document.getElementById('agent-manage-profile-content');
+      if (!overlay || !contentEl) return;
+
+      overlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+
+      contentEl.innerHTML = `
+        <div class="py-8 text-center text-xs text-outline">
+          <span class="material-symbols-outlined animate-spin text-[24px] text-primary">progress_activity</span>
+          <p class="mt-2">Checking advisor status…</p>
+        </div>
+      `;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/dealers/me/profile`, { credentials: 'include', cache: 'no-store' });
+        const data = await res.json();
+        if (data.success && data.hasProfile && data.agent) {
+          renderAgentManagementDashboard(data.agent);
+        } else {
+          renderAgentRegistrationForm();
+        }
+      } catch (err) {
+        renderAgentRegistrationForm();
+      }
+    }
+
+    function closeAgentManagementModal() {
+      const overlay = document.getElementById('agent-manage-profile-modal-overlay');
+      if (overlay) overlay.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function renderAgentRegistrationForm() {
+      const contentEl = document.getElementById('agent-manage-profile-content');
+      if (!contentEl) return;
+
+      const userName = currentUser ? (currentUser.fullName || currentUser.full_name || '') : '';
+      const userEmail = currentUser ? currentUser.email : '';
+      const userPhone = currentUser ? (currentUser.phoneNumber || currentUser.phone || '') : '';
+
+      contentEl.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="material-symbols-outlined text-[20px] text-secondary">badge</span>
+            <span class="text-[10px] font-bold text-outline tracking-wider uppercase">Empaneled Directory</span>
+          </div>
+          <h3 id="agent-manage-modal-title" class="text-lg font-extrabold text-primary">Register as Real Estate Advisor</h3>
+          <p class="text-xs text-on-surface-variant leading-relaxed">
+            Expand your clientele across prime metros. List your verified profile on India's trusted marketplace.
+          </p>
+
+          <form id="agent-register-form" onsubmit="handleAgentRegistrationOrUpdate(event, false)" class="space-y-3" novalidate>
+            <div id="agent-manage-status" class="hidden p-2.5 rounded-xl text-xs font-semibold"></div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Full Name <span class="text-secondary">*</span></label>
+                <input type="text" id="ag-reg-name" value="${escapeHtml(userName)}" required placeholder="e.g. Ramesh Kumar" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Agency / Business Name</label>
+                <input type="text" id="ag-reg-agency" placeholder="e.g. Skyline Realty" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Role / Designation <span class="text-secondary">*</span></label>
+                <select id="ag-reg-role" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none">
+                  <option value="agent">Real Estate Agent</option>
+                  <option value="broker">Certified Broker</option>
+                  <option value="dealer">Property Dealer</option>
+                  <option value="seller">Direct Property Seller</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">City <span class="text-secondary">*</span></label>
+                <select id="ag-reg-city" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none">
+                  <option value="Bengaluru">Bengaluru</option>
+                  <option value="Mumbai">Mumbai</option>
+                  <option value="Delhi NCR">Delhi NCR</option>
+                  <option value="Hyderabad">Hyderabad</option>
+                  <option value="Pune">Pune</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Service Territory / Localities <span class="text-secondary">*</span></label>
+                <input type="text" id="ag-reg-territory" required placeholder="e.g. Indiranagar &amp; Koramangala" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Years of Experience <span class="text-secondary">*</span></label>
+                <input type="number" id="ag-reg-exp" min="0" max="60" value="5" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Phone Number <span class="text-secondary">*</span></label>
+                <input type="tel" id="ag-reg-phone" value="${escapeHtml(userPhone)}" required placeholder="e.g. 9876543210" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Email <span class="text-secondary">*</span></label>
+                <input type="email" id="ag-reg-email" value="${escapeHtml(userEmail)}" required placeholder="e.g. agent@example.com" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-on-surface mb-1">Specialization <span class="text-secondary">*</span></label>
+              <input type="text" id="ag-reg-spec" required placeholder="e.g. Luxury Highrises, BDA Plots, Commercial Leases" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-on-surface mb-1">Professional Biography</label>
+              <textarea id="ag-reg-bio" rows="2" placeholder="Briefly introduce your property advisory background..." class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"></textarea>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-on-surface mb-1">RERA / Certification Details</label>
+              <input type="text" id="ag-reg-cert" placeholder="e.g. RERA No: PRM/KA/RERA/1251/310/AG/220501" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+            </div>
+
+            <label class="flex items-start gap-2 cursor-pointer pt-1">
+              <input type="checkbox" id="ag-reg-consent" checked class="mt-0.5 accent-primary cursor-pointer"/>
+              <span class="text-[10px] text-outline leading-tight">
+                I certify that the information provided is accurate and consent to publish my profile in the Billedkart Realtech Empaneled Directory subject to platform verification.
+              </span>
+            </label>
+
+            <div class="flex items-center gap-2 pt-2">
+              <button id="ag-manage-submit-btn" type="submit" class="flex-1 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-bold text-xs transition-colors shadow-sm">
+                Register Advisor Profile
+              </button>
+              <button type="button" onclick="closeAgentManagementModal()" class="px-4 py-2.5 rounded-xl bg-surface-container text-primary font-bold text-xs transition-colors">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      `;
+    }
+
+    function renderAgentManagementDashboard(agent) {
+      const contentEl = document.getElementById('agent-manage-profile-content');
+      if (!contentEl || !agent) return;
+
+      const avatarUrl = agent.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(agent.name)}&background=eaedff&color=00236f&size=100`;
+      const isApproved = agent.approvalStatus === 'approved';
+
+      const statusBadge = isApproved
+        ? `<span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary text-[10px] font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">check_circle</span> Live in Directory</span>`
+        : `<span class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">schedule</span> Under Moderation</span>`;
+
+      contentEl.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+              <img src="${avatarUrl}" alt="${escapeHtml(agent.name)}" class="w-12 h-12 rounded-full object-cover border border-surface-container"/>
+              <div>
+                <h3 id="agent-manage-modal-title" class="text-base font-extrabold text-primary">${escapeHtml(agent.name)}</h3>
+                <div class="text-xs text-outline">${escapeHtml(agent.agency || 'Independent Advisor')}</div>
+              </div>
+            </div>
+            <div>${statusBadge}</div>
+          </div>
+
+          <div class="grid grid-cols-4 gap-2 text-center">
+            <div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container">
+              <span class="block text-xs font-extrabold text-primary">${agent.activeListings || 0}</span>
+              <span class="block text-[10px] text-outline font-medium">Listings</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container">
+              <span class="block text-xs font-extrabold text-tertiary">${agent.completedDeals || 0}</span>
+              <span class="block text-[10px] text-outline font-medium">Deals</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container">
+              <span class="block text-xs font-extrabold text-secondary">${Number(agent.rating || 0).toFixed(1)}★</span>
+              <span class="block text-[10px] text-outline font-medium">Rating</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-surface-container-low border border-surface-container">
+              <span class="block text-xs font-extrabold text-primary">${agent.reviewsCount || 0}</span>
+              <span class="block text-[10px] text-outline font-medium">Reviews</span>
+            </div>
+          </div>
+
+          <form id="agent-update-form" onsubmit="handleAgentRegistrationOrUpdate(event, true, ${agent.id})" class="space-y-3" novalidate>
+            <div id="agent-manage-status" class="hidden p-2.5 rounded-xl text-xs font-semibold"></div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Agency Name</label>
+                <input type="text" id="ag-reg-agency" value="${escapeHtml(agent.agency || '')}" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Territory / Area</label>
+                <input type="text" id="ag-reg-territory" value="${escapeHtml(agent.territory || '')}" required class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Specialization</label>
+                <input type="text" id="ag-reg-spec" value="${escapeHtml(agent.specialization || '')}" required class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Years of Experience</label>
+                <input type="number" id="ag-reg-exp" min="0" max="60" value="${agent.experienceYears || 5}" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none"/>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-on-surface mb-1">Biography</label>
+              <textarea id="ag-reg-bio" rows="2" class="w-full text-xs rounded-xl p-2.5 bg-surface-container-low border border-surface-container focus:bg-white focus:border-primary outline-none">${escapeHtml(agent.bio || '')}</textarea>
+            </div>
+
+            <div class="flex items-center gap-2 pt-2">
+              <button id="ag-manage-submit-btn" type="submit" class="flex-1 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-bold text-xs transition-colors shadow-sm">
+                Save Profile Changes
+              </button>
+              <button type="button" onclick="closeAgentManagementModal()" class="px-4 py-2.5 rounded-xl bg-surface-container text-primary font-bold text-xs transition-colors">
+                Close
+              </button>
+            </div>
+          </form>
+        </div>
+      `;
+    }
+
+    async function handleAgentRegistrationOrUpdate(e, isUpdate = false, existingId = null) {
+      e.preventDefault();
+      const statusEl = document.getElementById('agent-manage-status');
+      const submitBtn = document.getElementById('ag-manage-submit-btn');
+
+      const agency = (document.getElementById('ag-reg-agency')?.value || '').trim();
+      const territory = (document.getElementById('ag-reg-territory')?.value || '').trim();
+      const specialization = (document.getElementById('ag-reg-spec')?.value || '').trim();
+      const exp = parseInt(document.getElementById('ag-reg-exp')?.value || '0', 10);
+      const bio = (document.getElementById('ag-reg-bio')?.value || '').trim();
+
+      if (!territory || territory.length < 2) {
+        statusEl.className = 'p-2.5 rounded-xl text-xs font-semibold bg-error-container text-error';
+        statusEl.textContent = 'Please provide your service territory or locality.';
+        statusEl.classList.remove('hidden');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[16px]">progress_activity</span><span>Saving…</span>`;
+
+      try {
+        let url = `${API_BASE}/api/dealers/me/profile`;
+        let method = 'PUT';
+        let body = { agency, territory, specialization, experience_years: exp, bio };
+
+        if (!isUpdate) {
+          url = `${API_BASE}/api/dealers/register`;
+          method = 'POST';
+          const name = (document.getElementById('ag-reg-name')?.value || '').trim();
+          const role = document.getElementById('ag-reg-role')?.value || 'agent';
+          const city = document.getElementById('ag-reg-city')?.value || 'Bengaluru';
+          const phone = (document.getElementById('ag-reg-phone')?.value || '').trim();
+          const email = (document.getElementById('ag-reg-email')?.value || '').trim();
+          const cert = (document.getElementById('ag-reg-cert')?.value || '').trim();
+
+          body = {
+            name, agency, role, city, territory, specialization, bio,
+            certification_details: cert, experience_years: exp, phone, email, consent: true
+          };
+        }
+
+        const res = await fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(body)
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || 'Failed to save advisor profile.');
+        }
+
+        showToast(isUpdate ? 'Advisor profile updated!' : 'Advisor profile registered!');
+        closeAgentManagementModal();
+        fetchDirectoryDealers();
+      } catch (err) {
+        statusEl.className = 'p-2.5 rounded-xl text-xs font-semibold bg-error-container text-error';
+        statusEl.textContent = err.message || 'Error saving profile.';
+        statusEl.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = isUpdate ? 'Save Profile Changes' : 'Register Advisor Profile';
+      }
+    }
+
+    /* Event Listeners & Boot */
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Check URL parameters for OAuth callbacks
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('auth_error')) {
+        showToast('Google Sign-In: ' + params.get('auth_error'));
+        window.history.replaceState({}, document.title, window.location.pathname);
+      } else if (params.get('auth_success') === 'google' || params.get('auth') === 'google_success') {
+        const exchangeToken = params.get('exchange_token');
+        if (exchangeToken) {
+          try {
+            await fetch(`${API_BASE}/api/auth/exchange`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ token: exchangeToken }),
+              credentials: 'include'
+            });
+          } catch (e) {
+            console.error('[dealers session exchange]', e);
+          }
+        }
+        showToast('Successfully signed in with Google!');
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+
+      await checkAuthStatus();
+      initAgentStarSelector();
+
+      // Filter change listeners
+      const searchInput = document.getElementById('dir-search-input');
+      let searchTimeout;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          dirState.search = searchInput.value.trim();
+          dirState.page = 1;
+          fetchDirectoryDealers();
+        }, 400);
+      });
+
+      document.getElementById('dir-city-filter').addEventListener('change', (e) => {
+        dirState.city = e.target.value;
+        dirState.page = 1;
+        fetchDirectoryDealers();
+      });
+
+      document.getElementById('dir-role-filter').addEventListener('change', (e) => {
+        dirState.role = e.target.value;
+        dirState.page = 1;
+        fetchDirectoryDealers();
+      });
+
+      document.getElementById('dir-spec-filter').addEventListener('change', (e) => {
+        dirState.specialization = e.target.value;
+        dirState.page = 1;
+        fetchDirectoryDealers();
+      });
+
+      document.getElementById('dir-sort-filter').addEventListener('change', (e) => {
+        dirState.sort = e.target.value;
+        dirState.page = 1;
+        fetchDirectoryDealers();
+      });
+
+      document.getElementById('dir-verified-only').addEventListener('change', (e) => {
+        dirState.verifiedOnly = e.target.checked;
+        dirState.page = 1;
+        fetchDirectoryDealers();
+      });
+
+      // City menu dropdown
+      const cityBtn = document.getElementById('header-city-btn');
+      const cityMenu = document.getElementById('header-city-menu');
+      if (cityBtn && cityMenu) {
+        cityBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          cityMenu.classList.toggle('hidden');
+        });
+        document.addEventListener('click', () => cityMenu.classList.add('hidden'));
+        document.querySelectorAll('.city-opt').forEach(opt => {
+          opt.addEventListener('click', () => {
+            const c = opt.getAttribute('data-city');
+            document.getElementById('header-current-city').textContent = c;
+            document.getElementById('dir-city-filter').value = c;
+            dirState.city = c;
+            dirState.page = 1;
+            fetchDirectoryDealers();
+            showToast(`Filtered by ${c}`);
+          });
+        });
+      }
+
+      // Profile dropdown
+      const profBtn = document.getElementById('desktop-profile-btn');
+      const profMenu = document.getElementById('desktop-profile-menu');
+      if (profBtn && profMenu) {
+        profBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          profMenu.classList.toggle('hidden');
+        });
+        document.addEventListener('click', () => profMenu.classList.add('hidden'));
+      }
+
+      // Modals overlay clicks
+      ['agent-mini-profile-modal-overlay', 'agent-consultation-modal-overlay', 'agent-review-modal-overlay', 'agent-manage-profile-modal-overlay'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('click', (e) => {
+            if (e.target === el) {
+              closeAgentMiniProfile();
+              closeAgentConsultationModal();
+              closeAgentReviewModal();
+              closeAgentManagementModal();
+            }
+          });
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeAgentMiniProfile();
+          closeAgentConsultationModal();
+          closeAgentReviewModal();
+          closeAgentManagementModal();
+          closeDeleteReviewDialog();
+        }
+      });
+
+      // Initial Directory Fetch
+      fetchDirectoryDealers();
+    });
+  </script>
+  <!-- Centralized Official Billedkart Contact Configuration -->
+  <script src="/billedkart-contact-config.js"></script>
+</body>
+</html>

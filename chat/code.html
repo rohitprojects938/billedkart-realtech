@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+  <title>Messages & Chat | Billedkart Realtech</title>
+  <meta name="description"
+    content="Direct, real-time messaging between property buyers, renters and verified sellers with 0% brokerage on Billedkart Realtech." />
+
+  <!-- Fonts & Material Symbols Preload & Critical Styles -->
+  <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/critical-icons.css" />
+  <script src="/js/icon-engine.js"></script>
+  <script src="/js/auth-manager.js"></script>
+
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#00236f",
+            "primary-container": "#1e3a8a",
+            "on-primary": "#ffffff",
+            secondary: "#fd651e",
+            "secondary-dark": "#d94e0e",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#ffdbce",
+            "on-secondary-fixed": "#370e00",
+            surface: "#f8faff",
+            "on-surface": "#131b2e",
+            "surface-container": "#eaedff",
+            outline: "#757682",
+            tertiary: "#003120",
+            "tertiary-fixed": "#85f8c4"
+          },
+          fontFamily: {
+            sans: ["'Plus Jakarta Sans'", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Custom Chat Stylesheet -->
+  <link rel="stylesheet" href="chat.css" />
+</head>
+
+<body class="chat-body">
+
+  <!-- ===================================================
+       1. GLOBAL HEADER & NAVIGATION
+       =================================================== -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-white border-b border-surface-container shadow-xs h-16">
+    <div class="h-full max-w-[1720px] mx-auto px-4 lg:px-6 flex items-center justify-between gap-4">
+
+      <!-- Left: Logo & Direct Home Link -->
+      <div class="flex items-center gap-5">
+        <a href="/" class="flex items-center gap-2 group" aria-label="Billedkart Realtech Homepage">
+          <div
+            class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm shadow-primary/20 group-hover:bg-primary-container transition-colors">
+            <span class="material-symbols-outlined text-[22px] text-tertiary-fixed">home_work</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-extrabold text-[20px] sm:text-[22px] text-primary tracking-tight leading-none">Billedkart<span
+                class="text-secondary"> Realtech</span></span>
+            <span class="text-[9px] font-bold text-outline tracking-wider uppercase">Verified Properties</span>
+          </div>
+        </a>
+
+        <!-- Chat Header Title Badge -->
+        <div class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-lg bg-surface-container text-primary font-bold text-xs">
+          <span class="material-symbols-outlined text-[17px] text-secondary">forum</span>
+          <span>Buyer-Seller Messenger</span>
+        </div>
+      </div>
+
+      <!-- Center: Main Navigation Links -->
+      <nav class="hidden md:flex items-center gap-1">
+        <a class="px-3.5 py-1.5 rounded-lg font-semibold text-xs lg:text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors"
+          href="/search_results_with_map_view/code.html?intent=buy">Buy</a>
+        <a class="px-3.5 py-1.5 rounded-lg font-semibold text-xs lg:text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors"
+          href="/search_results_with_map_view/code.html?intent=rent">Rent</a>
+        <a class="px-3.5 py-1.5 rounded-lg font-semibold text-xs lg:text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors"
+          href="/dealers">Dealers</a>
+        <a class="px-3.5 py-1.5 rounded-lg font-semibold text-xs lg:text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors"
+          href="/post-property">Sell</a>
+        <a class="px-3.5 py-1.5 rounded-lg font-bold text-xs lg:text-sm text-primary bg-surface-container flex items-center gap-1.5"
+          href="/chat">
+          <span>Chat</span>
+          <span id="navUnreadBadge" class="hidden px-1.5 py-0.2 rounded-full text-[10px] font-extrabold bg-secondary text-white">0</span>
+        </a>
+      </nav>
+
+      <!-- Right Actions: User Profile & Post Property FREE -->
+      <div class="flex items-center gap-3">
+        <!-- User Profile Pill -->
+        <div id="currentUserPill" class="hidden sm:flex items-center gap-2 pl-2 pr-3 py-1 bg-surface-container rounded-full text-xs font-bold text-primary">
+          <img id="currentUserAvatar" src="https://ui-avatars.com/api/?name=User&background=00236f&color=fff&size=40" alt="Profile" class="w-6 h-6 rounded-full object-cover" />
+          <span id="currentUserName" class="truncate max-w-[110px]">Account</span>
+        </div>
+
+        <a href="/post_property_flow_listing_wizard/code.html"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-secondary text-on-secondary hover:bg-secondary-dark font-bold text-xs tracking-wide transition-all shadow-sm shadow-secondary/25">
+          <span>Post Property</span>
+          <span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] font-extrabold uppercase px-1.5 py-0.2 rounded-full">FREE</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ===================================================
+       2. THREE-PANEL CHAT APPLICATION CONTAINER
+       =================================================== -->
+  <main class="w-full pt-16 flex-1 flex flex-col overflow-hidden">
+    
+    <div id="chatAppContainer" class="chat-app-container">
+
+      <!-- ===============================================
+           A. LEFT SIDEBAR: CONVERSATION LIST
+           =============================================== -->
+      <aside id="chatSidebar" class="chat-sidebar">
+        
+        <!-- Sidebar Header & Search -->
+        <div class="p-3.5 border-b border-surface-container space-y-2.5">
+          <div class="flex items-center justify-between">
+            <h1 class="text-base font-extrabold text-primary flex items-center gap-1.5">
+              <span>Inbox</span>
+              <span id="inboxCountBadge" class="text-xs font-bold text-outline"></span>
+            </h1>
+            <button id="refreshInboxBtn" onclick="loadConversations(true)" type="button"
+              class="p-1 rounded-lg text-outline hover:text-primary hover:bg-surface-container transition-colors"
+              title="Refresh inbox">
+              <span class="material-symbols-outlined text-[19px]">refresh</span>
+            </button>
+          </div>
+
+          <!-- Search Input -->
+          <div class="relative flex items-center">
+            <span class="material-symbols-outlined text-outline text-[18px] absolute left-3 pointer-events-none">search</span>
+            <input type="text" id="chatSearchInput" placeholder="Search chats by name or property..."
+              class="w-full pl-9 pr-7 py-2 text-xs rounded-xl border border-surface-container bg-surface text-on-surface focus:outline-none focus:border-primary focus:bg-white transition-colors" />
+            <button id="clearSearchBtn" onclick="clearSearch()" type="button"
+              class="hidden absolute right-2 text-outline hover:text-on-surface">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+
+          <!-- Filter Tabs -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5 no-scrollbar">
+            <button class="chat-filter-tab active" data-filter="all" onclick="setFilter('all')">All</button>
+            <button class="chat-filter-tab" data-filter="unread" onclick="setFilter('unread')">Unread</button>
+            <button class="chat-filter-tab" data-filter="buying" onclick="setFilter('buying')">Buying</button>
+            <button class="chat-filter-tab" data-filter="selling" onclick="setFilter('selling')">Selling</button>
+          </div>
+        </div>
+
+        <!-- Conversations Scrollable Feed -->
+        <div id="conversationsFeed" class="flex-1 overflow-y-auto divide-y divide-surface-container/60">
+          <!-- Dynamic conversation items rendered here -->
+        </div>
+
+        <!-- Sidebar Empty State -->
+        <div id="sidebarEmptyState" class="hidden flex-1 flex flex-col items-center justify-center p-6 text-center text-outline">
+          <div class="w-14 h-14 rounded-2xl bg-surface-container flex items-center justify-center text-primary mb-3">
+            <span class="material-symbols-outlined text-[28px]">mark_chat_unread</span>
+          </div>
+          <h3 class="text-sm font-bold text-primary mb-1">No Conversations Found</h3>
+          <p class="text-xs text-outline max-w-[220px]">Browse properties and click "Chat with Seller" to start communicating.</p>
+          <a href="/search_results_with_map_view/code.html"
+            class="mt-4 px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-container transition-colors shadow-xs">
+            Browse Properties
+          </a>
+        </div>
+
+        <!-- Connection / Offline Status Banner -->
+        <div id="socketConnectionBanner" class="hidden px-3 py-1.5 bg-amber-50 text-amber-800 text-[11px] font-bold border-t border-amber-200 flex items-center justify-between">
+          <span class="flex items-center gap-1">
+            <span class="material-symbols-outlined text-[14px] animate-spin">sync</span>
+            <span>Reconnecting to messenger...</span>
+          </span>
+          <button onclick="reconnectSocket()" class="underline font-bold">Retry</button>
+        </div>
+
+      </aside>
+
+      <!-- ===============================================
+           B. CENTER PANEL: ACTIVE CHAT CONVERSATION
+           =============================================== -->
+      <section id="chatCenterPanel" class="chat-center-panel">
+
+        <!-- 1. Default Empty State (No conversation selected) -->
+        <div id="noConversationSelectedState" class="flex-1 flex flex-col items-center justify-center p-8 text-center bg-surface">
+          <div class="w-16 h-16 rounded-3xl bg-surface-container flex items-center justify-center text-primary mb-4 shadow-sm">
+            <span class="material-symbols-outlined text-[36px] text-secondary">forum</span>
+          </div>
+          <h2 class="text-lg font-extrabold text-primary mb-1.5">Direct Buyer-Seller Messaging</h2>
+          <p class="text-xs text-outline max-w-sm leading-relaxed mb-5">
+            Select a conversation from the left to discuss property specifications, negotiate prices, or arrange physical site visits directly with verified owners.
+          </p>
+          <div class="flex items-center gap-2 text-xs font-bold text-on-surface-variant bg-white px-4 py-2.5 rounded-xl border border-surface-container shadow-xs">
+            <span class="material-symbols-outlined text-emerald-600 text-[18px]">verified</span>
+            <span>100% Zero Brokerage &amp; Direct Owner Connect</span>
+          </div>
+        </div>
+
+        <!-- 2. Active Chat Wrapper -->
+        <div id="activeChatWrapper" class="hidden flex-1 flex flex-col h-full overflow-hidden">
+          
+          <!-- Chat Header -->
+          <header class="h-16 px-4 border-b border-surface-container bg-white flex items-center justify-between gap-3 shrink-0 z-10 shadow-xs">
+            <!-- Left: Back Button (Mobile) + Participant Avatar & Details -->
+            <div class="flex items-center gap-3 min-w-0">
+              <button id="chatMobileBackBtn" onclick="closeMobileChat()" type="button"
+                class="lg:hidden p-1 -ml-1 text-on-surface hover:text-primary rounded-lg transition-colors"
+                title="Back to conversation list">
+                <span class="material-symbols-outlined text-[24px]">arrow_back</span>
+              </button>
+
+              <div class="relative shrink-0">
+                <img id="chatHeaderAvatar" src="https://ui-avatars.com/api/?name=Owner&background=00236f&color=fff&size=60"
+                  alt="Participant Avatar" class="w-10 h-10 rounded-full object-cover border border-surface-container" />
+                <span id="chatHeaderOnlineDot" class="conv-online-dot"></span>
+              </div>
+
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <h2 id="chatHeaderName" class="font-bold text-sm text-primary truncate">Property Owner</h2>
+                  <span id="chatHeaderRoleBadge" class="text-[9px] font-extrabold uppercase px-1.5 py-0.2 rounded-full bg-surface-container text-primary">Seller</span>
+                </div>
+                <p id="chatHeaderStatus" class="text-[11px] text-outline truncate flex items-center gap-1">
+                  <span id="chatHeaderStatusText">Online</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Right: Property Quick Link & Actions -->
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button id="toggleRightPanelBtn" onclick="toggleRightPanel()" type="button"
+                class="lg:hidden p-2 text-outline hover:text-primary hover:bg-surface-container rounded-xl transition-colors"
+                title="View Property Details">
+                <span class="material-symbols-outlined text-[20px]">info</span>
+              </button>
+              
+              <button id="muteConversationBtn" onclick="toggleMuteActiveConversation()" type="button"
+                class="p-2 text-outline hover:text-primary hover:bg-surface-container rounded-xl transition-colors"
+                title="Mute Notifications">
+                <span id="muteIcon" class="material-symbols-outlined text-[20px]">notifications</span>
+              </button>
+
+              <button id="archiveConversationBtn" onclick="toggleArchiveActiveConversation()" type="button"
+                class="p-2 text-outline hover:text-primary hover:bg-surface-container rounded-xl transition-colors"
+                title="Archive Conversation">
+                <span class="material-symbols-outlined text-[20px]">archive</span>
+              </button>
+            </div>
+          </header>
+
+          <!-- Associated Property Context Strip (OLX Style) -->
+          <div id="chatPropertyBanner" class="px-4 py-2 bg-white border-b border-surface-container flex items-center justify-between gap-3 shrink-0 shadow-xs">
+            <div class="flex items-center gap-3 min-w-0">
+              <img id="propBannerImg" src="/property_detail_page/img/placeholder.jpg" alt="Property Thumbnail"
+                class="w-12 h-10 rounded-lg object-cover border border-surface-container shrink-0" />
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <span id="propBannerPrice" class="font-extrabold text-xs sm:text-sm text-secondary">₹1.95 Cr</span>
+                  <span id="propBannerStatusBadge" class="text-[9px] font-bold text-emerald-800 bg-emerald-100 px-1.5 py-0.2 rounded-full">Active</span>
+                </div>
+                <h4 id="propBannerTitle" class="text-xs font-bold text-primary truncate max-w-md">3 BHK Apartment</h4>
+              </div>
+            </div>
+            <a id="propBannerViewBtn" href="#" target="_blank"
+              class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-primary hover:text-white text-primary text-xs font-bold flex items-center gap-1 transition-colors">
+              <span>View Property</span>
+              <span class="material-symbols-outlined text-[15px]">open_in_new</span>
+            </a>
+          </div>
+
+          <!-- Messages Scrollable History Feed -->
+          <div id="chatMessagesContainer" class="chat-messages-container">
+            <!-- Loading Spinner for older messages -->
+            <div id="messagesLoadingOlderSpinner" class="hidden text-center py-2">
+              <span class="material-symbols-outlined animate-spin text-secondary text-[20px]">progress_activity</span>
+            </div>
+
+            <!-- Dynamic Messages List -->
+            <div id="messagesList" class="flex flex-col gap-3"></div>
+
+            <!-- Typing Indicator Live Bubble -->
+            <div id="typingIndicatorRow" class="chat-msg-row incoming hidden">
+              <div class="typing-bubble">
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+              </div>
+              <span class="text-[10px] text-outline font-semibold" id="typingIndicatorName">Seller is typing...</span>
+            </div>
+          </div>
+
+          <!-- Message Composer Area -->
+          <footer class="chat-composer-wrapper">
+            <!-- Quick Inquiry Suggestion Chips -->
+            <div id="suggestionChipsContainer" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+              <button class="suggestion-chip" onclick="sendQuickMessage('Is this property still available for purchase?')">
+                "Is this property still available?"
+              </button>
+              <button class="suggestion-chip" onclick="sendQuickMessage('Can I schedule a site visit this weekend?')">
+                "Can I schedule a site visit?"
+              </button>
+              <button class="suggestion-chip" onclick="sendQuickMessage('Is the price negotiable for an immediate deal?')">
+                "Is the price negotiable?"
+              </button>
+              <button class="suggestion-chip" onclick="sendQuickMessage('Please share verified legal title and Khata status.')">
+                "Share Khata status"
+              </button>
+            </div>
+
+            <!-- Input Box -->
+            <div class="chat-composer-box">
+              <!-- Attachment Button -->
+              <input type="file" id="chatFileInput" class="hidden" accept="image/jpeg,image/png,image/webp,image/gif" />
+              <button id="attachBtn" onclick="document.getElementById('chatFileInput').click()" type="button"
+                class="p-1.5 text-outline hover:text-primary hover:bg-surface-container rounded-lg transition-colors shrink-0"
+                title="Attach photo">
+                <span class="material-symbols-outlined text-[20px]">add_photo_alternate</span>
+              </button>
+
+              <!-- Textarea -->
+              <textarea id="chatInput" rows="1" placeholder="Type a message (Press Enter to send)..."
+                class="chat-textarea" oninput="handleInputAutoResize(this); handleTyping();"
+                onkeydown="handleKeyDown(event)"></textarea>
+
+              <!-- Send Button -->
+              <button id="chatSendBtn" onclick="sendMessageFromInput()" type="button"
+                class="w-8 h-8 rounded-xl bg-primary hover:bg-primary-container text-white flex items-center justify-center transition-colors shadow-xs shrink-0 disabled:opacity-50 disabled:cursor-not-allowed">
+                <span class="material-symbols-outlined text-[17px]">send</span>
+              </button>
+            </div>
+          </footer>
+
+        </div>
+
+      </section>
+
+      <!-- ===============================================
+           C. RIGHT PANEL: PROPERTY CARD & SAFETY ADVISORY
+           =============================================== -->
+      <aside id="chatRightPanel" class="chat-right-panel hidden lg:flex">
+        
+        <!-- Property Snapshot Card -->
+        <div class="bg-white rounded-xl border border-surface-container p-3 space-y-3 shadow-xs">
+          <div class="relative rounded-lg overflow-hidden h-36 bg-surface-container">
+            <img id="rightPropImg" src="/property_detail_page/img/placeholder.jpg" alt="Property Image" class="w-full h-full object-cover" />
+            <span id="rightPropPriceTag" class="absolute bottom-2 left-2 px-2.5 py-1 rounded-md bg-white/95 backdrop-blur-sm text-secondary font-extrabold text-xs shadow-xs">
+              ₹1.95 Cr
+            </span>
+          </div>
+          <div>
+            <h3 id="rightPropTitle" class="font-extrabold text-sm text-primary line-clamp-2">3 BHK High-Rise Apartment</h3>
+            <p id="rightPropLocation" class="text-xs text-outline flex items-center gap-1 mt-1 truncate">
+              <span class="material-symbols-outlined text-secondary text-[15px]">location_on</span>
+              <span id="rightPropLocText">Whitefield, Bengaluru</span>
+            </p>
+          </div>
+          <a id="rightPropViewLink" href="#" target="_blank"
+            class="w-full py-2 rounded-lg bg-primary text-white font-bold text-xs hover:bg-primary-container transition-colors flex items-center justify-center gap-1.5 shadow-xs">
+            <span>View Full Listing</span>
+            <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+          </a>
+        </div>
+
+        <!-- Participant Information Card -->
+        <div class="bg-white rounded-xl border border-surface-container p-3 space-y-2.5 shadow-xs">
+          <div class="text-[10px] font-bold text-outline uppercase tracking-wider">Participant Profile</div>
+          <div class="flex items-center gap-3">
+            <img id="rightParticipantAvatar" src="https://ui-avatars.com/api/?name=User&background=00236f&color=fff&size=50"
+              alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-surface-container" />
+            <div class="min-w-0">
+              <h4 id="rightParticipantName" class="font-bold text-xs text-primary truncate">Rohan Verma</h4>
+              <p id="rightParticipantRole" class="text-[11px] text-outline">Verified Property Owner</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1.5 rounded-lg border border-emerald-200">
+            <span class="material-symbols-outlined text-[15px]">verified_user</span>
+            <span>Verified Phone &amp; Identity</span>
+          </div>
+        </div>
+
+        <!-- OLX-Style Safety & Scam Shield Banner -->
+        <div class="bg-surface rounded-xl border border-surface-container p-3.5 space-y-2 text-xs">
+          <div class="flex items-center gap-1.5 font-bold text-secondary">
+            <span class="material-symbols-outlined text-[18px]">security</span>
+            <span>Billedkart Safety Tip</span>
+          </div>
+          <p class="text-[11px] text-on-surface-variant leading-relaxed">
+            Never pay token amounts, courier charges or scan QR codes before physically visiting the property and verifying legal documents at the Sub-Registrar office.
+          </p>
+          <div class="text-[10px] text-outline font-semibold">
+            Report suspicious behavior to <a href="mailto:billedkart@gmail.com" class="text-primary underline">billedkart@gmail.com</a>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- ===================================================
+       IMAGE LIGHTBOX MODAL
+       =================================================== -->
+  <div id="imageLightboxModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4"
+    onclick="closeImageLightbox()">
+    <div class="relative max-w-4xl max-h-[90vh] flex flex-col items-center" onclick="event.stopPropagation()">
+      <button onclick="closeImageLightbox()" type="button"
+        class="absolute -top-10 right-0 text-white hover:text-secondary transition-colors p-1" title="Close preview">
+        <span class="material-symbols-outlined text-[28px]">close</span>
+      </button>
+      <img id="lightboxImg" src="" alt="Full size preview" class="max-w-full max-h-[85vh] rounded-lg shadow-2xl object-contain" />
+    </div>
+  </div>
+
+  <!-- Centralized Official Billedkart Contact Configuration -->
+  <script src="/billedkart-contact-config.js"></script>
+  <!-- Socket.IO Client Library -->
+  <script src="https://cdn.socket.io/4.8.4/socket.io.min.js"></script>
+  <!-- Main Chat Application Logic -->
+  <script src="chat.js"></script>
+
+</body>
+
+</html>

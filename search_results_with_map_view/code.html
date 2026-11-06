@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Search Verified Properties | Billedkart Realtech</title>
+  <meta name="description"
+    content="Discover verified residential, commercial, and plot listings with 0% brokerage and verified title deeds on Billedkart Realtech." />
+
+  <!-- Fonts & Material Symbols Preload & Critical Styles -->
+  <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/critical-icons.css" />
+  <script src="/js/icon-engine.js"></script>
+  <script src="/js/auth-manager.js"></script>
+
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet" />
+
+  <!-- Leaflet Interactive Maps CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Custom Search Stylesheet -->
+  <link rel="stylesheet" href="search.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#00236f",
+            "primary-container": "#1e3a8a",
+            "on-primary": "#ffffff",
+            secondary: "#fd651e",
+            "secondary-dark": "#d94e0e",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#ffdbce",
+            "on-secondary-fixed": "#370e00",
+            surface: "#faf8ff",
+            "on-surface": "#131b2e",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f2f3ff",
+            "surface-container": "#eaedff",
+            "surface-container-high": "#e2e7ff",
+            "surface-container-highest": "#dae2fd",
+            "on-surface-variant": "#444651",
+            outline: "#757682",
+            "outline-variant": "#c5c5d3",
+            tertiary: "#003120",
+            "tertiary-container": "#004a32",
+            "on-tertiary": "#ffffff",
+            "tertiary-fixed": "#85f8c4",
+            error: "#ba1a1a"
+          },
+          fontFamily: {
+            sans: ["'Plus Jakarta Sans'", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-surface font-sans text-on-surface antialiased">
+
+  <!-- ===================================================
+       1. GLOBAL HEADER & NAVIGATION (Shared Billedkart Navbar)
+       =================================================== -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-white border-b border-surface-container shadow-xs h-16">
+    <div class="h-full max-w-[1720px] mx-auto px-4 lg:px-6 flex items-center justify-between gap-4">
+
+      <!-- Left: Logo & Location Selector -->
+      <div class="flex items-center gap-5">
+        <a href="/" class="flex items-center gap-2 group" aria-label="Billedkart Realtech Homepage">
+          <div
+            class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm shadow-primary/20 group-hover:bg-primary-container transition-colors">
+            <span class="material-symbols-outlined text-[22px] text-tertiary-fixed">home_work</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-extrabold text-[20px] sm:text-[22px] text-primary tracking-tight leading-none">Billedkart<span
+                class="text-secondary"> Realtech</span></span>
+            <span class="text-[9px] font-bold text-outline tracking-wider uppercase">Verified Properties</span>
+          </div>
+        </a>
+
+        <!-- Location Dropdown Badge -->
+        <div class="relative group hidden sm:block">
+          <button id="headerCityBtn"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-xs font-bold transition-colors border border-surface-container"
+            type="button">
+            <span class="material-symbols-outlined text-secondary text-[17px]">location_on</span>
+            <span id="headerCurrentCity">Bengaluru</span>
+            <span class="material-symbols-outlined text-outline text-[16px]">expand_more</span>
+          </button>
+          <div
+            class="absolute left-0 top-full mt-1.5 w-48 bg-white rounded-xl shadow-lg border border-surface-container py-1.5 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity z-50">
+            <button type="button" onclick="searchState.city='Bengaluru'; executeSearch(false);" class="w-full text-left px-3.5 py-1.5 text-xs font-semibold text-primary hover:bg-surface-container-low">Bengaluru</button>
+            <button type="button" onclick="searchState.city='Lucknow'; executeSearch(false);" class="w-full text-left px-3.5 py-1.5 text-xs font-medium text-on-surface hover:bg-surface-container-low">Lucknow</button>
+            <button type="button" onclick="searchState.city='Mumbai'; executeSearch(false);" class="w-full text-left px-3.5 py-1.5 text-xs font-medium text-on-surface hover:bg-surface-container-low">Mumbai</button>
+            <button type="button" onclick="searchState.city='Hyderabad'; executeSearch(false);" class="w-full text-left px-3.5 py-1.5 text-xs font-medium text-on-surface hover:bg-surface-container-low">Hyderabad</button>
+            <button type="button" onclick="searchState.city='Pune'; executeSearch(false);" class="w-full text-left px-3.5 py-1.5 text-xs font-medium text-on-surface hover:bg-surface-container-low">Pune</button>
+            <button type="button" onclick="searchState.city='Noida'; executeSearch(false);" class="w-full text-left px-3.5 py-1.5 text-xs font-medium text-on-surface hover:bg-surface-container-low">Noida</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center: Main Navigation Links -->
+      <nav class="hidden md:flex items-center gap-1">
+        <a class="px-3.5 py-1.5 rounded-lg font-bold text-xs lg:text-sm text-primary bg-surface-container-low"
+          href="/search_results_with_map_view/code.html?intent=buy">Buy</a>
+        <a class="px-3.5 py-1.5 rounded-lg font-semibold text-xs lg:text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
+          href="/search_results_with_map_view/code.html?intent=rent">Rent</a>
+        <a class="px-3.5 py-1.5 rounded-lg font-semibold text-xs lg:text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
+          href="/dealers">Dealers</a>
+        <a class="px-3.5 py-1.5 rounded-lg font-semibold text-xs lg:text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"
+          href="/post-property">Sell</a>
+        <a class="px-3.5 py-1.5 rounded-lg font-semibold text-xs lg:text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors flex items-center gap-1"
+          href="/chat">
+          <span>Chat</span>
+          <span class="nav-chat-unread-badge hidden px-1.5 py-0.2 rounded-full text-[10px] font-extrabold bg-secondary text-white">0</span>
+        </a>
+      </nav>
+
+      <!-- Right Actions: Wishlist + Post Property FREE -->
+      <div class="flex items-center gap-3">
+        <a href="/post_property_flow_listing_wizard/code.html"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-secondary text-on-secondary hover:bg-secondary-dark font-bold text-xs tracking-wide transition-all shadow-sm shadow-secondary/25">
+          <span>Post Property</span>
+          <span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] font-extrabold uppercase px-1.5 py-0.2 rounded-full">FREE</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ===================================================
+       2. INTERACTIVE SUBHEADER & TOP CONTROLS BAR
+       =================================================== -->
+  <main class="w-full pt-16 bg-surface min-h-screen">
+    
+    <!-- Top Query Summary & Filter Bar -->
+    <section class="w-full bg-white border-b border-surface-container shadow-xs z-30 sticky top-16">
+      <div class="max-w-[1720px] mx-auto px-4 lg:px-6 py-2.5 flex flex-col md:flex-row md:items-center justify-between gap-3">
+        
+        <!-- Query Title & Count Indicator -->
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="min-w-0">
+            <h1 id="queryMainHeading" class="font-extrabold text-base sm:text-lg text-primary truncate flex items-center gap-1.5">
+              <span id="queryMainTitle">Properties for Sale in Bengaluru</span>
+              <span id="queryCountBadge" class="text-xs font-bold text-tertiary bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">(Loading...)</span>
+            </h1>
+            <p id="querySubtitleText" class="text-xs text-on-surface-variant flex items-center gap-1 mt-0.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-600 inline-block"></span>
+              <span>100% verified titles and RERA registered units</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- High Utility Top Controls -->
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+          <!-- Buy / Rent Segmented Switcher -->
+          <div class="inline-flex p-0.5 bg-surface-container rounded-lg shadow-inner">
+            <button type="button" data-purpose="buy" class="purpose-tab-btn px-3 py-1 rounded-md bg-primary text-white font-bold text-xs transition-all">Buy</button>
+            <button type="button" data-purpose="rent" class="purpose-tab-btn px-3 py-1 rounded-md text-on-surface-variant hover:text-on-surface font-semibold text-xs transition-colors">Rent</button>
+          </div>
+
+          <!-- Sort Select Group -->
+          <div class="flex items-center bg-surface-container-low rounded-lg px-2.5 py-1 border border-surface-container">
+            <span class="text-[10px] font-bold text-outline mr-1.5 uppercase">Sort:</span>
+            <select id="sortSelect" class="bg-transparent text-xs font-bold text-primary focus:outline-none cursor-pointer">
+              <option value="recommended">Recommended</option>
+              <option value="nearest">Nearest First 📍</option>
+              <option value="price_asc">Price: Low to High</option>
+              <option value="price_desc">Price: High to Low</option>
+              <option value="newest">Newest First</option>
+              <option value="area_desc">Area: Largest Sq.ft</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================
+         3. PROPERTY-FIRST 3-COLUMN DISCOVERY WORKSPACE
+         Left: Filters (3 cols) | Center: Featured Property (5 cols) | Right: Leaflet Map (4 cols)
+         =================================================== -->
+    <div id="topDiscoveryWorkspace" class="max-w-[1720px] w-full mx-auto px-4 lg:px-6 pt-4 pb-4">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+
+        <!-- LEFT COLUMN: FILTERS SIDEBAR (3 Columns) -->
+        <aside id="discoveryFiltersSidebar" class="hidden lg:block lg:col-span-3">
+          <div class="bg-white rounded-xl p-4 shadow-sm border border-surface-container space-y-3 h-full flex flex-col justify-between">
+            
+            <!-- Filters Header & Reset -->
+            <div class="flex items-center justify-between pb-2 border-b border-surface-container">
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+                <h2 class="text-sm font-bold text-primary uppercase tracking-wide">Discovery Filters</h2>
+              </div>
+              <button type="button" onclick="clearAllFilters()" class="text-xs font-bold text-secondary hover:underline">Clear All</button>
+            </div>
+
+            <!-- Natural Language Search Bar with Autocomplete -->
+            <div class="relative">
+              <label class="text-xs font-bold text-on-surface block mb-1">Search Keywords / Locality</label>
+              <div class="relative flex items-center">
+                <span class="material-symbols-outlined text-outline text-[18px] absolute left-3 pointer-events-none">search</span>
+                <input type="text" id="mainSearchInput" placeholder="e.g. 2 BHK rent in Gomti Nagar"
+                  class="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-surface-container bg-surface-container-low text-on-surface focus:outline-none focus:border-primary focus:bg-white transition-colors" />
+              </div>
+              <!-- Autocomplete suggestions dropdown -->
+              <div id="searchSuggestionsBox" class="hidden absolute left-0 right-0 top-full mt-1 bg-white border border-surface-container rounded-lg shadow-xl z-50 max-h-56 overflow-y-auto"></div>
+            </div>
+
+            <!-- Geolocation Action Card -->
+            <div class="p-2 bg-surface-container-low rounded-lg border border-surface-container space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-primary flex items-center gap-1">
+                  <span class="material-symbols-outlined text-secondary text-[16px]">near_me</span>
+                  <span>Nearby Discovery</span>
+                </span>
+                <span class="text-[9px] font-extrabold uppercase bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded-full">GPS</span>
+              </div>
+              <button type="button" onclick="triggerBrowserGeolocation()"
+                class="w-full py-1.5 px-3 rounded-lg bg-primary text-white text-xs font-bold hover:bg-primary-container transition-colors flex items-center justify-center gap-1.5 shadow-xs">
+                <span class="material-symbols-outlined text-[15px]">my_location</span>
+                <span>Use My Current Location</span>
+              </button>
+              <div id="detectedLocationBadge" class="hidden text-[11px] font-bold text-primary flex items-center gap-1 pt-0.5"></div>
+            </div>
+
+            <!-- Trust Toggles -->
+            <div class="space-y-1.5 bg-surface-container-low/60 p-2 rounded-lg border border-surface-container">
+              <label class="flex items-center justify-between cursor-pointer">
+                <span class="flex items-center gap-1.5 text-xs font-bold text-primary">
+                  <span class="material-symbols-outlined text-emerald-700 text-[16px]">verified_user</span>
+                  <span>Verified Only</span>
+                </span>
+                <input type="checkbox" id="filterVerifiedToggle" class="w-4 h-4 rounded accent-emerald-700 cursor-pointer" />
+              </label>
+              <label class="flex items-center justify-between cursor-pointer">
+                <span class="flex items-center gap-1.5 text-xs font-bold text-primary">
+                  <span class="material-symbols-outlined text-secondary text-[16px]">person_check</span>
+                  <span>Zero Brokerage</span>
+                </span>
+                <input type="checkbox" id="filterOwnerDirectToggle" class="w-4 h-4 rounded accent-secondary cursor-pointer" />
+              </label>
+            </div>
+
+            <!-- Budget Slider -->
+            <div class="space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-on-surface">Max Budget</span>
+                <span id="budgetMaxLabel" class="font-extrabold text-secondary">₹ 3.00 Cr</span>
+              </div>
+              <input type="range" id="budgetMaxSlider" min="10000" max="30000000" step="50000" value="30000000"
+                class="w-full h-1.5 bg-surface-container rounded-full accent-secondary cursor-pointer range-slider-thumb" />
+              <div class="flex justify-between text-[10px] text-outline font-semibold">
+                <span>₹10k</span>
+                <span>₹50L</span>
+                <span>₹1.5Cr</span>
+                <span>₹3Cr+</span>
+              </div>
+            </div>
+
+            <!-- Bedroom (BHK) Selector -->
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-on-surface block">Bedrooms (BHK)</label>
+              <div class="grid grid-cols-5 gap-1 text-xs">
+                <button type="button" data-bhk="1" class="bhk-filter-btn py-1 text-center font-bold rounded bg-surface-container-low text-on-surface-variant hover:bg-surface-container">1 BHK</button>
+                <button type="button" data-bhk="2" class="bhk-filter-btn py-1 text-center font-bold rounded bg-surface-container-low text-on-surface-variant hover:bg-surface-container">2 BHK</button>
+                <button type="button" data-bhk="3" class="bhk-filter-btn py-1 text-center font-bold rounded bg-surface-container-low text-on-surface-variant hover:bg-surface-container">3 BHK</button>
+                <button type="button" data-bhk="4" class="bhk-filter-btn py-1 text-center font-bold rounded bg-surface-container-low text-on-surface-variant hover:bg-surface-container">4 BHK</button>
+                <button type="button" data-bhk="5" class="bhk-filter-btn py-1 text-center font-bold rounded bg-surface-container-low text-on-surface-variant hover:bg-surface-container">5+</button>
+              </div>
+            </div>
+
+            <!-- Apply & Save Search -->
+            <div class="pt-1 flex gap-2">
+              <button type="button" onclick="executeSearch(false)" class="flex-1 py-2 rounded-lg bg-secondary text-white font-bold text-xs hover:bg-secondary-dark transition-colors shadow-xs">
+                Apply Filters
+              </button>
+            </div>
+
+          </div>
+        </aside>
+
+        <!-- CENTER COLUMN: ONE PROMINENT FEATURED PROPERTY CARD (5 Columns) -->
+        <section id="featuredPropertyColumn" class="col-span-1 lg:col-span-5 flex flex-col justify-between">
+          <div id="featuredPropertyContainer" class="w-full h-full flex flex-col justify-between">
+            <!-- Top-Ranked Prominent Property Card Rendered Dynamically Here -->
+          </div>
+        </section>
+
+        <!-- RIGHT COLUMN: INTERACTIVE LEAFLET SPLIT MAP (4 Columns) -->
+        <aside id="desktopMapColumn" class="hidden lg:flex lg:col-span-4 flex-col space-y-3">
+          
+          <!-- Market Intelligence Strip -->
+          <div class="bg-surface-container-low rounded-xl p-2.5 flex items-center justify-between text-xs border border-surface-container">
+            <div class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-secondary text-[17px]">trending_up</span>
+              <span class="text-on-surface">Market: <strong class="text-primary font-bold">₹9,850 / sq.ft</strong> avg</span>
+            </div>
+            <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Live</span>
+          </div>
+
+          <!-- Interactive Leaflet Map Card (Natural scroll - NOT permanently sticky) -->
+          <div class="rounded-xl overflow-hidden shadow-sm border border-surface-container bg-white flex flex-col relative flex-1 min-h-[460px]">
+            
+            <!-- Map Top Overlay: Search this area checkbox -->
+            <div class="absolute top-3 left-3 right-3 z-[1000] flex items-center justify-between pointer-events-none">
+              <label class="bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-md pointer-events-auto flex items-center gap-1.5 text-xs font-bold text-primary cursor-pointer border border-surface-container">
+                <input type="checkbox" id="searchThisAreaToggle" class="accent-primary rounded cursor-pointer"
+                  onchange="searchState.isSearchThisAreaEnabled = this.checked; if(this.checked) executeSearch(false);" />
+                <span>Search This Area</span>
+              </label>
+              <button type="button" onclick="triggerBrowserGeolocation()" class="w-8 h-8 rounded-full bg-white shadow-md pointer-events-auto flex items-center justify-center text-primary hover:bg-surface-container border border-surface-container" title="Center to My Location">
+                <span class="material-symbols-outlined text-[18px]">my_location</span>
+              </button>
+            </div>
+
+            <!-- Leaflet Map Container -->
+            <div id="leafletMapContainer" class="w-full flex-1 z-0"></div>
+
+            <!-- Bottom Map Metrics Strip -->
+            <div class="bg-white border-t border-surface-container p-2 flex items-center justify-between text-xs text-on-surface-variant z-10">
+              <span id="mapVisibleCountText" class="flex items-center gap-1.5 font-semibold text-[11px]">
+                <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                <span>Interactive Price Map</span>
+              </span>
+              <span class="text-[10px] text-outline">OpenStreetMap &copy;</span>
+            </div>
+
+          </div>
+        </aside>
+
+      </div>
+    </div>
+
+    <!-- ===================================================
+         4. EXTENDED PROPERTY RESULTS FEED (Full-Width 3-Column Desktop Grid)
+         Displays properties from index 1 onwards (Zero Duplication with Featured Property)
+         =================================================== -->
+    <div id="propertyFeedSection" class="max-w-[1720px] w-full mx-auto px-4 lg:px-6 pt-2 pb-16">
+      <!-- Dynamic 3-Column Grid Container -->
+      <div id="propertyCardsContainer" class="property-grid-3col min-h-[300px]">
+        <!-- Cards 2..N & Skeletons Render Directly Here in Symmetric 3 Columns -->
+      </div>
+
+      <!-- Infinite Scroll Sentinel & Loading Indicator -->
+      <div id="infiniteScrollSpinner" class="hidden py-8 text-center">
+        <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-surface-container shadow-md text-xs font-bold text-primary">
+          <span class="material-symbols-outlined text-[18px] animate-spin text-secondary">refresh</span>
+          <span>Loading more verified properties...</span>
+        </div>
+      </div>
+      <div id="infiniteScrollSentinel" class="h-10"></div>
+    </div>
+
+    <!-- Mobile Floating Sticky CTA Filter & Map Bar (< 1024px) -->
+    <div class="lg:hidden fixed bottom-4 left-4 right-4 z-40 bg-white/95 backdrop-blur-md p-2 rounded-xl shadow-xl border border-surface-container flex items-center justify-between gap-2">
+      <button type="button" onclick="toggleMobileFiltersDrawer()" class="flex-1 py-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-primary font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs">
+        <span class="material-symbols-outlined text-[17px]">tune</span>
+        <span>Filters</span>
+      </button>
+      <button type="button" id="mobileMapToggleBtn" onclick="toggleMobileMapView()" class="flex-1 py-2.5 rounded-lg bg-secondary text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs hover:bg-secondary-dark">
+        <span class="material-symbols-outlined text-[17px]">map</span>
+        <span>Map View</span>
+      </button>
+    </div>
+
+    <!-- Mobile Filters Drawer -->
+    <div id="mobileFiltersDrawerBackdrop" class="fixed inset-0 bg-black/60 z-50 hidden" onclick="toggleMobileFiltersDrawer()"></div>
+    <div id="mobileFiltersDrawer" class="fixed inset-x-0 bottom-0 max-h-[85vh] bg-white rounded-t-2xl z-50 p-4 overflow-y-auto hidden space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between pb-2 border-b border-surface-container">
+        <h3 class="font-bold text-base text-primary">Filters</h3>
+        <button type="button" onclick="toggleMobileFiltersDrawer()" class="p-1 rounded-full text-outline hover:text-on-surface">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Mobile City Selection -->
+      <div>
+        <label class="text-xs font-bold text-on-surface block mb-1">Select City</label>
+        <select onchange="searchState.city = this.value; executeSearch(false); toggleMobileFiltersDrawer();" class="w-full p-2 text-xs rounded-lg border border-surface-container bg-surface-container-low font-bold text-primary">
+          <option value="Bengaluru">Bengaluru</option>
+          <option value="Lucknow">Lucknow</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="Hyderabad">Hyderabad</option>
+          <option value="Pune">Pune</option>
+          <option value="Noida">Noida</option>
+        </select>
+      </div>
+
+      <!-- Mobile Geolocation -->
+      <button type="button" onclick="triggerBrowserGeolocation(); toggleMobileFiltersDrawer();" class="w-full py-2 px-3 rounded-lg bg-primary text-white text-xs font-bold flex items-center justify-center gap-1.5">
+        <span class="material-symbols-outlined text-[16px]">my_location</span>
+        <span>Detect My Location</span>
+      </button>
+
+      <div class="pt-2 flex gap-2">
+        <button type="button" onclick="clearAllFilters(); toggleMobileFiltersDrawer();" class="flex-1 py-2 rounded-lg border border-surface-container text-xs font-bold">Clear All</button>
+        <button type="button" onclick="executeSearch(false); toggleMobileFiltersDrawer();" class="flex-1 py-2 rounded-lg bg-secondary text-white text-xs font-bold">Apply</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Centralized Official Billedkart Contact Configuration -->
+  <script src="/billedkart-contact-config.js"></script>
+  <!-- Core Location Discovery Manager -->
+  <script src="/location-manager.js"></script>
+  <!-- Billedkart Chat Unread Badges & Client Utility -->
+  <script src="/chat/chat-utility.js"></script>
+  <script src="/chat/chat-badge.js"></script>
+  <!-- Client Search Engine JavaScript -->
+  <script src="search.js"></script>
+
+</body>
+
+</html>

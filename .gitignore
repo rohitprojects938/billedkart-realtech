@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment Variables & Secrets (CRITICAL)
+.env
+**/.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.cert
+*.p12
+
+# Logs & Runtime Files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# User Uploads (preserve folder structure and safety index files)
+uploads/avatar-*
+uploads/properties/prop-*
+uploads/documents/*
+!uploads/documents/index.html
+!uploads/properties/index.html
+!uploads/index.html
+server/uploads/*
+!server/uploads/index.html
+
+# Scratch / Internal testing files
+scratch/
+
+# Operating System
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# IDE & Editor caches
+.idea/
+*.sublime-project
+*.sublime-workspace
